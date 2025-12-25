@@ -1,0 +1,19 @@
+<svg width="512" height="512" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <desc>Entourage Logo - Balanced E-Block (All bars 25 units)</desc>
+
+  <mask id="cutout-balanced">
+    <!-- The canvas is white (reveal) -->
+    <rect x="0" y="0" width="100" height="100" fill="white" />
+
+    <!-- The slots are black (hide) -->
+    <!-- Slot 1: Starts at y=25 (after top bar), height 12.5 -->
+    <!-- Starts at x=25 (to define vertical bar width) -->
+    <rect x="25" y="25" width="75" height="12.5" fill="black" />
+
+    <!-- Slot 2: Starts at y=62.5 (25 + 12.5 + 25), height 12.5 -->
+    <rect x="25" y="62.5" width="75" height="12.5" fill="black" />
+  </mask>
+
+  <!-- The Final Shape -->
+  <rect x="0" y="0" width="100" height="100" fill="black" mask="url(#cutout-balanced)" />
+</svg>

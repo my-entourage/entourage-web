@@ -39,3 +39,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# fonts backup folder (not the app fonts)
+/Fonts/
+
+# temporary planning docs
+MIGRATION_PLAN.md
+docs/
+entourage_design_guide.md
