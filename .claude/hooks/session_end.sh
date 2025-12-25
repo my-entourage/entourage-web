@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 #
+# ╔════════════════════════════════════════════════════════════════════════════╗
+# ║  DO NOT MODIFY - This file is managed by claude-logger                     ║
+# ║  Source: https://github.com/my-entourage/claude-logger                     ║
+# ║  To update, re-run the installer from the claude-logger repository.        ║
+# ╚════════════════════════════════════════════════════════════════════════════╝
+#
 # Claude Tracker - Session End Hook
 # Captures final git state and marks session complete.
 #
@@ -196,5 +202,31 @@ if [ -s "$TMP_FILE" ] && jq -e '.' "$TMP_FILE" &>/dev/null; then
 else
   rm -f "$TMP_FILE" 2>/dev/null
 fi
+
+#######################################
+# Copy transcript to project-local sessions
+# This makes transcripts committable to git
+#######################################
+copy_transcript() {
+  local transcript_path="$1"
+  local dest_dir="$2"
+  local session_id="$3"
+
+  # Skip if no transcript path
+  [ -z "$transcript_path" ] && return 0
+
+  # Skip if transcript doesn't exist or is empty
+  [ ! -f "$transcript_path" ] && return 0
+  [ ! -s "$transcript_path" ] && return 0
+
+  # Copy transcript to sessions directory
+  cp "$transcript_path" "$dest_dir/${session_id}.jsonl" 2>/dev/null || true
+}
+
+# Get transcript path from the session JSON we just updated
+TRANSCRIPT_PATH=$(jq -r '.transcript_path // ""' "$SESSION_FILE" 2>/dev/null)
+SESSION_DIR="$CWD/.claude/sessions/$GITHUB_NICKNAME"
+
+copy_transcript "$TRANSCRIPT_PATH" "$SESSION_DIR" "$SESSION_ID"
 
 exit 0
