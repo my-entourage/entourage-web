@@ -13,11 +13,11 @@ interface ValuePropProps {
 function ValueProp({ icon, title, description }: ValuePropProps) {
   return (
     <div className="flex flex-col items-center text-center md:items-start md:text-left">
-      <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full border border-black">
-        <Icon icon={icon} size={24} className="text-black" />
+      <div className="mb-4 flex h-12 w-12 items-center justify-center border border-black dark:border-white">
+        <Icon icon={icon} size={24} className="text-black dark:text-white" />
       </div>
-      <h3 className="text-lg font-semibold text-black">{title}</h3>
-      <p className="mt-2 text-sm leading-relaxed text-zinc-500">{description}</p>
+      <h3 className="text-lg font-semibold text-black dark:text-white">{title}</h3>
+      <p className="mt-2 text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">{description}</p>
     </div>
   );
 }
@@ -69,7 +69,7 @@ export function ValueProps() {
 
   if (prefersReducedMotion) {
     return (
-      <section className="border-t border-black py-16 md:py-24">
+      <section className="border-t border-black dark:border-white py-16 md:py-24">
         <Container>
           <div className="grid gap-12 md:grid-cols-3 md:gap-8">
             {props.map((prop, i) => (
@@ -82,7 +82,7 @@ export function ValueProps() {
   }
 
   return (
-    <section className="border-t border-black py-16 md:py-24">
+    <section className="border-t border-black dark:border-white py-16 md:py-24">
       <Container>
         <motion.div
           initial="hidden"

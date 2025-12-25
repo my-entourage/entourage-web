@@ -10,10 +10,10 @@ export function SecondaryCTA() {
 
   if (prefersReducedMotion) {
     return (
-      <section className="border-t border-black py-16 md:py-24">
+      <section className="border-t border-black dark:border-white py-16 md:py-24">
         <Container>
           <div className="mx-auto max-w-xl text-center">
-            <h2 className="text-2xl font-semibold tracking-tight text-black md:text-3xl">
+            <h2 className="text-2xl font-semibold tracking-tight text-black dark:text-white md:text-3xl">
               Ready to stop missing action items?
             </h2>
 
@@ -25,7 +25,7 @@ export function SecondaryCTA() {
               </Link>
             </div>
 
-            <p className="mt-4 text-sm text-zinc-500">
+            <p className="mt-4 text-sm text-zinc-500 dark:text-zinc-400">
               We&apos;re onboarding users in batches. Get early access.
             </p>
           </div>
@@ -44,7 +44,7 @@ export function SecondaryCTA() {
           transition={{ duration: 0.12, ease: "easeOut" }}
           className="mx-auto max-w-xl text-center"
         >
-          <h2 className="text-2xl font-semibold tracking-tight text-black md:text-3xl">
+          <h2 className="text-2xl font-semibold tracking-tight text-black dark:text-white md:text-3xl">
             Ready to stop missing action items?
           </h2>
 
