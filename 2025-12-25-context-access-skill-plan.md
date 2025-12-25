@@ -63,7 +63,7 @@ The `source` field maps to transcript files:
 
 ---
 
-## Phase 1: Create Command File
+## Phase 1: Create Command File ✅
 
 ### Overview
 Create the `/context-find` command that searches entourage repo for relevant context.
@@ -217,13 +217,13 @@ If user declines or wants changes:
 - [x] `ls ../entourage/data` succeeds from entourage-web directory
 
 #### Manual Verification:
-- [ ] `/context-find linear` returns Linear-related tasks and discussions
+- [x] `/context-find linear` returns Linear-related tasks and discussions
 - [ ] `/context-find landing` returns landing page context
-- [ ] Output includes source file paths
+- [x] Output includes source file paths
 
 ---
 
-## Phase 2: Add Settings for Cross-Repo Access
+## Phase 2: Add Settings for Cross-Repo Access ✅
 
 ### Overview
 Configure Claude Code settings to allow reading from entourage repo.
@@ -247,11 +247,13 @@ Add entourage to allowed directories:
 ### Success Criteria
 
 #### Manual Verification:
-- [ ] Claude can read entourage files without confirmation prompts
+- [x] Claude can read entourage files without confirmation prompts
 
 ---
 
-## Phase 3: Add Skill Context (Optional)
+## Phase 3: Add Skill Context (Deferred)
+
+> **Status**: Deferred to separate Linear ticket. See ticket details below.
 
 ### Overview
 Create a skill that provides background knowledge about the entourage data structure.
