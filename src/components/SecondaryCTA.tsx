@@ -1,28 +1,77 @@
+"use client";
+
 import Link from "next/link";
+import { motion, useReducedMotion } from "framer-motion";
 import { Container } from "./ui/Container";
 import { Button } from "./ui/Button";
 
 export function SecondaryCTA() {
+  const prefersReducedMotion = useReducedMotion();
+
+  if (prefersReducedMotion) {
+    return (
+      <section className="border-t border-zinc-100 py-16 md:py-24">
+        <Container>
+          <div className="mx-auto max-w-xl text-center">
+            <h2 className="text-2xl font-semibold tracking-tight text-black md:text-3xl">
+              Ready to stop missing action items?
+            </h2>
+
+            <div className="mt-8">
+              <Link href="/sign-up">
+                <Button variant="primary" size="lg">
+                  Join the Waitlist
+                </Button>
+              </Link>
+            </div>
+
+            <p className="mt-4 text-sm text-zinc-500">
+              We&apos;re onboarding users in batches. Get early access.
+            </p>
+          </div>
+        </Container>
+      </section>
+    );
+  }
+
   return (
     <section className="border-t border-zinc-100 py-16 md:py-24">
       <Container>
-        <div className="mx-auto max-w-xl text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+          className="mx-auto max-w-xl text-center"
+        >
           <h2 className="text-2xl font-semibold tracking-tight text-black md:text-3xl">
             Ready to stop missing action items?
           </h2>
 
-          <div className="mt-8">
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4, delay: 0.15, ease: "easeOut" }}
+            className="mt-8"
+          >
             <Link href="/sign-up">
               <Button variant="primary" size="lg">
                 Join the Waitlist
               </Button>
             </Link>
-          </div>
+          </motion.div>
 
-          <p className="mt-4 text-sm text-zinc-500">
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4, delay: 0.25 }}
+            className="mt-4 text-sm text-zinc-500"
+          >
             We&apos;re onboarding users in batches. Get early access.
-          </p>
-        </div>
+          </motion.p>
+        </motion.div>
       </Container>
     </section>
   );

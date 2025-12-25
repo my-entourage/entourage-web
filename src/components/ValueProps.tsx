@@ -1,3 +1,6 @@
+"use client";
+
+import { motion, useReducedMotion } from "framer-motion";
 import { Container } from "./ui/Container";
 
 interface ValuePropProps {
@@ -37,7 +40,30 @@ const SquareIcon = () => (
   </svg>
 );
 
+const containerVariants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.15,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: "easeOut" as const,
+    },
+  },
+};
+
 export function ValueProps() {
+  const prefersReducedMotion = useReducedMotion();
+
   const props = [
     {
       icon: <CircleIcon />,
@@ -59,14 +85,36 @@ export function ValueProps() {
     },
   ];
 
+  if (prefersReducedMotion) {
+    return (
+      <section className="border-t border-zinc-100 py-16 md:py-24">
+        <Container>
+          <div className="grid gap-12 md:grid-cols-3 md:gap-8">
+            {props.map((prop, i) => (
+              <ValueProp key={i} {...prop} />
+            ))}
+          </div>
+        </Container>
+      </section>
+    );
+  }
+
   return (
     <section className="border-t border-zinc-100 py-16 md:py-24">
       <Container>
-        <div className="grid gap-12 md:grid-cols-3 md:gap-8">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={containerVariants}
+          className="grid gap-12 md:grid-cols-3 md:gap-8"
+        >
           {props.map((prop, i) => (
-            <ValueProp key={i} {...prop} />
+            <motion.div key={i} variants={itemVariants}>
+              <ValueProp {...prop} />
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </Container>
     </section>
   );
