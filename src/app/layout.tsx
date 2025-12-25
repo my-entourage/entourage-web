@@ -1,10 +1,21 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import localFont from "next/font/local";
+import { Geist_Mono } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+const switzer = localFont({
+  src: [
+    {
+      path: "./fonts/Switzer-Variable.woff2",
+      style: "normal",
+    },
+    {
+      path: "./fonts/Switzer-VariableItalic.woff2",
+      style: "italic",
+    },
+  ],
+  variable: "--font-switzer",
+  display: "swap",
 });
 
 const geistMono = Geist_Mono({
@@ -25,7 +36,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${switzer.variable} ${geistMono.variable} antialiased`}
       >
         {children}
       </body>

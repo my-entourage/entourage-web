@@ -14,11 +14,11 @@ export function Button({
   ...props
 }: ButtonProps) {
   const baseStyles =
-    "inline-flex items-center justify-center font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2";
+    "inline-flex items-center justify-center font-medium transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2";
 
   const variants = {
     primary:
-      "bg-black text-white hover:bg-zinc-800 rounded-full",
+      "bg-white text-black border border-black hover:bg-zinc-100 rounded-full",
     ghost:
       "bg-transparent text-black hover:bg-zinc-100 border border-transparent hover:border-zinc-200 rounded-full",
   };
