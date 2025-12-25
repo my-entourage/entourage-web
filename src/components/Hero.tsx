@@ -14,9 +14,9 @@ export function Hero() {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.6,
+        duration: 0.15,
         delay: prefersReducedMotion ? 0 : delay,
-        ease: [0.25, 0.4, 0.25, 1] as const,
+        ease: "easeOut" as const,
       },
     },
   });

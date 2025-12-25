@@ -10,7 +10,7 @@ export function SecondaryCTA() {
 
   if (prefersReducedMotion) {
     return (
-      <section className="border-t border-zinc-100 py-16 md:py-24">
+      <section className="border-t border-black py-16 md:py-24">
         <Container>
           <div className="mx-auto max-w-xl text-center">
             <h2 className="text-2xl font-semibold tracking-tight text-black md:text-3xl">
@@ -35,13 +35,13 @@ export function SecondaryCTA() {
   }
 
   return (
-    <section className="border-t border-zinc-100 py-16 md:py-24">
+    <section className="border-t border-black py-16 md:py-24">
       <Container>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
+          transition={{ duration: 0.12, ease: "easeOut" }}
           className="mx-auto max-w-xl text-center"
         >
           <h2 className="text-2xl font-semibold tracking-tight text-black md:text-3xl">
@@ -52,7 +52,7 @@ export function SecondaryCTA() {
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.4, delay: 0.15, ease: "easeOut" }}
+            transition={{ duration: 0.12, delay: 0.05, ease: "easeOut" }}
             className="mt-8"
           >
             <Link href="/sign-up">
@@ -66,7 +66,7 @@ export function SecondaryCTA() {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.4, delay: 0.25 }}
+            transition={{ duration: 0.12, delay: 0.1 }}
             className="mt-4 text-sm text-zinc-500"
           >
             We&apos;re onboarding users in batches. Get early access.
