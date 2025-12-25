@@ -1,3 +1,8 @@
+---
+description: Search entourage repo for discussions and tasks related to a topic
+argument-hint: <topic>
+---
+
 # Find Context
 
 Search the entourage repository for discussions and tasks related to a topic.
@@ -18,6 +23,8 @@ Search the entourage repository for discussions and tasks related to a topic.
 
 ## Instructions for Claude
 
+**Topic to search for:** $ARGUMENTS
+
 ### Step 1: Verify Access
 
 ```bash
@@ -26,10 +33,10 @@ ls ../entourage/data ../entourage/tasks 2>/dev/null || echo "ERROR: Cannot acces
 
 ### Step 2: Search Tasks
 
-Search task files for the topic:
+Search task files for the topic using Grep tool (case-insensitive):
 
-```bash
-grep -r -i -l "<topic>" ../entourage/tasks/staging/
+```
+Grep: pattern="$ARGUMENTS" path="../entourage/tasks/staging/"
 ```
 
 For each matching task file:
@@ -39,25 +46,22 @@ For each matching task file:
 
 ### Step 3: Search Transcripts
 
-Search all transcripts:
+Search all transcripts using Grep tool:
 
-```bash
-grep -r -i -l "<topic>" ../entourage/data/
+```
+Grep: pattern="$ARGUMENTS" path="../entourage/data/"
 ```
 
 For each matching transcript:
-1. Get relevant excerpts (5 lines context around match):
-   ```bash
-   grep -i -B5 -A5 "<topic>" <file>
-   ```
+1. Get relevant excerpts (use Grep with -C 5 for context)
 2. Identify the source label from path
 
 ### Step 4: Search Plans
 
 Check for related implementation plans:
 
-```bash
-grep -r -i -l "<topic>" ../entourage/thoughts/
+```
+Grep: pattern="$ARGUMENTS" path="../entourage/thoughts/"
 ```
 
 ### Step 5: Format Output
@@ -65,7 +69,7 @@ grep -r -i -l "<topic>" ../entourage/thoughts/
 Present results in this structure:
 
 ```
-## Context for "<topic>"
+## Context for "$ARGUMENTS"
 
 ### Related Tasks
 | ID | Title | Priority | Status | Project |
