@@ -20,16 +20,17 @@ Refer to `entourage_design_guide.md` for complete brand guidelines. Key principl
 
 When using ShadCN UI components:
 
-1. **Install components to `src/components/ui/`** - This is the default ShadCN location
-2. **NEVER modify files in `src/components/ui/`** - Treat these as read-only primitives
-3. **Create wrapper components in `src/components/`** for any customization
+1. **Install with canary**: `pnpm dlx shadcn@canary add <component>` (required for Tailwind v4)
+2. **Components go to `src/components/ui/`** - This is the default ShadCN location
+3. **NEVER modify files in `src/components/ui/`** - Treat these as read-only primitives
+4. **Create wrapper components in `src/components/`** for any customization
 
 ### Directory Structure
 
 ```
 src/components/
 ├── ui/                    # ShadCN primitives (DO NOT MODIFY)
-│   ├── button.tsx         # From: npx shadcn@latest add button
+│   ├── button.tsx         # From: pnpm dlx shadcn@canary add button
 │   ├── card.tsx
 │   └── ...
 ├── Button.tsx             # Custom wrapper around ui/button
@@ -38,37 +39,35 @@ src/components/
 └── ...
 ```
 
-### Creating Wrapper Components
+### Creating Wrapper Components (React 19)
 
-When you need custom behavior or styling, create a wrapper:
+When you need custom behavior or styling, create a wrapper using React 19 patterns:
 
 ```tsx
 // src/components/Button.tsx (Custom wrapper)
-import { forwardRef } from 'react';
-import { Button as ShadcnButton, type ButtonProps } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
+// React 19: ref is a regular prop, no forwardRef needed
+import { Button as ShadcnButton } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import type { ComponentProps } from "react";
 
-export interface CustomButtonProps extends ButtonProps {
-  // Add custom props here
+type ButtonProps = ComponentProps<typeof ShadcnButton>;
+
+export function Button({ className, variant = "outline", ...props }: ButtonProps) {
+  return (
+    <ShadcnButton
+      variant={variant}
+      className={cn(
+        // Brand-aligned defaults
+        "rounded-full",
+        className
+      )}
+      {...props}
+    />
+  );
 }
-
-export const Button = forwardRef<HTMLButtonElement, CustomButtonProps>(
-  ({ className, ...props }, ref) => {
-    return (
-      <ShadcnButton
-        ref={ref}
-        className={cn(
-          // Custom default styles aligned with design guide
-          'cursor-pointer',
-          className
-        )}
-        {...props}
-      />
-    );
-  }
-);
-Button.displayName = 'Button';
 ```
+
+**Note**: React 19 deprecated `forwardRef`. Use `ComponentProps` for type inference instead.
 
 ### Styling Customization Methods
 
@@ -80,14 +79,35 @@ Button.displayName = 'Button';
 
 - ShadCN updates won't break your customizations
 - Clear separation between library code and your code
-- Easy to upgrade components with `npx shadcn@latest add [component] --overwrite`
+- Easy to upgrade: `pnpm dlx shadcn@canary add [component] --overwrite`
 - Consistent patterns across the codebase
+
+### When NOT to Create Wrappers
+
+Avoid over-abstraction. Don't create wrappers that just pass props through:
+
+```tsx
+// WRONG - pointless wrapper
+export function Card(props: CardProps) {
+  return <ShadcnCard {...props} />;
+}
+
+// CORRECT - wrapper adds brand value
+export function Card({ className, ...props }: CardProps) {
+  return (
+    <ShadcnCard
+      className={cn("border-black shadow-none", className)}
+      {...props}
+    />
+  );
+}
+```
 
 ## Component Guidelines
 
 ### Button Variants (per Design Guide)
 
-- **Primary**: Outline style - black text, white bg, black border
+- **Primary/Outline**: Black text, white bg, black border (default)
 - **Ghost**: Transparent bg, text only, subtle hover
 - **Success**: Green text + border (for completed actions)
 
@@ -102,7 +122,7 @@ Button.displayName = 'Button';
 ## Code Style
 
 - Use TypeScript for all components
-- Use `forwardRef` for components that accept refs
+- React 19: No `forwardRef` needed, ref is a regular prop
 - Always destructure props with defaults
 - Use `cn()` utility for className merging
-- Include `displayName` for forwardRef components
+- Use `ComponentProps<typeof Component>` for type inference
