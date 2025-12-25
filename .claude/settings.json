@@ -1,0 +1,35 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(../entourage/**)"
+    ],
+    "deny": [
+      "Edit(./.claude/hooks/**)",
+      "Write(./.claude/hooks/**)"
+    ]
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/session_start.sh",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/session_end.sh",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}
