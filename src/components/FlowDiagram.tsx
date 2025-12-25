@@ -5,19 +5,31 @@ import { Container } from "./ui/Container";
 import { Icon } from "./Icon";
 import { LogoMark } from "./Logo";
 
-// Dashed connector line - vertical or horizontal
+// Dashed connector line with arrow - vertical or horizontal
 function Connector({ direction = "vertical" }: { direction?: "vertical" | "horizontal" }) {
   const isVertical = direction === "vertical";
 
   return (
-    <div className={`flex items-center justify-center ${isVertical ? "h-10 w-px" : "w-10 h-px md:w-12 lg:w-16"}`}>
-      <div
-        className={`
-          ${isVertical ? "h-full w-px" : "w-full h-px"}
-          border-black border-dashed
-          ${isVertical ? "border-l" : "border-t"}
-        `}
-      />
+    <div className={`flex items-center justify-center ${isVertical ? "h-8 w-4" : "w-8 h-4 md:w-10 lg:w-14"}`}>
+      <div className="relative flex items-center justify-center">
+        {/* Dashed line */}
+        <div
+          className={`
+            ${isVertical ? "h-6 w-px" : "w-6 h-px md:w-8 lg:w-12"}
+            border-black dark:border-white border-dashed
+            ${isVertical ? "border-l" : "border-t"}
+          `}
+        />
+        {/* Arrow */}
+        <div
+          className={`
+            absolute text-black dark:text-white text-[10px]
+            ${isVertical ? "bottom-0 translate-y-1/2" : "right-0 translate-x-1/2"}
+          `}
+        >
+          {isVertical ? "▼" : "▶"}
+        </div>
+      </div>
     </div>
   );
 }
@@ -26,21 +38,21 @@ function Connector({ direction = "vertical" }: { direction?: "vertical" | "horiz
 function InputSources() {
   const sources = [
     { icon: "lucide:calendar", label: "Meetings" },
-    { icon: "lucide:message-circle", label: "Chat" },
+    { icon: "lucide:message-circle", label: "Messages" },
     { icon: "line-md:email", label: "Email" },
-    { icon: "lucide:audio-lines", label: "Voice" },
+    { icon: "lucide:audio-lines", label: "Transcripts" },
   ];
 
   return (
     <div className="flex flex-col items-center">
-      <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-400 mb-3">
+      <span className="text-xs font-mono uppercase tracking-wider text-zinc-400 dark:text-zinc-500 mb-3">
         Your Communications
       </span>
       <div className="flex gap-6 md:gap-4 lg:gap-6">
         {sources.map(({ icon, label }) => (
           <div key={label} className="flex flex-col items-center gap-2">
-            <Icon icon={icon} size={24} className="text-black" />
-            <span className="text-[11px] font-mono text-zinc-500">{label}</span>
+            <Icon icon={icon} size={24} className="text-black dark:text-white" />
+            <span className="text-xs font-mono text-zinc-500 dark:text-zinc-400">{label}</span>
           </div>
         ))}
       </div>
@@ -52,9 +64,13 @@ function InputSources() {
 function AINode() {
   return (
     <div className="flex flex-col items-center">
-      <div className="w-20 h-20 md:w-24 md:h-24 rounded-full border-2 border-black bg-white flex items-center justify-center animate-pulse-slow">
-        <LogoMark size={40} />
+      <div className="w-20 h-20 md:w-24 md:h-24 flex items-center justify-center animate-pulse-slow">
+        <LogoMark size={48} />
       </div>
+      <span className="text-xs font-semibold text-black dark:text-white mt-1">Entourage</span>
+      <span className="text-xs font-mono text-zinc-400 dark:text-zinc-500 text-center max-w-[140px]">
+        Analyzes & organizes into actionable tasks
+      </span>
     </div>
   );
 }
@@ -63,64 +79,44 @@ function AINode() {
 function HumanReview() {
   return (
     <div className="flex flex-col items-center gap-1">
-      <Icon icon="line-md:account" size={32} className="text-black" />
+      <Icon icon="line-md:account" size={32} className="text-black dark:text-white" />
       <div className="flex flex-col items-center">
-        <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-400">Human-in-the-loop</span>
-        <span className="text-[11px] font-mono text-zinc-500">You Approve</span>
+        <span className="text-xs font-mono uppercase tracking-wider text-zinc-400 dark:text-zinc-500">You Review</span>
       </div>
     </div>
   );
 }
 
-// Task card component with Iconify icons
-function TaskCard({ action }: { action: "add" | "modify" | "complete" }) {
-  const config = {
-    add: { color: "text-green-500", bg: "bg-green-500/15", icon: "line-md:plus" },
-    modify: { color: "text-amber-500", bg: "bg-amber-500/15", icon: "lucide:pencil" },
-    complete: { color: "text-zinc-400", bg: "bg-zinc-400/15", icon: "line-md:check", strike: true },
-  };
-
-  const { color, bg, icon, strike } = config[action] as { color: string; bg: string; icon: string; strike?: boolean };
-
-  return (
-    <div className="flex items-center gap-2 px-3 py-2 bg-white border border-black rounded-md w-28 md:w-32">
-      <div className={`p-1 rounded ${bg}`}>
-        <Icon icon={icon} size={12} className={color} />
-      </div>
-      <div className="flex-1 space-y-1">
-        <div className={`h-1.5 bg-zinc-300 rounded w-full ${strike ? "line-through" : ""}`} />
-        <div className="h-1.5 bg-zinc-200 rounded w-3/4" />
-      </div>
-    </div>
-  );
-}
-
-// Tasks section
-function TasksSection() {
+// Simplified task output section
+function TasksOutput() {
   return (
     <div className="flex flex-col items-center">
-      <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-400 mb-3">
+      <span className="text-xs font-mono uppercase tracking-wider text-zinc-400 dark:text-zinc-500 mb-3">
         Your Tasks
       </span>
-      <div className="flex flex-col gap-2">
-        <TaskCard action="add" />
-        <TaskCard action="modify" />
-        <TaskCard action="complete" />
-      </div>
-      {/* Legend */}
-      <div className="flex gap-4 mt-3">
-        <div className="flex items-center gap-1">
-          <div className="w-2 h-2 rounded-sm bg-green-500/30" />
-          <span className="text-[8px] font-mono text-zinc-400">Add</span>
+      <div className="flex flex-col items-center gap-2">
+        {/* Simplified task list representation */}
+        <div className="w-24 h-20 md:w-28 md:h-24 border border-black dark:border-white bg-white dark:bg-black flex flex-col p-3 gap-1.5">
+          <div className="flex items-center gap-2">
+            <div className="w-3 h-3 border border-green-500 flex items-center justify-center">
+              <Icon icon="line-md:plus" size={8} className="text-green-500" />
+            </div>
+            <div className="h-1.5 bg-zinc-300 dark:bg-zinc-600 rounded flex-1" />
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-3 h-3 border border-amber-500 flex items-center justify-center">
+              <Icon icon="lucide:pencil" size={8} className="text-amber-500" />
+            </div>
+            <div className="h-1.5 bg-zinc-300 dark:bg-zinc-600 rounded flex-1" />
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-3 h-3 border border-zinc-400 flex items-center justify-center">
+              <Icon icon="line-md:check" size={8} className="text-zinc-400" />
+            </div>
+            <div className="h-1.5 bg-zinc-200 dark:bg-zinc-700 rounded flex-1 line-through" />
+          </div>
         </div>
-        <div className="flex items-center gap-1">
-          <div className="w-2 h-2 rounded-sm bg-amber-500/30" />
-          <span className="text-[8px] font-mono text-zinc-400">Edit</span>
-        </div>
-        <div className="flex items-center gap-1">
-          <div className="w-2 h-2 rounded-sm bg-zinc-400/30" />
-          <span className="text-[8px] font-mono text-zinc-400">Done</span>
-        </div>
+        <span className="text-xs font-mono text-zinc-500 dark:text-zinc-400">Always up to date</span>
       </div>
     </div>
   );
@@ -147,7 +143,7 @@ export function FlowDiagram() {
             <Connector direction="vertical" />
             <HumanReview />
             <Connector direction="vertical" />
-            <TasksSection />
+            <TasksOutput />
           </div>
 
           {/* Desktop: Horizontal layout */}
@@ -158,7 +154,7 @@ export function FlowDiagram() {
             <Connector direction="horizontal" />
             <HumanReview />
             <Connector direction="horizontal" />
-            <TasksSection />
+            <TasksOutput />
           </div>
         </motion.div>
       </Container>
