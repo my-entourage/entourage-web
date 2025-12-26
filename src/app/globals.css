@@ -98,6 +98,120 @@ body {
   animation: pulse-subtle 3s ease-in-out infinite;
 }
 
+/* Circuit board signal animations */
+.circuit-signal {
+  offset-anchor: 8px 0px;
+  animation: circuit-signal-path;
+  animation-iteration-count: infinite;
+  animation-timing-function: cubic-bezier(0.75, -0.01, 0, 0.99);
+  animation-duration: 4s;
+  animation-delay: 1.5s;
+}
+
+.circuit-signal-1 {
+  offset-path: path("M 60 30 v 35 q 0 5 5 5 h 115 q 5 0 5 5 v 25");
+  animation-delay: 1.5s;
+  animation-duration: 3s;
+}
+
+.circuit-signal-2 {
+  offset-path: path("M 140 30 v 25 q 0 5 5 5 h 35 q 5 0 5 5 v 35");
+  animation-delay: 2s;
+  animation-duration: 4s;
+}
+
+.circuit-signal-3 {
+  offset-path: path("M 200 30 v 70");
+  animation-delay: 1.8s;
+  animation-duration: 3s;
+}
+
+.circuit-signal-4 {
+  offset-path: path("M 260 30 v 25 q 0 5 -5 5 h -35 q -5 0 -5 5 v 35");
+  animation-delay: 2.2s;
+  animation-duration: 4s;
+}
+
+.circuit-signal-5 {
+  offset-path: path("M 340 30 v 35 q 0 5 -5 5 h -115 q -5 0 -5 5 v 25");
+  animation-delay: 1.7s;
+  animation-duration: 5s;
+}
+
+.circuit-signal-6 {
+  offset-path: path("M 60 170 v -35 q 0 -5 5 -5 h 115 q 5 0 5 -5 v -25");
+  animation-delay: 2.5s;
+  animation-duration: 4s;
+}
+
+.circuit-signal-7 {
+  offset-path: path("M 140 170 v -25 q 0 -5 5 -5 h 35 q 5 0 5 -5 v -35");
+  animation-delay: 2.3s;
+  animation-duration: 4s;
+}
+
+.circuit-signal-8 {
+  offset-path: path("M 200 170 v -50");
+  animation-delay: 2s;
+  animation-duration: 3s;
+}
+
+.circuit-signal-9 {
+  offset-path: path("M 260 170 v -25 q 0 -5 -5 -5 h -35 q -5 0 -5 -5 v -35");
+  animation-delay: 2.1s;
+  animation-duration: 4s;
+}
+
+.circuit-signal-10 {
+  offset-path: path("M 340 170 v -35 q 0 -5 -5 -5 h -115 q -5 0 -5 -5 v -25");
+  animation-delay: 2.4s;
+  animation-duration: 4s;
+}
+
+@keyframes circuit-signal-path {
+  0% {
+    offset-distance: 0%;
+  }
+  100% {
+    offset-distance: 100%;
+  }
+}
+
+/* Flow section signal animations */
+.flow-signal {
+  offset-anchor: 10px 0px;
+  animation: flow-signal-path;
+  animation-iteration-count: infinite;
+  animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  animation-duration: 4s;
+  animation-delay: 1s;
+}
+
+.flow-signal-1 {
+  offset-path: path("M 31 10 v 15 q 0 5 5 5 h 59 q 5 0 5 5 v 25");
+}
+
+.flow-signal-2 {
+  offset-path: path("M 77 10 v 10 q 0 5 5 5 h 13 q 5 0 5 5 v 25");
+}
+
+.flow-signal-3 {
+  offset-path: path("M 124 10 v 10 q 0 5 -5 5 h -14 q -5 0 -5 5 v 25");
+}
+
+.flow-signal-4 {
+  offset-path: path("M 170 10 v 15 q 0 5 -5 5 h -60 q -5 0 -5 5 v 25");
+}
+
+@keyframes flow-signal-path {
+  0% {
+    offset-distance: 0%;
+  }
+  100% {
+    offset-distance: 100%;
+  }
+}
+
 .dark {
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
@@ -130,6 +244,33 @@ body {
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+}
+
+/* Infinite scroll animations */
+@keyframes scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes scroll-reverse {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.animate-scroll {
+  animation: scroll linear infinite;
+}
+
+.animate-scroll-reverse {
+  animation: scroll-reverse linear infinite;
 }
 
 @layer base {
