@@ -55,13 +55,13 @@ export function FlowSection({ className }: FlowSectionProps) {
 
           {/* Simple connecting line */}
           <div className="flex flex-col items-center py-4">
-            <div className="h-6 w-px border-l border-dashed border-zinc-300 dark:border-zinc-700" />
+            <div className="h-6 w-px border-l border-dashed border-zinc-200 dark:border-zinc-800" />
             <div className="text-zinc-400 dark:text-zinc-600 text-xs">▼</div>
           </div>
 
           {/* Main processing box */}
           <div className="relative w-full flex flex-col items-center">
-            <div className="relative z-10 w-full max-w-md border border-dashed border-zinc-300 dark:border-zinc-700 bg-white dark:bg-black">
+            <div className="relative z-10 w-full max-w-md border border-dashed border-zinc-200 dark:border-zinc-800 bg-white dark:bg-black">
               {/* Plus corners */}
               <svg
                 className="absolute -top-2.5 -left-2.5 w-5 h-5 text-zinc-400 dark:text-zinc-600"
@@ -152,7 +152,7 @@ export function FlowSection({ className }: FlowSectionProps) {
 
             {/* Output arrow and tasks */}
             <div className="flex flex-col items-center mt-4">
-              <div className="h-6 w-px border-l border-dashed border-zinc-300 dark:border-zinc-700" />
+              <div className="h-6 w-px border-l border-dashed border-zinc-200 dark:border-zinc-800" />
               <div className="text-zinc-400 dark:text-zinc-600 text-xs">▼</div>
               <div className="mt-4 flex items-center gap-3 border border-black dark:border-white bg-white dark:bg-black px-4 py-2">
                 <Icon icon="lucide:clipboard-check" size={20} className="text-black dark:text-white" />

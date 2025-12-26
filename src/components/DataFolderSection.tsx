@@ -35,7 +35,7 @@ export function DataFolderSection({ className }: DataFolderSectionProps) {
 
         <div className="flex justify-center">
           <div
-            className="relative flex flex-col items-center justify-center p-8 cursor-pointer border border-dashed border-zinc-300 dark:border-zinc-700 bg-white dark:bg-black transition-all duration-300"
+            className="relative flex flex-col items-center justify-center p-8 cursor-pointer border border-dashed border-zinc-200 dark:border-zinc-800 bg-white dark:bg-black transition-all duration-300"
             style={{
               minWidth: "280px",
               minHeight: "320px",

@@ -265,18 +265,18 @@ export function IntegrationsSection({ className }: IntegrationsSectionProps) {
 
             {/* Center Entourage node - white bg with dotted border and plus corners */}
             <g>
-              {/* Dotted border */}
+              {/* Dotted border - matching TeamCredentialsSection pattern */}
               <rect
                 x="168"
                 y="78"
                 width="64"
                 height="44"
-                className="fill-white dark:fill-black stroke-zinc-300 dark:stroke-zinc-700"
+                className="fill-white dark:fill-black stroke-zinc-200 dark:stroke-zinc-800"
                 strokeWidth="1"
                 strokeDasharray="2 2"
                 shapeRendering="crispEdges"
               />
-              {/* Plus corners - matching FlowSection style (10px size, centered on corners) */}
+              {/* Plus corners - matching w-5 h-5 (20px) standard = ~5 SVG units per arm */}
               <g className="stroke-zinc-400 dark:stroke-zinc-600" strokeWidth="1" fill="none">
                 {/* Top-left plus at (168, 78) */}
                 <path d="M 168 73 v 10 M 163 78 h 10" />

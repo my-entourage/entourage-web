@@ -9,6 +9,21 @@ interface TeamCredentialsSectionProps {
   className?: string;
 }
 
+// Plus corner SVG component for consistency
+function PlusCorner({ className }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1"
+    >
+      <path d="M12 6v12m6-6H6" />
+    </svg>
+  );
+}
+
 // Company and university logos
 const credentials = [
   { name: "DeepMind", logo: "/logos/deepmind.svg", className: "" },
@@ -30,9 +45,9 @@ export function TeamCredentialsSection({
           {/* Header with brand styling */}
           <div className="flex items-center justify-center gap-4 mb-8">
             {/* Left dashed line with plus */}
-            <div className="flex items-center gap-2 flex-1">
-              <span className="text-zinc-300 dark:text-zinc-700 text-xs">+</span>
-              <div className="flex-1 border-t border-dashed border-zinc-300 dark:border-zinc-700" />
+            <div className="flex items-center gap-1 flex-1">
+              <PlusCorner className="w-5 h-5 text-zinc-400 dark:text-zinc-600 shrink-0" />
+              <div className="flex-1 border-t border-dashed border-zinc-200 dark:border-zinc-800" />
             </div>
 
             {/* Label */}
@@ -41,9 +56,9 @@ export function TeamCredentialsSection({
             </span>
 
             {/* Right dashed line with plus */}
-            <div className="flex items-center gap-2 flex-1">
-              <div className="flex-1 border-t border-dashed border-zinc-300 dark:border-zinc-700" />
-              <span className="text-zinc-300 dark:text-zinc-700 text-xs">+</span>
+            <div className="flex items-center gap-1 flex-1">
+              <div className="flex-1 border-t border-dashed border-zinc-200 dark:border-zinc-800" />
+              <PlusCorner className="w-5 h-5 text-zinc-400 dark:text-zinc-600 shrink-0" />
             </div>
           </div>
 
@@ -71,10 +86,10 @@ export function TeamCredentialsSection({
           </div>
 
           {/* Bottom divider with plus signs */}
-          <div className="flex items-center gap-2 mt-8">
-            <span className="text-zinc-300 dark:text-zinc-700 text-xs">+</span>
-            <div className="flex-1 border-t border-dashed border-zinc-300 dark:border-zinc-700" />
-            <span className="text-zinc-300 dark:text-zinc-700 text-xs">+</span>
+          <div className="flex items-center gap-1 mt-8">
+            <PlusCorner className="w-5 h-5 text-zinc-400 dark:text-zinc-600 shrink-0" />
+            <div className="flex-1 border-t border-dashed border-zinc-200 dark:border-zinc-800" />
+            <PlusCorner className="w-5 h-5 text-zinc-400 dark:text-zinc-600 shrink-0" />
           </div>
         </div>
       </Container>
