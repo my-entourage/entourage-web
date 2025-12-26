@@ -56,6 +56,7 @@ export function TeamCredentialsSection({
                     alt={cred.name}
                     width={120}
                     height={32}
+                    style={{ width: 'auto', height: 'auto' }}
                     className={cn(
                       "h-6 md:h-8 w-auto object-contain",
                       cred.logoDark ? "dark:hidden" : "",
@@ -69,6 +70,7 @@ export function TeamCredentialsSection({
                       alt={cred.name}
                       width={120}
                       height={32}
+                      style={{ width: 'auto', height: 'auto' }}
                       className={cn(
                         "h-6 md:h-8 w-auto object-contain hidden dark:block",
                         cred.className
