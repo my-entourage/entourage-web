@@ -304,8 +304,8 @@ Check each moved file for imports that reference other moved files:
 
 #### Automated Verification:
 - [x] TypeScript compiles: `pnpm build`
-- [ ] Dev server starts: `pnpm dev`
-- [ ] No import errors in terminal
+- [x] Dev server starts: `pnpm dev`
+- [x] No import errors in terminal
 
 #### Manual Verification:
 - [ ] Landing page renders correctly at http://localhost:3000
@@ -472,8 +472,8 @@ Add to existing permissions:
 ### Success Criteria:
 
 #### Automated Verification:
-- [ ] Rule files exist: `ls -la .claude/rules/`
-- [ ] Settings.json is valid JSON: `cat .claude/settings.json | jq .`
+- [x] Rule files exist: `ls -la .claude/rules/`
+- [x] Settings.json is valid JSON: `cat .claude/settings.json | jq .`
 
 #### Manual Verification:
 - [ ] Start new Claude Code session and verify rules are loaded
@@ -568,8 +568,8 @@ thoughts/shared/
 ### Success Criteria:
 
 #### Automated Verification:
-- [ ] CLAUDE.md is valid markdown
-- [ ] Build still succeeds: `pnpm build`
+- [x] CLAUDE.md is valid markdown
+- [x] Build still succeeds: `pnpm build`
 
 #### Manual Verification:
 - [ ] Documentation accurately reflects new structure

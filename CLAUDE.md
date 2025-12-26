@@ -26,27 +26,66 @@ src/
 ├── app/
 │   ├── layout.tsx      # Root layout, fonts, providers
 │   ├── page.tsx        # Landing page (orchestrates sections)
-│   └── globals.css     # CSS variables, base styles
+│   ├── globals.css     # CSS variables, base styles
+│   └── fonts/          # Local font files
 ├── components/
-│   ├── Header.tsx      # Sticky nav, theme toggle
-│   ├── Hero.tsx        # Headline + CTA
-│   ├── TeamCredentialsSection.tsx  # Logo carousel
-│   ├── FlowSection.tsx # AI processing diagram
-│   ├── BentoFeatures.tsx  # Feature cards grid
-│   ├── FAQ.tsx         # Accordion Q&A
-│   ├── SecondaryCTA.tsx
-│   ├── Footer.tsx
-│   ├── ui/             # Primitives (Button, PlusCornerCard, etc.)
-│   └── bento/          # Bento grid card components
+│   ├── layout/         # Structural components
+│   │   ├── header/     # Header component
+│   │   └── footer/     # Footer component
+│   ├── sections/       # Page content blocks
+│   │   ├── hero/
+│   │   ├── flow-section/
+│   │   ├── bento-features/
+│   │   ├── team-credentials/
+│   │   ├── faq/
+│   │   └── secondary-cta/
+│   ├── ui/             # ShadCN primitives (DO NOT MODIFY)
+│   ├── bento/          # Bento grid card components
+│   ├── Icon.tsx        # Icon utility
+│   ├── Logo.tsx        # Logo component
+│   └── ThemeToggle.tsx # Theme toggle button
+├── providers/
+│   └── ThemeProvider.tsx  # Theme context
 ├── lib/
 │   └── utils.ts        # cn() utility
 docs/
-└── design-system.md    # Complete design guide (v6.0)
+└── design-system.md    # Complete design guide
 thoughts/shared/
 ├── plans/              # Implementation plans
 ├── research/           # Analysis documents
 └── handoffs/           # Session handoffs
 ```
+
+## File Placement Conventions
+
+| Component Type | Location | Example |
+|----------------|----------|---------|
+| Page sections | `components/sections/[name]/` | `sections/hero/Hero.tsx` |
+| Layout (Header/Footer) | `components/layout/[name]/` | `layout/header/Header.tsx` |
+| UI primitives | `components/ui/` | `ui/button.tsx` |
+| Context providers | `providers/` | `providers/ThemeProvider.tsx` |
+| Utilities | `lib/` | `lib/utils.ts` |
+
+### Creating New Components
+
+1. **Page section** (Hero, Features, FAQ-style):
+   ```bash
+   mkdir src/components/sections/[name]
+   # Create [Name].tsx and index.ts
+   ```
+
+2. **Layout component** (Header, Footer, Nav):
+   ```bash
+   mkdir src/components/layout/[name]
+   # Create [Name].tsx and index.ts
+   ```
+
+3. **ShadCN component**:
+   ```bash
+   pnpm dlx shadcn@canary add [component]
+   # Creates in components/ui/ - DO NOT MODIFY
+   # Create wrapper in components/ if needed
+   ```
 
 ## Design System
 
