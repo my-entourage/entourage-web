@@ -1,6 +1,3 @@
-"use client";
-
-import { motion, useReducedMotion } from "framer-motion";
 import { Container } from "./ui/Container";
 import { Icon } from "./Icon";
 import { LogoMark } from "./Logo";
@@ -40,7 +37,6 @@ function InputSources() {
     { icon: "lucide:calendar", label: "Meetings" },
     { icon: "lucide:message-circle", label: "Messages" },
     { icon: "line-md:email", label: "Email" },
-    { icon: "lucide:audio-lines", label: "Transcripts" },
   ];
 
   return (
@@ -67,7 +63,7 @@ function AINode() {
       <div className="w-20 h-20 md:w-24 md:h-24 flex items-center justify-center animate-pulse-slow">
         <LogoMark size={48} />
       </div>
-      <span className="text-xs font-semibold text-black dark:text-white mt-1">Entourage</span>
+      <span className="text-xs font-semibold text-black dark:text-white">Entourage</span>
       <span className="text-xs font-mono text-zinc-400 dark:text-zinc-500 text-center max-w-[140px]">
         Analyzes & organizes into actionable tasks
       </span>
@@ -75,19 +71,7 @@ function AINode() {
   );
 }
 
-// Human review section with Iconify icon
-function HumanReview() {
-  return (
-    <div className="flex flex-col items-center gap-1">
-      <Icon icon="line-md:account" size={32} className="text-black dark:text-white" />
-      <div className="flex flex-col items-center">
-        <span className="text-xs font-mono uppercase tracking-wider text-zinc-400 dark:text-zinc-500">You Review</span>
-      </div>
-    </div>
-  );
-}
-
-// Simplified task output section
+// Clean task output with checklist icon
 function TasksOutput() {
   return (
     <div className="flex flex-col items-center">
@@ -95,53 +79,29 @@ function TasksOutput() {
         Your Tasks
       </span>
       <div className="flex flex-col items-center gap-2">
-        {/* Simplified task list representation */}
-        <div className="w-24 h-20 md:w-28 md:h-24 border border-black dark:border-white bg-white dark:bg-black flex flex-col p-3 gap-1.5">
-          <div className="flex items-center gap-2">
-            <div className="w-3 h-3 border border-green-500 flex items-center justify-center">
-              <Icon icon="line-md:plus" size={8} className="text-green-500" />
-            </div>
-            <div className="h-1.5 bg-zinc-300 dark:bg-zinc-600 rounded flex-1" />
-          </div>
-          <div className="flex items-center gap-2">
-            <div className="w-3 h-3 border border-amber-500 flex items-center justify-center">
-              <Icon icon="lucide:pencil" size={8} className="text-amber-500" />
-            </div>
-            <div className="h-1.5 bg-zinc-300 dark:bg-zinc-600 rounded flex-1" />
-          </div>
-          <div className="flex items-center gap-2">
-            <div className="w-3 h-3 border border-zinc-400 flex items-center justify-center">
-              <Icon icon="line-md:check" size={8} className="text-zinc-400" />
-            </div>
-            <div className="h-1.5 bg-zinc-200 dark:bg-zinc-700 rounded flex-1 line-through" />
+        <div className="relative">
+          <Icon icon="lucide:clipboard-check" size={48} className="text-black dark:text-white" />
+          {/* Approval badge */}
+          <div className="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full flex items-center justify-center">
+            <Icon icon="lucide:check" size={10} className="text-white" />
           </div>
         </div>
-        <span className="text-xs font-mono text-zinc-500 dark:text-zinc-400">Always up to date</span>
+        <span className="text-xs font-mono text-zinc-500 dark:text-zinc-400">You approve</span>
       </div>
     </div>
   );
 }
 
 export function FlowDiagram() {
-  const prefersReducedMotion = useReducedMotion();
-
   return (
-    <section className="py-12 sm:py-16 md:py-24">
+    <section className="py-12 sm:py-16 md:py-24 bg-white dark:bg-black">
       <Container>
-        <motion.div
-          initial={prefersReducedMotion ? {} : { opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.15, ease: "easeOut" }}
-          className="flex justify-center"
-        >
+        <div className="flex justify-center">
           {/* Mobile: Vertical layout */}
           <div className="flex flex-col items-center gap-1 md:hidden">
             <InputSources />
             <Connector direction="vertical" />
             <AINode />
-            <Connector direction="vertical" />
-            <HumanReview />
             <Connector direction="vertical" />
             <TasksOutput />
           </div>
@@ -152,11 +112,9 @@ export function FlowDiagram() {
             <Connector direction="horizontal" />
             <AINode />
             <Connector direction="horizontal" />
-            <HumanReview />
-            <Connector direction="horizontal" />
             <TasksOutput />
           </div>
-        </motion.div>
+        </div>
       </Container>
     </section>
   );

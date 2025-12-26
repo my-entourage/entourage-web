@@ -35,7 +35,7 @@ export function SecondaryCTA() {
   }
 
   return (
-    <section className="border-t border-black py-16 md:py-24">
+    <section className="border-t border-black dark:border-white py-16 md:py-24">
       <Container>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -67,7 +67,7 @@ export function SecondaryCTA() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.12, delay: 0.1 }}
-            className="mt-4 text-sm text-zinc-500"
+            className="mt-4 text-sm text-zinc-500 dark:text-zinc-400"
           >
             We&apos;re onboarding users in batches. Get early access.
           </motion.p>

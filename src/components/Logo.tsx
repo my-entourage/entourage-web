@@ -18,13 +18,14 @@ export function LogoMark({ size = 32, className }: LogoMarkProps) {
       fill="currentColor"
       aria-label="Entourage logo"
       className={className}
+      shapeRendering="crispEdges"
     >
       {/* Vertical spine: 40% width */}
       <rect x="0" y="0" width="40" height="100" />
-      {/* Bar 1: top */}
+      {/* Bar 1: top - integer coordinates for crisp rendering */}
       <rect x="40" y="0" width="60" height="27" />
-      {/* Bar 2: middle */}
-      <rect x="40" y="36.5" width="60" height="27" />
+      {/* Bar 2: middle - use integer, slight overlap to prevent gaps */}
+      <rect x="40" y="37" width="60" height="27" />
       {/* Bar 3: bottom */}
       <rect x="40" y="73" width="60" height="27" />
     </svg>

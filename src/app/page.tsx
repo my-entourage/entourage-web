@@ -1,6 +1,9 @@
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
-import { FlowDiagram } from "@/components/FlowDiagram";
+import { IntegrationsSection } from "@/components/IntegrationsSection";
+import { FlowSection } from "@/components/FlowSection";
+import { DataFolderSection } from "@/components/DataFolderSection";
+import { TeamCredentialsSection } from "@/components/TeamCredentialsSection";
 import { ValueProps } from "@/components/ValueProps";
 import { SecondaryCTA } from "@/components/SecondaryCTA";
 import { Footer } from "@/components/Footer";
@@ -11,7 +14,10 @@ export default function Home() {
       <Header />
       <main>
         <Hero />
-        <FlowDiagram />
+        <TeamCredentialsSection />
+        <IntegrationsSection />
+        <FlowSection />
+        <DataFolderSection />
         <ValueProps />
         <SecondaryCTA />
       </main>
