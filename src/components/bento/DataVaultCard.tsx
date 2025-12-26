@@ -48,7 +48,22 @@ export function DataVaultCard() {
             }}
           />
 
-          {/* Folder tab */}
+          {/* Security icon - always visible, pushed forward in 3D space */}
+          <div
+            className="absolute inset-0 flex items-center justify-center pointer-events-none"
+            style={{
+              transform: "translateZ(50px)",
+              zIndex: 35,
+            }}
+          >
+            <Icon
+              icon="lucide:shield-check"
+              size={24}
+              className="text-zinc-400 dark:text-zinc-600"
+            />
+          </div>
+
+          {/* Folder tab - pushed back in 3D to stay behind cards */}
           <div
             className="absolute w-12 h-4 bg-zinc-300 dark:bg-zinc-700"
             style={{
@@ -56,21 +71,34 @@ export function DataVaultCard() {
               left: "8px",
               transformOrigin: "bottom center",
               transform: isHovered
-                ? "rotateX(-25deg) translateY(-2px)"
-                : "rotateX(0deg)",
+                ? "rotateX(-25deg) translateY(-2px) translateZ(-10px)"
+                : "rotateX(0deg) translateZ(-10px)",
               transition: "transform 500ms cubic-bezier(0.34, 1.56, 0.64, 1)",
-              zIndex: 10,
+              zIndex: 5,
             }}
           />
 
-          {/* Data cards container */}
+          {/* Folder front panel */}
+          <div
+            className="absolute top-0 left-0 w-32 h-24 bg-zinc-100 dark:bg-zinc-900"
+            style={{
+              transformOrigin: "bottom center",
+              transform: isHovered
+                ? "rotateX(25deg) translateY(8px)"
+                : "rotateX(0deg)",
+              transition: "transform 500ms cubic-bezier(0.34, 1.56, 0.64, 1)",
+              zIndex: 30,
+            }}
+          />
+
+          {/* Data cards container - behind front panel, in front of tab */}
           <div
             className="absolute"
             style={{
-              top: "50%",
+              top: "-20px",
               left: "50%",
-              transform: "translate(-50%, -50%)",
-              zIndex: 20,
+              transform: "translateX(-50%)",
+              zIndex: 15,
             }}
           >
             {dataItems.map((item, index) => {
@@ -82,15 +110,13 @@ export function DataVaultCard() {
                   className="absolute w-16 h-20 bg-background border border-zinc-300 dark:border-zinc-700 flex flex-col items-center justify-center"
                   style={{
                     transform: isHovered
-                      ? `translateY(-70px) translateX(${translations[index]}px) rotate(${rotations[index]}deg) scale(1)`
-                      : "translateY(0) translateX(0) rotate(0deg) scale(0.5)",
+                      ? `translateY(-50px) translateX(${translations[index]}px) rotate(${rotations[index]}deg) scale(1)`
+                      : "translateY(20px) translateX(0) rotate(0deg) scale(0.5)",
                     opacity: isHovered ? 1 : 0,
                     transition: `all 600ms cubic-bezier(0.34, 1.56, 0.64, 1) ${index * 80}ms`,
-                    zIndex: 10 - index,
+                    zIndex: 15 - index,
                     left: "50%",
-                    top: "50%",
                     marginLeft: "-32px",
-                    marginTop: "-40px",
                   }}
                 >
                   <Icon
@@ -105,40 +131,11 @@ export function DataVaultCard() {
               );
             })}
           </div>
-
-          {/* Folder front panel */}
-          <div
-            className="absolute top-0 left-0 w-32 h-24 bg-zinc-100 dark:bg-zinc-900"
-            style={{
-              transformOrigin: "bottom center",
-              transform: isHovered
-                ? "rotateX(25deg) translateY(8px)"
-                : "rotateX(0deg)",
-              transition: "transform 500ms cubic-bezier(0.34, 1.56, 0.64, 1)",
-              zIndex: 30,
-            }}
-          />
         </div>
 
-        {/* Labels */}
-        <p
-          className="mt-6 text-sm font-mono text-zinc-500 dark:text-zinc-400"
-          style={{
-            opacity: isHovered ? 0.7 : 1,
-            transition: "opacity 300ms",
-          }}
-        >
+        {/* Label */}
+        <p className="mt-6 text-sm font-mono text-zinc-400 dark:text-zinc-500">
           Unified & indexed
-        </p>
-        <p
-          className="mt-2 text-xs font-mono text-zinc-400 dark:text-zinc-500"
-          style={{
-            opacity: isHovered ? 0 : 0.6,
-            transform: isHovered ? "translateY(10px)" : "translateY(0)",
-            transition: "all 300ms",
-          }}
-        >
-          Hover to explore
         </p>
       </div>
     </PlusCornerCard>
