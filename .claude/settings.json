@@ -1,11 +1,10 @@
 {
   "permissions": {
-    "allow": [
-      "Read(../entourage/**)"
-    ],
     "deny": [
       "Edit(./.claude/hooks/**)",
-      "Write(./.claude/hooks/**)"
+      "Write(./.claude/hooks/**)",
+      "Edit(./src/components/ui/**)",
+      "Write(./src/components/ui/**)"
     ]
   },
   "hooks": {
