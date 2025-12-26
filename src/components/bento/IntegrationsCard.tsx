@@ -6,7 +6,7 @@ import { LogoMark } from "../Logo";
 
 export function IntegrationsCard() {
   return (
-    <PlusCornerCard className="h-full min-h-[400px] md:min-h-[440px] flex flex-col">
+    <PlusCornerCard className="h-full min-h-[440px] md:min-h-[500px] flex flex-col">
       {/* Card header */}
       <div className="p-4 md:p-6 pb-0">
         <span className="text-xs font-mono uppercase tracking-wider text-zinc-400 dark:text-zinc-500">
@@ -18,9 +18,9 @@ export function IntegrationsCard() {
       </div>
 
       {/* Circuit board SVG */}
-      <div className="flex-1 flex items-center justify-center p-4">
+      <div className="flex-1 flex items-center justify-center p-4 md:p-6">
         <svg
-          className="w-full h-auto max-h-[300px] text-zinc-300 dark:text-zinc-700"
+          className="w-full h-auto max-h-[320px] md:max-h-[360px] text-zinc-300 dark:text-zinc-700"
           viewBox="0 0 400 200"
           preserveAspectRatio="xMidYMid meet"
         >
