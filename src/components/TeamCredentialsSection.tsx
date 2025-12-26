@@ -4,24 +4,10 @@ import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { Container } from "./ui/Container";
 import { InfiniteSlider } from "./ui/InfiniteSlider";
+import { PlusCorner } from "./ui/PlusCorner";
 
 interface TeamCredentialsSectionProps {
   className?: string;
-}
-
-// Plus corner SVG component for consistency
-function PlusCorner({ className }: { className?: string }) {
-  return (
-    <svg
-      className={className}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1"
-    >
-      <path d="M12 6v12m6-6H6" />
-    </svg>
-  );
 }
 
 // Company and university logos
@@ -51,7 +37,7 @@ export function TeamCredentialsSection({
 
           {/* Label - positioned over the top border with background to mask the line */}
           <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2">
-            <span className="bg-background px-4 text-xs font-mono uppercase tracking-widest text-zinc-400 dark:text-zinc-500">
+            <span className="bg-background px-4 text-xs font-mono uppercase tracking-wider text-zinc-400 dark:text-zinc-500">
               Built by engineers from
             </span>
           </div>

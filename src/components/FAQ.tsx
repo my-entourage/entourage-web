@@ -6,7 +6,7 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion";
+} from "@/components/Accordion";
 
 const faqs = [
   {
@@ -31,11 +31,7 @@ const faqs = [
   },
 ];
 
-interface FAQProps {
-  className?: string;
-}
-
-export function FAQ({ className }: FAQProps) {
+export function FAQ() {
   return (
     <section className="py-16 md:py-24 bg-background">
       <Container>
@@ -49,19 +45,11 @@ export function FAQ({ className }: FAQProps) {
         </div>
 
         <div className="max-w-2xl mx-auto">
-          <Accordion type="single" collapsible className="space-y-2">
+          <Accordion type="single" collapsible>
             {faqs.map((faq, i) => (
-              <AccordionItem
-                key={i}
-                value={`item-${i}`}
-                className="border border-zinc-200 dark:border-zinc-800 px-4"
-              >
-                <AccordionTrigger className="text-left text-black dark:text-white hover:no-underline py-4">
-                  {faq.question}
-                </AccordionTrigger>
-                <AccordionContent className="text-zinc-500 dark:text-zinc-400 pb-4">
-                  {faq.answer}
-                </AccordionContent>
+              <AccordionItem key={i} value={`item-${i}`}>
+                <AccordionTrigger>{faq.question}</AccordionTrigger>
+                <AccordionContent>{faq.answer}</AccordionContent>
               </AccordionItem>
             ))}
           </Accordion>

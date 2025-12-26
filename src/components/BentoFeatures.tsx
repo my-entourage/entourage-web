@@ -38,7 +38,7 @@ export function BentoFeatures({ className }: BentoFeaturesProps) {
           </div>
 
           {/* Human in the Loop Card - 1x1 */}
-          <PlusCornerCard className="p-6 flex flex-col items-center justify-center text-center min-h-[200px]">
+          <PlusCornerCard interactive className="p-6 flex flex-col items-center justify-center text-center min-h-[200px]">
             <div className="w-12 h-12 border border-black dark:border-white flex items-center justify-center mb-4">
               <Icon icon="lucide:user-check" size={24} className="text-black dark:text-white" />
             </div>
@@ -51,7 +51,7 @@ export function BentoFeatures({ className }: BentoFeaturesProps) {
           </PlusCornerCard>
 
           {/* Never Miss a Task Card - 1x1 */}
-          <PlusCornerCard className="p-6 flex flex-col items-center justify-center text-center min-h-[200px]">
+          <PlusCornerCard interactive className="p-6 flex flex-col items-center justify-center text-center min-h-[200px]">
             <div className="w-12 h-12 border border-black dark:border-white flex items-center justify-center mb-4">
               <Icon icon="lucide:list-checks" size={24} className="text-black dark:text-white" />
             </div>

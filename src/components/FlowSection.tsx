@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import { Container } from "./ui/Container";
 import { Icon } from "./Icon";
 import { LogoMark } from "./Logo";
+import { PlusCorner } from "./ui/PlusCorner";
 
 interface FlowSectionProps {
   className?: string;
@@ -63,42 +64,10 @@ export function FlowSection({ className }: FlowSectionProps) {
           <div className="relative w-full flex flex-col items-center">
             <div className="relative z-10 w-full max-w-md border border-dashed border-zinc-200 dark:border-zinc-800 bg-background">
               {/* Plus corners */}
-              <svg
-                className="absolute -top-2.5 -left-2.5 w-5 h-5 text-zinc-400 dark:text-zinc-600"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1"
-              >
-                <path d="M12 6v12m6-6H6" />
-              </svg>
-              <svg
-                className="absolute -top-2.5 -right-2.5 w-5 h-5 text-zinc-400 dark:text-zinc-600"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1"
-              >
-                <path d="M12 6v12m6-6H6" />
-              </svg>
-              <svg
-                className="absolute -bottom-2.5 -left-2.5 w-5 h-5 text-zinc-400 dark:text-zinc-600"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1"
-              >
-                <path d="M12 6v12m6-6H6" />
-              </svg>
-              <svg
-                className="absolute -bottom-2.5 -right-2.5 w-5 h-5 text-zinc-400 dark:text-zinc-600"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1"
-              >
-                <path d="M12 6v12m6-6H6" />
-              </svg>
+              <PlusCorner className="absolute -top-2.5 -left-2.5 w-5 h-5 text-zinc-400 dark:text-zinc-600" />
+              <PlusCorner className="absolute -top-2.5 -right-2.5 w-5 h-5 text-zinc-400 dark:text-zinc-600" />
+              <PlusCorner className="absolute -bottom-2.5 -left-2.5 w-5 h-5 text-zinc-400 dark:text-zinc-600" />
+              <PlusCorner className="absolute -bottom-2.5 -right-2.5 w-5 h-5 text-zinc-400 dark:text-zinc-600" />
 
               {/* Title badge */}
               <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-20 flex items-center justify-center border border-zinc-300 dark:border-zinc-700 bg-background px-3 py-1">
@@ -157,7 +126,7 @@ export function FlowSection({ className }: FlowSectionProps) {
               <div className="mt-4 flex items-center gap-3 border border-black dark:border-white bg-background px-4 py-2">
                 <Icon icon="lucide:clipboard-check" size={20} className="text-black dark:text-white" />
                 <span className="text-sm font-mono text-black dark:text-white">Your Tasks</span>
-                <div className="w-4 h-4 bg-green-500 flex items-center justify-center">
+                <div className="w-4 h-4 bg-emerald-500 flex items-center justify-center">
                   <Icon icon="lucide:check" size={10} className="text-white" />
                 </div>
               </div>
