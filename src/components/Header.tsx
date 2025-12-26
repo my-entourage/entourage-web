@@ -23,8 +23,8 @@ export function Header() {
           "flex items-center justify-between px-4 h-14 w-full max-w-[1200px]",
           "transition-all duration-300 ease-out",
           isScrolled
-            ? "bg-white/95 dark:bg-black/95 backdrop-blur-md border border-black dark:border-white"
-            : "bg-white dark:bg-black border border-transparent"
+            ? "bg-background/95 backdrop-blur-md border border-black dark:border-white"
+            : "bg-background border border-transparent"
         )}
         initial={false}
         animate={{

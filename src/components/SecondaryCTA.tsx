@@ -10,7 +10,7 @@ export function SecondaryCTA() {
 
   if (prefersReducedMotion) {
     return (
-      <section className="border-t border-black dark:border-white py-16 md:py-24">
+      <section className="py-20 md:py-28">
         <Container>
           <div className="mx-auto max-w-xl text-center">
             <h2 className="text-2xl font-semibold tracking-tight text-black dark:text-white md:text-3xl">
@@ -35,7 +35,7 @@ export function SecondaryCTA() {
   }
 
   return (
-    <section className="border-t border-black dark:border-white py-16 md:py-24">
+    <section className="py-20 md:py-28">
       <Container>
         <motion.div
           initial={{ opacity: 0, y: 20 }}

@@ -19,7 +19,7 @@ const inputSources = [
 
 export function FlowSection({ className }: FlowSectionProps) {
   return (
-    <section className={cn("py-16 md:py-24 bg-white dark:bg-black", className)}>
+    <section className={cn("py-16 md:py-24 bg-background", className)}>
       <Container>
         <div className="text-center mb-12">
           <span className="text-xs font-mono uppercase tracking-wider text-zinc-400 dark:text-zinc-500">
@@ -39,7 +39,7 @@ export function FlowSection({ className }: FlowSectionProps) {
             {inputSources.map((source) => (
               <div
                 key={source.label}
-                className="flex items-center justify-center gap-2.5 px-4 py-3 md:px-5 md:py-3.5 border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-black"
+                className="flex items-center justify-center gap-2.5 px-4 py-3 md:px-5 md:py-3.5 border border-zinc-300 dark:border-zinc-700 bg-background"
               >
                 <Icon
                   icon={source.icon}
@@ -61,7 +61,7 @@ export function FlowSection({ className }: FlowSectionProps) {
 
           {/* Main processing box */}
           <div className="relative w-full flex flex-col items-center">
-            <div className="relative z-10 w-full max-w-md border border-dashed border-zinc-200 dark:border-zinc-800 bg-white dark:bg-black">
+            <div className="relative z-10 w-full max-w-md border border-dashed border-zinc-200 dark:border-zinc-800 bg-background">
               {/* Plus corners */}
               <svg
                 className="absolute -top-2.5 -left-2.5 w-5 h-5 text-zinc-400 dark:text-zinc-600"
@@ -101,7 +101,7 @@ export function FlowSection({ className }: FlowSectionProps) {
               </svg>
 
               {/* Title badge */}
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-20 flex items-center justify-center border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-black px-3 py-1">
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-20 flex items-center justify-center border border-zinc-300 dark:border-zinc-700 bg-background px-3 py-1">
                 <Icon icon="lucide:sparkles" size={12} className="text-black dark:text-white" />
                 <span className="ml-2 text-xs font-mono text-black dark:text-white">
                   AI Processing
@@ -139,11 +139,11 @@ export function FlowSection({ className }: FlowSectionProps) {
                 </div>
 
                 {/* Floating badges */}
-                <div className="absolute top-4 left-4 border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-black px-2 py-1 text-xs font-mono text-zinc-500 dark:text-zinc-400 flex items-center gap-1">
+                <div className="absolute top-4 left-4 border border-zinc-200 dark:border-zinc-800 bg-background px-2 py-1 text-xs font-mono text-zinc-500 dark:text-zinc-400 flex items-center gap-1">
                   <Icon icon="lucide:scan-text" size={12} />
                   <span>Extract</span>
                 </div>
-                <div className="absolute bottom-4 right-4 border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-black px-2 py-1 text-xs font-mono text-zinc-500 dark:text-zinc-400 flex items-center gap-1">
+                <div className="absolute bottom-4 right-4 border border-zinc-200 dark:border-zinc-800 bg-background px-2 py-1 text-xs font-mono text-zinc-500 dark:text-zinc-400 flex items-center gap-1">
                   <Icon icon="lucide:list-checks" size={12} />
                   <span>Organize</span>
                 </div>
@@ -154,7 +154,7 @@ export function FlowSection({ className }: FlowSectionProps) {
             <div className="flex flex-col items-center mt-4">
               <div className="h-6 w-px border-l border-dashed border-zinc-200 dark:border-zinc-800" />
               <div className="text-zinc-400 dark:text-zinc-600 text-xs">▼</div>
-              <div className="mt-4 flex items-center gap-3 border border-black dark:border-white bg-white dark:bg-black px-4 py-2">
+              <div className="mt-4 flex items-center gap-3 border border-black dark:border-white bg-background px-4 py-2">
                 <Icon icon="lucide:clipboard-check" size={20} className="text-black dark:text-white" />
                 <span className="text-sm font-mono text-black dark:text-white">Your Tasks</span>
                 <div className="w-4 h-4 bg-green-500 flex items-center justify-center">
