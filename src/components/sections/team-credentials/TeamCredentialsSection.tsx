@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { Container } from "../../ui/Container";
 import { InfiniteSlider } from "../../ui/InfiniteSlider";
@@ -51,12 +50,9 @@ export function TeamCredentialsSection({
                   className="flex items-center justify-center h-8 grayscale opacity-50 hover:opacity-100 hover:grayscale-0 transition-all duration-300"
                 >
                   {/* Light mode logo */}
-                  <Image
+                  <img
                     src={cred.logo}
                     alt={cred.name}
-                    width={120}
-                    height={32}
-                    style={{ width: 'auto', height: 'auto' }}
                     className={cn(
                       "h-6 md:h-8 w-auto object-contain",
                       cred.logoDark ? "dark:hidden" : "",
@@ -65,12 +61,9 @@ export function TeamCredentialsSection({
                   />
                   {/* Dark mode logo (if different) */}
                   {cred.logoDark && (
-                    <Image
+                    <img
                       src={cred.logoDark}
                       alt={cred.name}
-                      width={120}
-                      height={32}
-                      style={{ width: 'auto', height: 'auto' }}
                       className={cn(
                         "h-6 md:h-8 w-auto object-contain hidden dark:block",
                         cred.className
