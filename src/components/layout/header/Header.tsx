@@ -3,9 +3,9 @@
 import Link from "next/link";
 import { useState } from "react";
 import { motion, useMotionValueEvent, useScroll } from "framer-motion";
-import { Button } from "./ui/Button";
-import { LogoMark, LogoFull } from "./Logo";
-import { ThemeToggle } from "./ThemeToggle";
+import { Button } from "../../ui/Button";
+import { LogoMark, LogoFull } from "../../Logo";
+import { ThemeToggle } from "../../ThemeToggle";
 import { cn } from "@/lib/utils";
 
 export function Header() {

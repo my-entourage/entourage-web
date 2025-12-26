@@ -2,9 +2,9 @@
 
 import Image from "next/image";
 import { cn } from "@/lib/utils";
-import { Container } from "./ui/Container";
-import { InfiniteSlider } from "./ui/InfiniteSlider";
-import { PlusCorner } from "./ui/PlusCorner";
+import { Container } from "../../ui/Container";
+import { InfiniteSlider } from "../../ui/InfiniteSlider";
+import { PlusCorner } from "../../ui/PlusCorner";
 
 interface TeamCredentialsSectionProps {
   className?: string;

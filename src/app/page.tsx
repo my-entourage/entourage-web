@@ -1,11 +1,12 @@
-import { Header } from "@/components/Header";
-import { Hero } from "@/components/Hero";
-import { TeamCredentialsSection } from "@/components/TeamCredentialsSection";
-import { FlowSection } from "@/components/FlowSection";
-import { BentoFeatures } from "@/components/BentoFeatures";
-import { FAQ } from "@/components/FAQ";
-import { SecondaryCTA } from "@/components/SecondaryCTA";
-import { Footer } from "@/components/Footer";
+import { Header, Footer } from "@/components/layout";
+import {
+  Hero,
+  TeamCredentialsSection,
+  FlowSection,
+  BentoFeatures,
+  FAQ,
+  SecondaryCTA,
+} from "@/components/sections";
 
 export default function Home() {
   return (

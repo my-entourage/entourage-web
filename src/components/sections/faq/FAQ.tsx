@@ -1,6 +1,6 @@
 "use client";
 
-import { Container } from "./ui/Container";
+import { Container } from "../../ui/Container";
 import {
   Accordion,
   AccordionContent,

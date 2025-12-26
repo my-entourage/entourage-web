@@ -1,11 +1,11 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { Container } from "./ui/Container";
-import { PlusCornerCard } from "./ui/PlusCornerCard";
-import { Icon } from "./Icon";
-import { IntegrationsCard } from "./bento/IntegrationsCard";
-import { DataVaultCard } from "./bento/DataVaultCard";
+import { Container } from "../../ui/Container";
+import { PlusCornerCard } from "../../ui/PlusCornerCard";
+import { Icon } from "../../Icon";
+import { IntegrationsCard } from "../../bento/IntegrationsCard";
+import { DataVaultCard } from "../../bento/DataVaultCard";
 
 interface BentoFeaturesProps {
   className?: string;

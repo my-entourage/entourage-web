@@ -1,6 +1,6 @@
 "use client";
 
-import { useTheme } from "./ThemeProvider";
+import { useTheme } from "@/providers/ThemeProvider";
 import { Icon } from "./Icon";
 
 /**

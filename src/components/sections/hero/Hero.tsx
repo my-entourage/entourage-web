@@ -2,9 +2,9 @@
 
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
-import { Container } from "./ui/Container";
-import { Button } from "./ui/Button";
-import { PlusCorner } from "./ui/PlusCorner";
+import { Container } from "../../ui/Container";
+import { Button } from "../../ui/Button";
+import { PlusCorner } from "../../ui/PlusCorner";
 
 export function Hero() {
   const prefersReducedMotion = useReducedMotion();

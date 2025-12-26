@@ -2,10 +2,10 @@
 
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { Container } from "./ui/Container";
-import { Icon } from "./Icon";
-import { LogoMark } from "./Logo";
-import { PlusCorner } from "./ui/PlusCorner";
+import { Container } from "../../ui/Container";
+import { Icon } from "../../Icon";
+import { LogoMark } from "../../Logo";
+import { PlusCorner } from "../../ui/PlusCorner";
 
 interface FlowSectionProps {
   className?: string;
