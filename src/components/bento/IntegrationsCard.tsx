@@ -21,7 +21,7 @@ export function IntegrationsCard() {
       <div className="flex-1 flex items-center justify-center p-4 md:p-6">
         <svg
           className="w-full h-auto max-h-[320px] md:max-h-[360px] text-zinc-300 dark:text-zinc-700"
-          viewBox="0 0 400 200"
+          viewBox="0 -10 400 220"
           preserveAspectRatio="xMidYMid meet"
         >
           {/* Circuit paths from integrations to center */}
@@ -122,63 +122,63 @@ export function IntegrationsCard() {
           </g>
 
           {/* Integration icons - Top row */}
-          <foreignObject x="48" y="5" width="24" height="24">
+          <foreignObject x="42" y="-2" width="36" height="36">
             <div className="w-full h-full flex items-center justify-center">
-              <Icon icon="simple-icons:linear" size={18} className="text-zinc-600 dark:text-zinc-400" />
+              <Icon icon="simple-icons:linear" size={28} className="text-zinc-600 dark:text-zinc-400" />
             </div>
           </foreignObject>
-          <foreignObject x="128" y="5" width="24" height="24">
+          <foreignObject x="122" y="-2" width="36" height="36">
             <div className="w-full h-full flex items-center justify-center">
-              <Icon icon="simple-icons:slack" size={18} className="text-zinc-600 dark:text-zinc-400" />
+              <Icon icon="simple-icons:slack" size={28} className="text-zinc-600 dark:text-zinc-400" />
             </div>
           </foreignObject>
-          <foreignObject x="188" y="5" width="24" height="24">
+          <foreignObject x="182" y="-2" width="36" height="36">
             <div className="w-full h-full flex items-center justify-center">
-              <Icon icon="simple-icons:googledrive" size={18} className="text-zinc-600 dark:text-zinc-400" />
+              <Icon icon="simple-icons:googledrive" size={28} className="text-zinc-600 dark:text-zinc-400" />
             </div>
           </foreignObject>
-          <foreignObject x="248" y="5" width="24" height="24">
+          <foreignObject x="242" y="-2" width="36" height="36">
             <div className="w-full h-full flex items-center justify-center">
-              <Icon icon="mdi:gmail" size={20} className="text-zinc-600 dark:text-zinc-400" />
+              <Icon icon="mdi:gmail" size={32} className="text-zinc-600 dark:text-zinc-400" />
             </div>
           </foreignObject>
-          <foreignObject x="328" y="5" width="24" height="24">
+          <foreignObject x="322" y="-2" width="36" height="36">
             <div className="w-full h-full flex items-center justify-center">
-              <Icon icon="simple-icons:whatsapp" size={18} className="text-zinc-600 dark:text-zinc-400" />
+              <Icon icon="simple-icons:whatsapp" size={28} className="text-zinc-600 dark:text-zinc-400" />
             </div>
           </foreignObject>
 
           {/* Integration icons - Bottom row */}
-          <foreignObject x="48" y="171" width="24" height="24">
+          <foreignObject x="42" y="166" width="36" height="36">
             <div className="w-full h-full flex items-center justify-center">
-              <Icon icon="simple-icons:microsoftoutlook" size={18} className="text-zinc-600 dark:text-zinc-400" />
+              <Icon icon="simple-icons:microsoftoutlook" size={28} className="text-zinc-600 dark:text-zinc-400" />
             </div>
           </foreignObject>
-          <foreignObject x="128" y="171" width="24" height="24">
+          <foreignObject x="122" y="166" width="36" height="36">
             <div className="w-full h-full flex items-center justify-center">
-              <Icon icon="simple-icons:notion" size={18} className="text-zinc-600 dark:text-zinc-400" />
+              <Icon icon="simple-icons:notion" size={28} className="text-zinc-600 dark:text-zinc-400" />
             </div>
           </foreignObject>
-          <foreignObject x="188" y="171" width="24" height="24">
+          <foreignObject x="182" y="166" width="36" height="36">
             <div className="w-full h-full flex items-center justify-center">
-              <Icon icon="simple-icons:openai" size={18} className="text-zinc-600 dark:text-zinc-400" />
+              <Icon icon="simple-icons:openai" size={28} className="text-zinc-600 dark:text-zinc-400" />
             </div>
           </foreignObject>
-          <foreignObject x="248" y="171" width="24" height="24">
+          <foreignObject x="242" y="166" width="36" height="36">
             <div className="w-full h-full flex items-center justify-center">
               <img
                 src="/icons/fireflies.svg"
                 alt="Fireflies"
-                className="w-[18px] h-[18px] opacity-70 grayscale dark:invert"
+                className="w-[28px] h-[28px] opacity-70 grayscale dark:invert"
               />
             </div>
           </foreignObject>
-          <foreignObject x="328" y="171" width="24" height="24">
+          <foreignObject x="322" y="166" width="36" height="36">
             <div className="w-full h-full flex items-center justify-center">
               <img
                 src="/icons/granola.svg"
                 alt="Granola"
-                className="w-[20px] h-[20px] opacity-70 grayscale dark:invert"
+                className="w-[32px] h-[32px] opacity-70 grayscale dark:invert"
               />
             </div>
           </foreignObject>
