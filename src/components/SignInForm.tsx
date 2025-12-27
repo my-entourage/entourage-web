@@ -67,6 +67,7 @@ export function SignInForm() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
+          autoComplete="email"
           disabled={status === "loading" || status === "success"}
         />
       </div>
@@ -80,6 +81,7 @@ export function SignInForm() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
+          autoComplete="current-password"
           disabled={status === "loading" || status === "success"}
         />
       </div>
