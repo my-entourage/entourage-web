@@ -3,11 +3,18 @@
 import posthog from "posthog-js";
 import { PostHogProvider as PHProvider, usePostHog } from "posthog-js/react";
 import { usePathname, useSearchParams } from "next/navigation";
-import { Suspense, useEffect, type ReactNode } from "react";
+import { Suspense, useEffect, useState, type ReactNode } from "react";
 import { useHydrated, usePostHogIdentify } from "@/hooks";
 
-// Initialize PostHog only on client side
-if (typeof window !== "undefined") {
+// Track if PostHog has been initialized
+let posthogInitialized = false;
+
+/**
+ * Initialize PostHog lazily during idle time to reduce main thread blocking
+ */
+function initPostHog() {
+  if (posthogInitialized || typeof window === "undefined") return;
+
   const posthogKey = process.env.NEXT_PUBLIC_POSTHOG_KEY;
   const posthogHost = process.env.NEXT_PUBLIC_POSTHOG_HOST;
 
@@ -19,6 +26,7 @@ if (typeof window !== "undefined") {
       capture_pageleave: true,
       persistence: "localStorage+cookie",
     });
+    posthogInitialized = true;
   }
 }
 
@@ -68,14 +76,37 @@ interface PostHogProviderProps {
 
 export function PostHogProvider({ children }: PostHogProviderProps) {
   const isReady = useHydrated();
+  const [isPostHogReady, setIsPostHogReady] = useState(posthogInitialized);
+
+  // Initialize PostHog during idle time to reduce main thread blocking
+  useEffect(() => {
+    if (posthogInitialized) {
+      setIsPostHogReady(true);
+      return;
+    }
+
+    // Use requestIdleCallback if available, otherwise setTimeout
+    const initWithDelay = () => {
+      initPostHog();
+      setIsPostHogReady(true);
+    };
+
+    if ("requestIdleCallback" in window) {
+      const id = window.requestIdleCallback(initWithDelay, { timeout: 2000 });
+      return () => window.cancelIdleCallback(id);
+    } else {
+      const id = setTimeout(initWithDelay, 100);
+      return () => clearTimeout(id);
+    }
+  }, []);
 
   // During SSR or before hydration, render children without PostHog
   if (!isReady) {
     return <>{children}</>;
   }
 
-  // If PostHog is not configured, just render children
-  if (!process.env.NEXT_PUBLIC_POSTHOG_KEY) {
+  // If PostHog is not configured or not ready, just render children
+  if (!process.env.NEXT_PUBLIC_POSTHOG_KEY || !isPostHogReady) {
     return <>{children}</>;
   }
 

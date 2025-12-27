@@ -453,6 +453,30 @@ body {
   }
 }
 
+/* Disable non-composited animations on mobile for better performance */
+/* These animations use box-shadow, border-color, and offset-distance which are not GPU-accelerated */
+@media (max-width: 767px) {
+  .circuit-signal {
+    animation: none !important;
+    opacity: 0;
+  }
+
+  .flow-action-badge,
+  .flow-action-extract,
+  .flow-action-analyze,
+  .flow-action-organize {
+    animation: none !important;
+  }
+
+  .flow-task-arrive {
+    animation: none !important;
+  }
+
+  .flow-input-source {
+    animation: none !important;
+  }
+}
+
 /* Hero fade-up animations - CSS-based for iOS Safari compatibility */
 @keyframes fade-up {
   from {
