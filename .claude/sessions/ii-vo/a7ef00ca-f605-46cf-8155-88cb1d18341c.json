@@ -1,22 +1,22 @@
 {
   "schema_version": 1,
-  "session_id": "57ed3ba7-5ba9-4c9e-99f9-2bcae580c30c",
-  "transcript_path": "/Users/ia/.claude/projects/-Users-ia-Documents-code--orgs-my-entourage-entourage-web/57ed3ba7-5ba9-4c9e-99f9-2bcae580c30c.jsonl",
-  "status": "complete",
+  "session_id": "a7ef00ca-f605-46cf-8155-88cb1d18341c",
+  "transcript_path": "/Users/ia/.claude/projects/-Users-ia-Documents-code--orgs-my-entourage-entourage-web/a7ef00ca-f605-46cf-8155-88cb1d18341c.jsonl",
+  "status": "incomplete",
   "start": {
-    "timestamp": "2025-12-27T17:37:47Z",
+    "timestamp": "2025-12-27T17:50:17Z",
     "cwd": "/Users/ia/Documents/code/@orgs/my-entourage/entourage-web",
     "source": "clear",
     "git": {
-      "sha": "d11f2e56dda8923aa37f401e4a1994967add3c6e",
+      "sha": "62eb900e3457fcaedd85ee9711c0438c1540fff9",
       "branch": "development",
       "is_repo": true,
       "dirty": true,
       "dirty_files": [
-        ".claude/sessions/ii-vo/26344772-b0e7-4d81-a4dc-25133b5739f8.json",
-        ".claude/sessions/ii-vo/a4270342-4331-47f4-9a8b-3cb50c2320a8.json",
+        ".claude/sessions/ii-vo/be7fac6b-361b-43f5-a59c-b8888a1b3121.json",
+        "src/components/sections/team-credentials/TeamCredentialsSection.tsx",
         ".claude/sessions/ii-vo/.lock",
-        ".claude/sessions/ii-vo/26344772-b0e7-4d81-a4dc-25133b5739f8.jsonl"
+        ".claude/sessions/ii-vo/be7fac6b-361b-43f5-a59c-b8888a1b3121.jsonl"
       ],
       "dirty_count": 4
     },
@@ -47,18 +47,6 @@
     }
   },
   "end": {
-    "timestamp": "2025-12-27T17:59:53Z",
-    "reason": "clear",
-    "duration_seconds": 1326,
-    "git": {
-      "sha": "62eb900e3457fcaedd85ee9711c0438c1540fff9",
-      "dirty": true,
-      "commits_made": [
-        "62eb900e3457fcaedd85ee9711c0438c1540fff9",
-        "64142eba078973aea01f6a6c00d3d606b14e355c",
-        "f6eef6f9bddd9c2d94b0d1b8f3431108d0bb293f",
-        "dba186f125e9c4d4838f0a39b40a817673aef8c3"
-      ]
-    }
+    "reason": "orphaned"
   }
 }
