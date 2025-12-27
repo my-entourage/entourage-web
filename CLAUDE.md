@@ -4,7 +4,7 @@
 
 **Entourage** is a marketing landing page for an AI-powered task extraction platform. The product concept: automatically extract actionable items from meetings, chats, emails, and documents—then let users review and approve before syncing to their task tools.
 
-**Current state**: Public-facing marketing website. No backend, no auth, no waitlist form yet.
+**Current state**: Public-facing marketing website with waitlist signup, Supabase backend, Clerk auth, and PostHog analytics.
 
 **Tagline**: "Know what needs to be done. Without touching your task list."
 
@@ -44,10 +44,17 @@ src/
 │   ├── Icon.tsx        # Icon utility
 │   ├── Logo.tsx        # Logo component
 │   └── ThemeToggle.tsx # Theme toggle button
+├── hooks/
+│   ├── useHydrated.ts    # SSR-safe hydration detection
+│   ├── useWaitlist.ts    # Waitlist form logic
+│   └── usePostHogIdentify.ts  # Analytics identification
 ├── providers/
-│   └── ThemeProvider.tsx  # Theme context
+│   ├── ThemeProvider.tsx  # Theme context
+│   └── PostHogProvider.tsx  # Analytics provider
 ├── lib/
-│   └── utils.ts        # cn() utility
+│   ├── utils.ts        # cn() utility
+│   ├── analytics.ts    # PostHog tracking helpers
+│   └── types.ts        # Shared TypeScript types
 docs/
 └── design-system.md    # Complete design guide
 thoughts/shared/
@@ -65,6 +72,7 @@ thoughts/shared/
 | UI primitives | `components/ui/` | `ui/button.tsx` |
 | Context providers | `providers/` | `providers/ThemeProvider.tsx` |
 | Utilities | `lib/` | `lib/utils.ts` |
+| Custom hooks | `hooks/` | `hooks/useWaitlist.ts` |
 
 ### Creating New Components
 
@@ -185,8 +193,15 @@ export function Card({ className, ...props }) {
 | `.claude/settings.json.backup.*` | Temporary backups | **Never** |
 | `playwright-report/` | Test artifacts | **Never** |
 
-## Current Work
+## Testing
 
-Branch: `feat/design-system`
+```bash
+pnpm test          # Run unit tests (watch mode)
+pnpm test:run      # Run all tests once
+pnpm test:e2e      # Run Playwright E2E tests
+pnpm lint          # Run ESLint
+```
 
-Landing page redesign in progress. See `thoughts/shared/plans/` for implementation details.
+Tests are located in:
+- `src/**/*.test.tsx` — Component unit tests
+- `tests/` — API and integration tests
