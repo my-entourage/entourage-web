@@ -2,7 +2,7 @@
   "schema_version": 1,
   "session_id": "17641962-1d30-45ac-bdbc-ff738403fb3a",
   "transcript_path": "/Users/ia/.claude/projects/-Users-ia-Documents-code--orgs-my-entourage-entourage-web/17641962-1d30-45ac-bdbc-ff738403fb3a.jsonl",
-  "status": "incomplete",
+  "status": "complete",
   "start": {
     "timestamp": "2025-12-27T15:15:23Z",
     "cwd": "/Users/ia/Documents/code/@orgs/my-entourage/entourage-web",
@@ -58,6 +58,17 @@
     }
   },
   "end": {
-    "reason": "orphaned"
+    "timestamp": "2025-12-27T15:36:33Z",
+    "reason": "prompt_input_exit",
+    "duration_seconds": 1270,
+    "git": {
+      "sha": "14a79469c89ebbd4d1f371b28016b18dc2d097a0",
+      "dirty": true,
+      "commits_made": [
+        "14a79469c89ebbd4d1f371b28016b18dc2d097a0",
+        "63cd25e77d647fdc22249e7654da88a966b12345",
+        "3e954d01f7b78c62bb25d8b9a02784b8bc8c939a"
+      ]
+    }
   }
 }
