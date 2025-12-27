@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Container } from "../../ui/Container";
 
 const XIcon = () => (
@@ -27,6 +28,13 @@ export function Footer() {
             <span className="font-mono text-sm text-zinc-400 dark:text-zinc-500">Entourage</span>
             <span className="text-zinc-200 dark:text-zinc-700">|</span>
             <span className="text-sm text-zinc-400 dark:text-zinc-500">Built with AI</span>
+            <span className="text-zinc-200 dark:text-zinc-700">|</span>
+            <Link
+              href="/careers"
+              className="text-sm text-zinc-400 dark:text-zinc-500 hover:text-black dark:hover:text-white transition-colors"
+            >
+              We're hiring
+            </Link>
           </div>
 
           <div className="flex items-center gap-6">
