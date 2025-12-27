@@ -7,6 +7,7 @@ type Theme = "light" | "dark";
 interface ThemeContextType {
   theme: Theme;
   toggleTheme: () => void;
+  isMounted: boolean;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
@@ -46,7 +47,7 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
   }
 
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+    <ThemeContext.Provider value={{ theme, toggleTheme, isMounted: mounted }}>
       {children}
     </ThemeContext.Provider>
   );
@@ -56,7 +57,7 @@ export function useTheme() {
   const context = useContext(ThemeContext);
   // Return default values during SSR when context is not yet available
   if (!context) {
-    return { theme: "light" as const, toggleTheme: () => {} };
+    return { theme: "light" as const, toggleTheme: () => {}, isMounted: false };
   }
   return context;
 }

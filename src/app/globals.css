@@ -438,19 +438,19 @@ body {
 
 /* Infinite scroll animations - GPU accelerated for smooth performance */
 @keyframes scroll {
-  from {
+  0% {
     transform: translate3d(0, 0, 0);
   }
-  to {
-    transform: translate3d(-50%, 0, 0);
+  100% {
+    transform: translate3d(calc(-50% - var(--slider-gap, 0px) / 2), 0, 0);
   }
 }
 
 @keyframes scroll-reverse {
-  from {
-    transform: translate3d(-50%, 0, 0);
+  0% {
+    transform: translate3d(calc(-50% - var(--slider-gap, 0px) / 2), 0, 0);
   }
-  to {
+  100% {
     transform: translate3d(0, 0, 0);
   }
 }
@@ -460,6 +460,8 @@ body {
   will-change: transform;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
+  /* Prevent sub-pixel rendering issues */
+  transform: translateZ(0);
 }
 
 .animate-scroll-reverse {
@@ -467,6 +469,16 @@ body {
   will-change: transform;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
+  /* Prevent sub-pixel rendering issues */
+  transform: translateZ(0);
+}
+
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .animate-scroll,
+  .animate-scroll-reverse {
+    animation: none;
+  }
 }
 
 /* Hero fade-up animations - CSS-based for iOS Safari compatibility */

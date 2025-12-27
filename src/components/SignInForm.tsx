@@ -7,6 +7,7 @@ import { isClerkAPIResponseError } from "@clerk/nextjs/errors";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/Input";
 import { Label } from "@/components/Label";
+import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 
 export function SignInForm() {
@@ -55,6 +56,22 @@ export function SignInForm() {
       console.error("Sign-in error:", err);
     }
   };
+
+  if (!isLoaded) {
+    return (
+      <div className="w-full max-w-md space-y-4">
+        <div className="space-y-2">
+          <Skeleton className="h-4 w-12 rounded-none" />
+          <Skeleton className="h-11 w-full rounded-none" />
+        </div>
+        <div className="space-y-2">
+          <Skeleton className="h-4 w-16 rounded-none" />
+          <Skeleton className="h-11 w-full rounded-none" />
+        </div>
+        <Skeleton className="h-11 w-full rounded-none" />
+      </div>
+    );
+  }
 
   return (
     <form onSubmit={handleSubmit} className="w-full max-w-md space-y-4">

@@ -2,7 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import { Container } from "../../ui/Container";
-import { InfiniteSlider } from "../../ui/InfiniteSlider";
+import { InfiniteSlider } from "../../InfiniteSlider";
 import { PlusCorner } from "../../ui/PlusCorner";
 
 interface TeamCredentialsSectionProps {
@@ -36,18 +36,21 @@ export function TeamCredentialsSection({
 
           {/* Label - positioned over the top border with background to mask the line */}
           <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2">
-            <span className="bg-background px-4 text-xs font-mono uppercase tracking-wider text-zinc-400 dark:text-zinc-500">
+            <span className="bg-background px-3 sm:px-4 text-[10px] sm:text-xs font-mono uppercase tracking-wider text-zinc-400 dark:text-zinc-500 whitespace-nowrap">
               Built by engineers from
             </span>
           </div>
 
           {/* Logo cloud */}
           <div className="overflow-hidden pt-8 pb-6 [mask-image:linear-gradient(to_right,transparent,black_5%,black_95%,transparent)] sm:[mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
-            <InfiniteSlider gap={64} reverse speed={5}>
+            <InfiniteSlider gap={64} reverse speed={7.5}>
               {credentials.map((cred) => (
                 <div
                   key={cred.name}
-                  className="flex-shrink-0 flex items-center justify-center h-8 grayscale opacity-50 hover:opacity-100 hover:grayscale-0 transition-all duration-300"
+                  className={cn(
+                    "flex-shrink-0 flex items-center justify-center h-8 grayscale opacity-50 hover:opacity-100 hover:grayscale-0 transition-all duration-300",
+                    !cred.logoDark && "dark:invert dark:hover:invert-0"
+                  )}
                 >
                   {/* Light mode logo */}
                   <img
@@ -55,7 +58,7 @@ export function TeamCredentialsSection({
                     alt={cred.name}
                     className={cn(
                       "h-6 md:h-8 w-auto object-contain",
-                      cred.logoDark ? "dark:hidden" : "",
+                      cred.logoDark && "dark:hidden",
                       cred.className
                     )}
                   />

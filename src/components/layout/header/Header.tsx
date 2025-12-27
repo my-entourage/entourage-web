@@ -3,8 +3,15 @@
 import Link from "next/link";
 import { useState } from "react";
 import { motion, useMotionValueEvent, useScroll } from "framer-motion";
-import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import {
+  SignedIn,
+  SignedOut,
+  UserButton,
+  ClerkLoading,
+  ClerkLoaded,
+} from "@clerk/nextjs";
 import { Button } from "../../ui/Button";
+import { Skeleton } from "../../ui/skeleton";
 import { LogoMark, LogoFull } from "../../Logo";
 import { ThemeToggle } from "../../ThemeToggle";
 import { cn } from "@/lib/utils";
@@ -50,16 +57,21 @@ export function Header() {
 
         <div className="flex items-center gap-2">
           <ThemeToggle />
-          <SignedOut>
-            <Link href="/sign-in">
-              <Button variant="secondary" size="default">
-                Login
-              </Button>
-            </Link>
-          </SignedOut>
-          <SignedIn>
-            <UserButton afterSignOutUrl="/" />
-          </SignedIn>
+          <ClerkLoading>
+            <Skeleton className="h-9 w-[68px] rounded-none" />
+          </ClerkLoading>
+          <ClerkLoaded>
+            <SignedOut>
+              <Link href="/sign-in">
+                <Button variant="secondary" size="default">
+                  Login
+                </Button>
+              </Link>
+            </SignedOut>
+            <SignedIn>
+              <UserButton afterSignOutUrl="/" />
+            </SignedIn>
+          </ClerkLoaded>
         </div>
       </motion.nav>
     </header>
