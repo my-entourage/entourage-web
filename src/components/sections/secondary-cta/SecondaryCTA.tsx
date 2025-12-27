@@ -4,21 +4,8 @@ import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { Container } from "../../ui/Container";
 import { Button } from "../../ui/Button";
+import { PlusCorner } from "../../ui/PlusCorner";
 import { trackCTAClick } from "@/lib/analytics";
-
-function PlusCorner({ className }: { className?: string }) {
-  return (
-    <svg
-      className={className}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1"
-    >
-      <path d="M12 6v12m6-6H6" />
-    </svg>
-  );
-}
 
 export function SecondaryCTA() {
   const prefersReducedMotion = useReducedMotion();
