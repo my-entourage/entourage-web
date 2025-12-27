@@ -25,9 +25,79 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const siteUrl = "https://myentourage.dev";
+
 export const metadata: Metadata = {
-  title: "Entourage",
-  description: "Your personal entourage",
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: "Entourage - AI Task Extraction",
+    template: "%s | Entourage",
+  },
+  description:
+    "Know what needs to be done. Without touching your task list. Automatically extract actionable items from meetings, chats, emails, and documents.",
+  keywords: [
+    "AI",
+    "task extraction",
+    "productivity",
+    "automation",
+    "task management",
+    "meeting notes",
+    "email processing",
+  ],
+  authors: [{ name: "Entourage" }],
+  creator: "Entourage",
+  publisher: "Entourage",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: siteUrl,
+    siteName: "Entourage",
+    title: "Entourage - AI Task Extraction",
+    description:
+      "Know what needs to be done. Without touching your task list.",
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: "Entourage - AI Task Extraction Platform",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Entourage - AI Task Extraction",
+    description:
+      "Know what needs to be done. Without touching your task list.",
+    images: ["/opengraph-image"],
+  },
+  alternates: {
+    canonical: "/",
+  },
+  icons: {
+    icon: "/favicon.ico",
+  },
+};
+
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "Entourage",
+  url: "https://myentourage.dev",
+  logo: "https://myentourage.dev/logo.svg",
+  description:
+    "AI-powered task extraction platform that automatically extracts actionable items from meetings, chats, emails, and documents.",
 };
 
 export default function RootLayout({
@@ -59,6 +129,14 @@ export default function RootLayout({
       }}
     >
       <html lang="en" suppressHydrationWarning>
+        <head>
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify(organizationSchema).replace(/</g, "\\u003c"),
+            }}
+          />
+        </head>
         <body
           className={`${switzer.variable} ${geistMono.variable} antialiased`}
         >
