@@ -169,8 +169,7 @@ export function IntegrationsCard() {
               <img
                 src="/icons/fireflies.svg"
                 alt="Fireflies"
-                className="w-[18px] h-[18px]"
-                style={{ filter: "grayscale(100%) brightness(0.6)", opacity: 0.7 }}
+                className="w-[18px] h-[18px] opacity-70 grayscale dark:invert"
               />
             </div>
           </foreignObject>
@@ -179,8 +178,7 @@ export function IntegrationsCard() {
               <img
                 src="/icons/granola.svg"
                 alt="Granola"
-                className="w-[20px] h-[20px]"
-                style={{ filter: "grayscale(100%) brightness(0.6)", opacity: 0.7 }}
+                className="w-[20px] h-[20px] opacity-70 grayscale dark:invert"
               />
             </div>
           </foreignObject>
@@ -188,27 +186,24 @@ export function IntegrationsCard() {
           {/* Center Entourage node */}
           <g>
             <rect
-              x="168"
-              y="78"
-              width="64"
-              height="44"
+              x="180"
+              y="80"
+              width="40"
+              height="40"
               className="fill-white dark:fill-black stroke-zinc-200 dark:stroke-zinc-800"
               strokeWidth="1"
               strokeDasharray="2 2"
               shapeRendering="crispEdges"
             />
             <g className="stroke-zinc-400 dark:stroke-zinc-600" strokeWidth="1" fill="none">
-              <path d="M 168 73 v 10 M 163 78 h 10" />
-              <path d="M 232 73 v 10 M 227 78 h 10" />
-              <path d="M 168 117 v 10 M 163 122 h 10" />
-              <path d="M 232 117 v 10 M 227 122 h 10" />
+              <path d="M 180 75 v 10 M 175 80 h 10" />
+              <path d="M 220 75 v 10 M 215 80 h 10" />
+              <path d="M 180 115 v 10 M 175 120 h 10" />
+              <path d="M 220 115 v 10 M 215 120 h 10" />
             </g>
-            <foreignObject x="168" y="78" width="64" height="44">
-              <div className="w-full h-full flex flex-col items-center justify-center">
+            <foreignObject x="180" y="80" width="40" height="40">
+              <div className="w-full h-full flex items-center justify-center">
                 <LogoMark size={22} className="text-black dark:text-white" />
-                <span className="text-[6px] font-semibold text-black dark:text-white font-mono tracking-wider mt-0.5">
-                  ENTOURAGE
-                </span>
               </div>
             </foreignObject>
           </g>
