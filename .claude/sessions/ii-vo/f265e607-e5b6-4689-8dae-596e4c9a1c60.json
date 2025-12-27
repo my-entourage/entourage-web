@@ -2,7 +2,7 @@
   "schema_version": 1,
   "session_id": "f265e607-e5b6-4689-8dae-596e4c9a1c60",
   "transcript_path": "/Users/ia/.claude/projects/-Users-ia-Documents-code--orgs-my-entourage-entourage-web/f265e607-e5b6-4689-8dae-596e4c9a1c60.jsonl",
-  "status": "in_progress",
+  "status": "incomplete",
   "start": {
     "timestamp": "2025-12-27T15:54:40Z",
     "cwd": "/Users/ia/Documents/code/@orgs/my-entourage/entourage-web",
@@ -78,5 +78,8 @@
       },
       "mcp_servers": []
     }
+  },
+  "end": {
+    "reason": "orphaned"
   }
 }
