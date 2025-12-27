@@ -398,9 +398,9 @@ Add amber pulse animation to input badges (Meetings, Messages, Emails, Documents
 ### Success Criteria:
 
 #### Automated Verification:
-- [ ] TypeScript compiles: `pnpm tsc --noEmit`
-- [ ] Lint passes: `pnpm lint`
-- [ ] Build succeeds: `pnpm build`
+- [x] TypeScript compiles: `pnpm tsc --noEmit`
+- [x] Lint passes: `pnpm lint`
+- [x] Build succeeds: `pnpm build`
 
 #### Manual Verification:
 - [ ] Input badges pulse amber at start of animation cycle
