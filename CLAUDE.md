@@ -171,6 +171,20 @@ export function Card({ className, ...props }) {
 - Use `ComponentProps<typeof X>` for type inference
 - Destructure props with defaults
 
+## Git Workflow
+
+### Always Commit These Directories
+
+| Directory | Purpose | Commit? |
+|-----------|---------|---------|
+| `.claude/sessions/` | Claude Code session data | **Always** |
+| `.claude/commands/` | Custom slash commands | **Always** |
+| `.claude/skills/` | Custom skills | **Always** |
+| `thoughts/` | Plans, research, handoffs | **Always** |
+| `public/` | Assets (logos, icons) | **Always** |
+| `.claude/settings.json.backup.*` | Temporary backups | **Never** |
+| `playwright-report/` | Test artifacts | **Never** |
+
 ## Current Work
 
 Branch: `feat/design-system`
