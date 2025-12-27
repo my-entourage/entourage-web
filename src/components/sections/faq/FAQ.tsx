@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { Container } from "../../ui/Container";
 import {
   Accordion,
@@ -10,6 +10,7 @@ import {
 } from "@/components/Accordion";
 import { Skeleton } from "@/components/ui/skeleton";
 import { trackFAQOpened, trackFAQClosed } from "@/lib/analytics";
+import { useHydrated } from "@/hooks";
 
 const faqs = [
   {
@@ -35,13 +36,9 @@ const faqs = [
 ];
 
 export function FAQ() {
-  const [mounted, setMounted] = useState(false);
+  const mounted = useHydrated();
   const [openItem, setOpenItem] = useState<string | undefined>(undefined);
   const prevOpenItem = useRef<string | undefined>(undefined);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   const handleValueChange = useCallback(
     (value: string) => {

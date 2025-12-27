@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from "vitest";
 import { NextRequest } from "next/server";
-import { mockInsert, resetSupabaseMocks, mockSupabaseClient } from "../__mocks__/supabase-mocks";
+import { mockInsert, resetSupabaseMocks } from "../__mocks__/supabase-mocks";
 import { mockEmailSend, resetResendMocks } from "../__mocks__/resend-mocks";
 
 // Mock next/headers cookies

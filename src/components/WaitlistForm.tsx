@@ -6,48 +6,32 @@ import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/Input";
 import { Label } from "@/components/Label";
 import { cn } from "@/lib/utils";
+import { useWaitlist } from "@/hooks/useWaitlist";
 
 export function WaitlistForm() {
   const router = useRouter();
+  const { status, message, submit, trackStart } = useWaitlist();
+  
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [company, setCompany] = useState("");
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">(
-    "idle"
-  );
-  const [message, setMessage] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setStatus("loading");
-    setMessage("");
+    const success = await submit({ 
+      email, 
+      name: name || undefined, 
+      company: company || undefined 
+    });
 
-    try {
-      const res = await fetch("/api/waitlist", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, name: name || undefined, company: company || undefined }),
-      });
-
-      const data = await res.json();
-
-      if (res.ok) {
-        setStatus("success");
-        setMessage(data.message);
-        setEmail("");
-        setName("");
-        setCompany("");
-        // Redirect to home after showing success message
-        setTimeout(() => {
-          router.push("/?waitlist=success");
-        }, 1500);
-      } else {
-        setStatus("error");
-        setMessage(data.error || "Something went wrong");
-      }
-    } catch {
-      setStatus("error");
-      setMessage("Failed to submit. Please try again.");
+    if (success) {
+      setEmail("");
+      setName("");
+      setCompany("");
+      // Redirect to home after showing success message
+      setTimeout(() => {
+        router.push("/?waitlist=success");
+      }, 1500);
     }
   };
 
@@ -61,6 +45,7 @@ export function WaitlistForm() {
           placeholder="Your name"
           value={name}
           onChange={(e) => setName(e.target.value)}
+          onFocus={trackStart}
           disabled={status === "loading" || status === "success"}
         />
       </div>
@@ -73,6 +58,7 @@ export function WaitlistForm() {
           placeholder="Your company"
           value={company}
           onChange={(e) => setCompany(e.target.value)}
+          onFocus={trackStart}
           disabled={status === "loading" || status === "success"}
         />
       </div>
@@ -85,6 +71,7 @@ export function WaitlistForm() {
           placeholder="you@example.com"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          onFocus={trackStart}
           required
           disabled={status === "loading" || status === "success"}
         />

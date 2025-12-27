@@ -3,8 +3,8 @@
 import posthog from "posthog-js";
 import { PostHogProvider as PHProvider, usePostHog } from "posthog-js/react";
 import { usePathname, useSearchParams } from "next/navigation";
-import { Suspense, useEffect, useState, type ReactNode } from "react";
-import { usePostHogIdentify } from "@/hooks";
+import { Suspense, useEffect, type ReactNode } from "react";
+import { useHydrated, usePostHogIdentify } from "@/hooks";
 
 // Initialize PostHog only on client side
 if (typeof window !== "undefined") {
@@ -67,12 +67,7 @@ interface PostHogProviderProps {
 }
 
 export function PostHogProvider({ children }: PostHogProviderProps) {
-  const [isReady, setIsReady] = useState(false);
-
-  useEffect(() => {
-    // Only render PostHog provider on client
-    setIsReady(true);
-  }, []);
+  const isReady = useHydrated();
 
   // During SSR or before hydration, render children without PostHog
   if (!isReady) {
