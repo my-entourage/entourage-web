@@ -69,19 +69,26 @@ export function FlowSection({ className }: FlowSectionProps) {
             preserveAspectRatio="xMidYMid meet"
           >
             <defs>
-              {/* Radial gradient with animated amber→emerald color transition */}
-              <radialGradient id="flow-signal-gradient" fx="0.5" fy="0.5">
-                <stop offset="0%" stopColor="#F59E0B">
-                  <animate
-                    attributeName="stop-color"
-                    values="#F59E0B;#F59E0B;#10B981;#10B981"
-                    keyTimes="0;0.3;0.7;1"
-                    dur="4s"
-                    repeatCount="indefinite"
-                  />
-                </stop>
-                <stop offset="100%" stopColor="transparent" />
-              </radialGradient>
+              {/* Individual gradients for each signal - color transitions while in AI box (25-75% of path) */}
+              {desktopPaths.map((_, i) => {
+                const dur = 3.5 + i * 0.5;
+                const begin = 1.5 + i * 0.3;
+                return (
+                  <radialGradient key={`gradient-${i}`} id={`flow-signal-gradient-${i}`} fx="0.5" fy="0.5">
+                    <stop offset="0%" stopColor="#F59E0B">
+                      <animate
+                        attributeName="stop-color"
+                        values="#F59E0B;#F59E0B;#10B981;#10B981"
+                        keyTimes="0;0.25;0.75;1"
+                        dur={`${dur}s`}
+                        begin={`${begin}s`}
+                        repeatCount="indefinite"
+                      />
+                    </stop>
+                    <stop offset="100%" stopColor="transparent" />
+                  </radialGradient>
+                );
+              })}
               {/* Masks for each path */}
               {desktopPaths.map((d, i) => (
                 <mask key={`mask-${i}`} id={`flow-mask-desktop-${i + 1}`}>
@@ -114,10 +121,10 @@ export function FlowSection({ className }: FlowSectionProps) {
               ))}
             </g>
 
-            {/* Animated signal dots - masked with radial gradient */}
+            {/* Animated signal dots - each with its own gradient timing */}
             {desktopPaths.map((d, i) => (
               <g key={i} mask={`url(#flow-mask-desktop-${i + 1})`}>
-                <circle r="8" fill="url(#flow-signal-gradient)">
+                <circle r="8" fill={`url(#flow-signal-gradient-${i})`}>
                   <animateMotion
                     path={d}
                     dur={`${3.5 + i * 0.5}s`}
@@ -148,7 +155,7 @@ export function FlowSection({ className }: FlowSectionProps) {
             {inputSources.map((source) => (
               <div
                 key={source.label}
-                className="flex items-center justify-center gap-2 py-2.5 border border-zinc-300 dark:border-zinc-700 bg-background"
+                className="flow-input-source flex items-center justify-center gap-2 py-2.5 border border-zinc-300 dark:border-zinc-700 bg-background transition-colors duration-150 hover:bg-zinc-50 dark:hover:bg-zinc-900 hover:border-zinc-400 dark:hover:border-zinc-600 cursor-default"
               >
                 <Icon icon={source.icon} size={16} className="text-zinc-500 dark:text-zinc-400" />
                 <span className="text-sm font-mono text-black dark:text-white">{source.label}</span>
@@ -161,12 +168,12 @@ export function FlowSection({ className }: FlowSectionProps) {
             className="absolute left-1/2 -translate-x-1/2 w-[65%]"
             style={{ top: '22%', height: '40%' }}
           >
-            <div className="relative w-full h-full border border-dashed border-zinc-200 dark:border-zinc-800 bg-background">
+            <div className="group relative w-full h-full border border-dashed border-zinc-200 dark:border-zinc-800 bg-background transition-colors duration-150 hover:bg-zinc-50 dark:hover:bg-zinc-900 hover:border-zinc-300 dark:hover:border-zinc-700">
               {/* Plus corners */}
-              <PlusCorner className="absolute -top-2.5 -left-2.5 w-5 h-5 text-zinc-400 dark:text-zinc-600" />
-              <PlusCorner className="absolute -top-2.5 -right-2.5 w-5 h-5 text-zinc-400 dark:text-zinc-600" />
-              <PlusCorner className="absolute -bottom-2.5 -left-2.5 w-5 h-5 text-zinc-400 dark:text-zinc-600" />
-              <PlusCorner className="absolute -bottom-2.5 -right-2.5 w-5 h-5 text-zinc-400 dark:text-zinc-600" />
+              <PlusCorner className="absolute -top-2.5 -left-2.5 w-5 h-5 text-zinc-400 dark:text-zinc-600 transition-colors duration-150 group-hover:text-zinc-500 dark:group-hover:text-zinc-500" />
+              <PlusCorner className="absolute -top-2.5 -right-2.5 w-5 h-5 text-zinc-400 dark:text-zinc-600 transition-colors duration-150 group-hover:text-zinc-500 dark:group-hover:text-zinc-500" />
+              <PlusCorner className="absolute -bottom-2.5 -left-2.5 w-5 h-5 text-zinc-400 dark:text-zinc-600 transition-colors duration-150 group-hover:text-zinc-500 dark:group-hover:text-zinc-500" />
+              <PlusCorner className="absolute -bottom-2.5 -right-2.5 w-5 h-5 text-zinc-400 dark:text-zinc-600 transition-colors duration-150 group-hover:text-zinc-500 dark:group-hover:text-zinc-500" />
 
               {/* Title badge */}
               <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2 border border-zinc-300 dark:border-zinc-700 bg-background px-3 py-1">
@@ -184,24 +191,21 @@ export function FlowSection({ className }: FlowSectionProps) {
                 </span>
               </div>
 
-              {/* Floating badges with staggered pulse animation */}
-              <div
-                className="flow-action-badge absolute top-3 left-3 border border-zinc-200 dark:border-zinc-700 bg-background px-2 py-1 text-xs font-mono text-zinc-500 dark:text-zinc-400 flex items-center gap-1"
-                style={{ animationDelay: '0s' }}
-              >
+              {/* Floating badges with smooth color-coded glow animations */}
+              <div className="flow-action-badge flow-action-extract absolute top-3 left-3 border border-zinc-200 dark:border-zinc-700 bg-background px-2 py-1 text-xs font-mono text-zinc-500 dark:text-zinc-400 flex items-center gap-1 transition-colors duration-150 hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-zinc-600 dark:hover:text-zinc-300 cursor-default">
                 <Icon icon="lucide:scan-text" size={12} />
                 <span>Extract</span>
               </div>
               <div
-                className="flow-action-badge absolute bottom-3 left-3 border border-zinc-200 dark:border-zinc-700 bg-background px-2 py-1 text-xs font-mono text-zinc-500 dark:text-zinc-400 flex items-center gap-1"
-                style={{ animationDelay: '0.15s' }}
+                className="flow-action-badge flow-action-analyze absolute bottom-3 left-3 border border-zinc-200 dark:border-zinc-700 bg-background px-2 py-1 text-xs font-mono text-zinc-500 dark:text-zinc-400 flex items-center gap-1 transition-colors duration-150 hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-zinc-600 dark:hover:text-zinc-300 cursor-default"
+                style={{ animationDelay: '2s' }}
               >
                 <Icon icon="lucide:scan-search" size={12} />
                 <span>Analyze</span>
               </div>
               <div
-                className="flow-action-badge absolute bottom-3 right-3 border border-zinc-200 dark:border-zinc-700 bg-background px-2 py-1 text-xs font-mono text-zinc-500 dark:text-zinc-400 flex items-center gap-1"
-                style={{ animationDelay: '0.3s' }}
+                className="flow-action-badge flow-action-organize absolute bottom-3 right-3 border border-zinc-200 dark:border-zinc-700 bg-background px-2 py-1 text-xs font-mono text-zinc-500 dark:text-zinc-400 flex items-center gap-1 transition-colors duration-150 hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-zinc-600 dark:hover:text-zinc-300 cursor-default"
+                style={{ animationDelay: '4s' }}
               >
                 <Icon icon="lucide:list-checks" size={12} />
                 <span>Organize</span>
@@ -214,7 +218,7 @@ export function FlowSection({ className }: FlowSectionProps) {
             className="absolute left-1/2 -translate-x-1/2 flex flex-col items-center"
             style={{ top: '80%' }}
           >
-            <div className="flow-task-arrive flex items-center gap-3 border border-black dark:border-white bg-background px-4 py-2">
+            <div className="flow-task-arrive flex items-center gap-3 border border-black dark:border-white bg-background px-4 py-2 transition-colors duration-150 hover:bg-zinc-50 dark:hover:bg-zinc-900 cursor-default">
               <Icon icon="lucide:clipboard-check" size={20} className="text-black dark:text-white" />
               <span className="text-sm font-mono text-black dark:text-white">Your Tasks</span>
               <div className="flow-checkmark-bounce w-4 h-4 bg-emerald-500 flex items-center justify-center">
@@ -236,19 +240,26 @@ export function FlowSection({ className }: FlowSectionProps) {
             preserveAspectRatio="xMidYMid meet"
           >
             <defs>
-              {/* Radial gradient with animated amber→emerald color transition */}
-              <radialGradient id="flow-signal-gradient-mobile" fx="0.5" fy="0.5">
-                <stop offset="0%" stopColor="#F59E0B">
-                  <animate
-                    attributeName="stop-color"
-                    values="#F59E0B;#F59E0B;#10B981;#10B981"
-                    keyTimes="0;0.3;0.7;1"
-                    dur="4s"
-                    repeatCount="indefinite"
-                  />
-                </stop>
-                <stop offset="100%" stopColor="transparent" />
-              </radialGradient>
+              {/* Individual gradients for each signal - color transitions while in AI box (25-75% of path) */}
+              {mobilePaths.map((_, i) => {
+                const dur = 3.5 + i * 0.5;
+                const begin = 1.5 + i * 0.3;
+                return (
+                  <radialGradient key={`gradient-mobile-${i}`} id={`flow-signal-gradient-mobile-${i}`} fx="0.5" fy="0.5">
+                    <stop offset="0%" stopColor="#F59E0B">
+                      <animate
+                        attributeName="stop-color"
+                        values="#F59E0B;#F59E0B;#10B981;#10B981"
+                        keyTimes="0;0.25;0.75;1"
+                        dur={`${dur}s`}
+                        begin={`${begin}s`}
+                        repeatCount="indefinite"
+                      />
+                    </stop>
+                    <stop offset="100%" stopColor="transparent" />
+                  </radialGradient>
+                );
+              })}
               {/* Masks for each path */}
               {mobilePaths.map((d, i) => (
                 <mask key={`mask-${i}`} id={`flow-mask-mobile-${i + 1}`}>
@@ -281,10 +292,10 @@ export function FlowSection({ className }: FlowSectionProps) {
               ))}
             </g>
 
-            {/* Animated signal dots - masked with radial gradient */}
+            {/* Animated signal dots - each with its own gradient timing */}
             {mobilePaths.map((d, i) => (
               <g key={i} mask={`url(#flow-mask-mobile-${i + 1})`}>
-                <circle r="6" fill="url(#flow-signal-gradient-mobile)">
+                <circle r="6" fill={`url(#flow-signal-gradient-mobile-${i})`}>
                   <animateMotion
                     path={d}
                     dur={`${3.5 + i * 0.5}s`}
@@ -315,7 +326,7 @@ export function FlowSection({ className }: FlowSectionProps) {
             {inputSources.map((source) => (
               <div
                 key={source.label}
-                className="flex items-center justify-center gap-1.5 py-2 border border-zinc-300 dark:border-zinc-700 bg-background"
+                className="flow-input-source flex items-center justify-center gap-1.5 py-2 border border-zinc-300 dark:border-zinc-700 bg-background transition-colors duration-150 hover:bg-zinc-50 dark:hover:bg-zinc-900 hover:border-zinc-400 dark:hover:border-zinc-600 cursor-default"
               >
                 <Icon icon={source.icon} size={14} className="text-zinc-500 dark:text-zinc-400" />
                 <span className="text-xs font-mono text-black dark:text-white">{source.label}</span>
@@ -328,11 +339,11 @@ export function FlowSection({ className }: FlowSectionProps) {
             className="absolute left-1/2 -translate-x-1/2 w-[80%]"
             style={{ top: '28%', height: '38%' }}
           >
-            <div className="relative w-full h-full border border-dashed border-zinc-200 dark:border-zinc-800 bg-background">
-              <PlusCorner className="absolute -top-2 -left-2 w-4 h-4 text-zinc-400 dark:text-zinc-600" />
-              <PlusCorner className="absolute -top-2 -right-2 w-4 h-4 text-zinc-400 dark:text-zinc-600" />
-              <PlusCorner className="absolute -bottom-2 -left-2 w-4 h-4 text-zinc-400 dark:text-zinc-600" />
-              <PlusCorner className="absolute -bottom-2 -right-2 w-4 h-4 text-zinc-400 dark:text-zinc-600" />
+            <div className="group relative w-full h-full border border-dashed border-zinc-200 dark:border-zinc-800 bg-background transition-colors duration-150 hover:bg-zinc-50 dark:hover:bg-zinc-900 hover:border-zinc-300 dark:hover:border-zinc-700">
+              <PlusCorner className="absolute -top-2 -left-2 w-4 h-4 text-zinc-400 dark:text-zinc-600 transition-colors duration-150 group-hover:text-zinc-500 dark:group-hover:text-zinc-500" />
+              <PlusCorner className="absolute -top-2 -right-2 w-4 h-4 text-zinc-400 dark:text-zinc-600 transition-colors duration-150 group-hover:text-zinc-500 dark:group-hover:text-zinc-500" />
+              <PlusCorner className="absolute -bottom-2 -left-2 w-4 h-4 text-zinc-400 dark:text-zinc-600 transition-colors duration-150 group-hover:text-zinc-500 dark:group-hover:text-zinc-500" />
+              <PlusCorner className="absolute -bottom-2 -right-2 w-4 h-4 text-zinc-400 dark:text-zinc-600 transition-colors duration-150 group-hover:text-zinc-500 dark:group-hover:text-zinc-500" />
 
               <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5 border border-zinc-300 dark:border-zinc-700 bg-background px-2 py-0.5">
                 <Icon icon="lucide:sparkles" size={10} className="text-black dark:text-white" />
@@ -347,24 +358,21 @@ export function FlowSection({ className }: FlowSectionProps) {
                 </span>
               </div>
 
-              {/* Floating badges with staggered pulse animation - mobile */}
-              <div
-                className="flow-action-badge absolute top-2 left-2 border border-zinc-200 dark:border-zinc-700 bg-background px-1.5 py-0.5 text-[10px] font-mono text-zinc-500 dark:text-zinc-400 flex items-center gap-1"
-                style={{ animationDelay: '0s' }}
-              >
+              {/* Floating badges with smooth color-coded glow animations - mobile */}
+              <div className="flow-action-badge flow-action-extract absolute top-2 left-2 border border-zinc-200 dark:border-zinc-700 bg-background px-1.5 py-0.5 text-[10px] font-mono text-zinc-500 dark:text-zinc-400 flex items-center gap-1 transition-colors duration-150 hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-zinc-600 dark:hover:text-zinc-300 cursor-default">
                 <Icon icon="lucide:scan-text" size={10} />
                 <span>Extract</span>
               </div>
               <div
-                className="flow-action-badge absolute bottom-2 left-2 border border-zinc-200 dark:border-zinc-700 bg-background px-1.5 py-0.5 text-[10px] font-mono text-zinc-500 dark:text-zinc-400 flex items-center gap-1"
-                style={{ animationDelay: '0.15s' }}
+                className="flow-action-badge flow-action-analyze absolute bottom-2 left-2 border border-zinc-200 dark:border-zinc-700 bg-background px-1.5 py-0.5 text-[10px] font-mono text-zinc-500 dark:text-zinc-400 flex items-center gap-1 transition-colors duration-150 hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-zinc-600 dark:hover:text-zinc-300 cursor-default"
+                style={{ animationDelay: '2s' }}
               >
                 <Icon icon="lucide:scan-search" size={10} />
                 <span>Analyze</span>
               </div>
               <div
-                className="flow-action-badge absolute bottom-2 right-2 border border-zinc-200 dark:border-zinc-700 bg-background px-1.5 py-0.5 text-[10px] font-mono text-zinc-500 dark:text-zinc-400 flex items-center gap-1"
-                style={{ animationDelay: '0.3s' }}
+                className="flow-action-badge flow-action-organize absolute bottom-2 right-2 border border-zinc-200 dark:border-zinc-700 bg-background px-1.5 py-0.5 text-[10px] font-mono text-zinc-500 dark:text-zinc-400 flex items-center gap-1 transition-colors duration-150 hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-zinc-600 dark:hover:text-zinc-300 cursor-default"
+                style={{ animationDelay: '4s' }}
               >
                 <Icon icon="lucide:list-checks" size={10} />
                 <span>Organize</span>
@@ -377,7 +385,7 @@ export function FlowSection({ className }: FlowSectionProps) {
             className="absolute left-1/2 -translate-x-1/2 flex flex-col items-center"
             style={{ top: '82%' }}
           >
-            <div className="flow-task-arrive flex items-center gap-2 border border-black dark:border-white bg-background px-3 py-1.5">
+            <div className="flow-task-arrive flex items-center gap-2 border border-black dark:border-white bg-background px-3 py-1.5 transition-colors duration-150 hover:bg-zinc-50 dark:hover:bg-zinc-900 cursor-default">
               <Icon icon="lucide:clipboard-check" size={16} className="text-black dark:text-white" />
               <span className="text-xs font-mono text-black dark:text-white">Your Tasks</span>
               <div className="flow-checkmark-bounce w-3.5 h-3.5 bg-emerald-500 flex items-center justify-center">
