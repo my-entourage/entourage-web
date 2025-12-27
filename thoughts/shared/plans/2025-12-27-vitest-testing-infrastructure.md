@@ -20,7 +20,7 @@ Add comprehensive testing infrastructure to entourage-web using Vitest for unit/
 A fully configured testing environment where:
 1. `pnpm test` runs all unit and component tests via Vitest
 2. `pnpm test:e2e` runs E2E tests via Playwright
-3. Tests are co-located with source files (`Component.test.tsx`)
+3. Tests follow Next.js 16 best practices for folder structure
 4. Mocks exist for external services (Supabase, Resend, Next.js navigation)
 5. Coverage reports are generated on demand
 
@@ -29,49 +29,117 @@ A fully configured testing environment where:
 - Tests pass for all critical components
 - CI can run tests headlessly
 
+## Test Folder Structure (Next.js 16 Best Practice)
+
+Based on Next.js official docs and community consensus (2025):
+
+```
+entourage-web/
+├── src/
+│   ├── components/
+│   │   ├── WaitlistForm.tsx
+│   │   ├── WaitlistForm.test.tsx      # ✅ Co-located component test
+│   │   └── ui/
+│   │       ├── Button.tsx
+│   │       └── Button.test.tsx        # ✅ Co-located unit test
+│   ├── lib/
+│   │   ├── utils.ts
+│   │   └── utils.test.ts              # ✅ Co-located utility test
+│   ├── providers/
+│   │   ├── ThemeProvider.tsx
+│   │   └── ThemeProvider.test.tsx     # ✅ Co-located
+│   └── test/                          # Test utilities
+│       ├── setup.ts                   # Global test setup (jsdom)
+│       └── test-utils.tsx             # Custom render, providers
+├── tests/                             # ⚠️ Separate for Node-env tests
+│   ├── setup.ts                       # API test setup (node)
+│   └── api/
+│       └── waitlist.test.ts           # API route tests (Node env)
+├── e2e/                               # ✅ Always separate
+│   ├── homepage.spec.ts
+│   └── waitlist.spec.ts
+├── vitest.config.ts                   # Vitest workspace config
+└── playwright.config.ts
+```
+
+**Key decisions:**
+- **Unit/Component tests**: Co-located (`*.test.tsx` next to source)
+- **API route tests**: Separate `tests/api/` directory with **Node environment** (not jsdom)
+- **E2E tests**: Separate `e2e/` directory (Playwright)
+
+**Why separate API tests?**
+> "If you're using vitest with jsdom, note that you should NOT use a dom-like environment to test your API handlers." — next-test-api-route-handler docs
+
+**Why co-located unit tests?**
+> "Colocation lowers the friction to write and maintain tests. It makes it clear what is tested and what is not." — React community consensus
+
 ## What We're NOT Doing
 
 - Visual regression testing (Chromatic, Percy)
 - Snapshot testing (fragile, low value)
 - Testing pure ShadCN primitives in `components/ui/` (they're third-party)
 - 100% coverage targets (focus on critical paths)
+- Unit testing async Server Components (use E2E instead per Next.js docs)
 
 ## Implementation Approach
 
-Co-located tests with comprehensive mocking. Start with infrastructure, then unit tests, then component tests, then E2E.
+Hybrid test structure with Vitest workspace for multiple environments. Co-located tests for components, separate directory for API routes (Node env), and Playwright for E2E.
 
 ---
 
 ## Phase 1: Vitest Core Setup
 
 ### Overview
-Install Vitest and configure it for Next.js with React 19 and TypeScript path aliases.
+Install Vitest and configure it for Next.js 16 with React 19, TypeScript path aliases, and **dual environments** (jsdom for components, node for API routes).
 
 ### Changes Required:
 
 #### 1. Install Dependencies
 
 ```bash
-pnpm add -D vitest @vitejs/plugin-react jsdom @testing-library/react @testing-library/dom @testing-library/jest-dom @testing-library/user-event
+pnpm add -D vitest @vitejs/plugin-react vite-tsconfig-paths jsdom @testing-library/react @testing-library/dom @testing-library/jest-dom @testing-library/user-event
 ```
 
-#### 2. Create Vitest Config
+Note: `vite-tsconfig-paths` automatically resolves `@/*` path aliases from tsconfig.json.
+
+#### 2. Create Vitest Config with Projects
 
 **File**: `vitest.config.ts`
 
 ```typescript
 import { defineConfig } from "vitest/config";
 import react from "@vitejs/plugin-react";
-import path from "path";
+import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), tsconfigPaths()],
   test: {
-    environment: "jsdom",
+    // Projects configuration for multiple environments (Vitest 4+)
+    projects: [
+      {
+        // Component & Unit tests (jsdom)
+        extends: true,
+        test: {
+          name: "unit",
+          environment: "jsdom",
+          include: ["src/**/*.test.{ts,tsx}"],
+          exclude: ["node_modules", ".next"],
+          setupFiles: ["./src/test/setup.ts"],
+        },
+      },
+      {
+        // API route tests (node - NOT jsdom)
+        extends: true,
+        test: {
+          name: "api",
+          environment: "node",
+          include: ["tests/**/*.test.{ts,tsx}"],
+          exclude: ["node_modules", ".next"],
+          setupFiles: ["./tests/setup.ts"],
+        },
+      },
+    ],
     globals: true,
-    setupFiles: ["./src/test/setup.ts"],
-    include: ["src/**/*.test.{ts,tsx}"],
-    exclude: ["node_modules", ".next", "e2e"],
     coverage: {
       provider: "v8",
       reporter: ["text", "html"],
@@ -79,20 +147,17 @@ export default defineConfig({
         "node_modules",
         ".next",
         "src/test",
+        "tests",
+        "e2e",
         "**/*.config.*",
-        "src/components/ui/**", // ShadCN primitives
+        "src/components/ui/**", // ShadCN primitives - don't test
       ],
-    },
-  },
-  resolve: {
-    alias: {
-      "@": path.resolve(__dirname, "./src"),
     },
   },
 });
 ```
 
-#### 3. Create Test Setup File
+#### 3. Create Component Test Setup (jsdom)
 
 **File**: `src/test/setup.ts`
 
@@ -134,7 +199,23 @@ Object.defineProperty(window, "matchMedia", {
 });
 ```
 
-#### 4. Add TypeScript Types
+#### 4. Create API Test Setup (node)
+
+**File**: `tests/setup.ts`
+
+```typescript
+import { vi } from "vitest";
+
+// API tests run in Node environment - no DOM mocks needed
+// Add any API-specific setup here
+
+// Example: Reset environment variables between tests
+beforeEach(() => {
+  vi.unstubAllEnvs();
+});
+```
+
+#### 5. Add TypeScript Types
 
 **File**: `src/test/vitest.d.ts`
 
@@ -143,7 +224,7 @@ Object.defineProperty(window, "matchMedia", {
 /// <reference types="@testing-library/jest-dom" />
 ```
 
-#### 5. Update package.json Scripts
+#### 6. Update package.json Scripts
 
 Add to `package.json` scripts:
 
@@ -152,12 +233,14 @@ Add to `package.json` scripts:
   "scripts": {
     "test": "vitest",
     "test:run": "vitest run",
+    "test:unit": "vitest run --project unit",
+    "test:api": "vitest run --project api",
     "test:coverage": "vitest run --coverage"
   }
 }
 ```
 
-#### 6. Update tsconfig.json
+#### 7. Update tsconfig.json
 
 Add test types to `compilerOptions.types`:
 
@@ -172,10 +255,12 @@ Add test types to `compilerOptions.types`:
 ### Success Criteria:
 
 #### Automated Verification:
-- [ ] `pnpm install` completes without errors
-- [ ] `pnpm test:run` executes (may show "no tests" initially)
-- [ ] TypeScript recognizes `describe`, `it`, `expect` globals
-- [ ] `pnpm build` still works (no conflicts)
+- [x] `pnpm install` completes without errors
+- [x] `pnpm test:run` executes (may show "no tests" initially)
+- [x] `pnpm test:unit` runs only component tests
+- [x] `pnpm test:api` runs only API tests
+- [x] TypeScript recognizes `describe`, `it`, `expect` globals
+- [x] `pnpm build` still works (no conflicts)
 
 #### Manual Verification:
 - [ ] IDE shows proper IntelliSense for test globals
@@ -299,8 +384,8 @@ export function resetFetchMock() {
 ### Success Criteria:
 
 #### Automated Verification:
-- [ ] `pnpm test:run` still executes without import errors
-- [ ] TypeScript compiles test utilities without errors
+- [x] `pnpm test:run` still executes without import errors
+- [x] TypeScript compiles test utilities without errors
 
 ---
 
@@ -360,8 +445,8 @@ describe("cn utility", () => {
 ### Success Criteria:
 
 #### Automated Verification:
-- [ ] `pnpm test:run src/lib/utils.test.ts` passes all tests
-- [ ] Tests cover edge cases (undefined, null, arrays, conflicts)
+- [x] `pnpm test:run src/lib/utils.test.ts` passes all tests
+- [x] Tests cover edge cases (undefined, null, arrays, conflicts)
 
 ---
 
@@ -485,8 +570,8 @@ describe("useTheme hook", () => {
 ### Success Criteria:
 
 #### Automated Verification:
-- [ ] `pnpm test:run src/providers/ThemeProvider.test.tsx` passes
-- [ ] Tests cover localStorage, toggle, and SSR fallback
+- [x] `pnpm test:run src/providers/ThemeProvider.test.tsx` passes
+- [x] Tests cover localStorage, toggle, and SSR fallback
 
 ---
 
@@ -660,21 +745,23 @@ describe("WaitlistForm", () => {
 ### Success Criteria:
 
 #### Automated Verification:
-- [ ] `pnpm test:run src/components/WaitlistForm.test.tsx` passes
-- [ ] Tests cover happy path, loading, success, and error states
+- [x] `pnpm test:run src/components/WaitlistForm.test.tsx` passes
+- [x] Tests cover happy path, loading, success, and error states
 
 ---
 
 ## Phase 6: API Route Tests
 
 ### Overview
-Test the waitlist API endpoint with mocked Supabase and Resend.
+Test the waitlist API endpoint with mocked Supabase and Resend. These tests run in **Node environment** (not jsdom) and are located in the separate `tests/api/` directory.
 
 ### Changes Required:
 
 #### 1. Waitlist API Tests
 
-**File**: `src/app/api/waitlist/route.test.ts`
+**File**: `tests/api/waitlist.test.ts`
+
+> **Note**: API tests are in `tests/` directory (not co-located) because they require Node environment, not jsdom. This follows Next.js best practices for API route testing.
 
 ```typescript
 import { describe, it, expect, beforeEach, vi } from "vitest";
@@ -696,8 +783,8 @@ vi.mock("resend", () => ({
   })),
 }));
 
-// Import after mocks
-import { POST } from "./route";
+// Import after mocks - use full path from tests/ directory
+import { POST } from "@/app/api/waitlist/route";
 
 function createRequest(body: unknown): NextRequest {
   return new NextRequest("http://localhost:3000/api/waitlist", {
@@ -847,7 +934,8 @@ describe("POST /api/waitlist", () => {
 ### Success Criteria:
 
 #### Automated Verification:
-- [ ] `pnpm test:run src/app/api/waitlist/route.test.ts` passes
+- [ ] `pnpm test:api` passes (runs only API tests in Node env)
+- [ ] `pnpm test:run tests/api/waitlist.test.ts` passes
 - [ ] Tests cover validation, DB operations, email, and errors
 
 ---
@@ -1223,24 +1311,31 @@ jobs:
 
 ## Testing Strategy Summary
 
-### Unit Tests (Vitest):
-- `cn()` utility - class merging edge cases
+### Test Types & Locations
+
+| Type | Location | Environment | Command |
+|------|----------|-------------|---------|
+| Unit (utils) | `src/**/*.test.ts` | jsdom | `pnpm test:unit` |
+| Component | `src/**/*.test.tsx` | jsdom | `pnpm test:unit` |
+| API Routes | `tests/api/*.test.ts` | **node** | `pnpm test:api` |
+| E2E | `e2e/*.spec.ts` | browser | `pnpm test:e2e` |
+
+### Unit Tests (Vitest - jsdom):
+- `src/lib/utils.test.ts` - `cn()` utility, class merging edge cases
 - Pure functions and utilities
 
-### Component Tests (Vitest + RTL):
-- ThemeProvider - localStorage, SSR, toggle
-- WaitlistForm - form state, API calls, errors
-- Button - variant class application
-- ThemeToggle - integration with provider
+### Component Tests (Vitest + RTL - jsdom):
+- `src/providers/ThemeProvider.test.tsx` - localStorage, SSR, toggle
+- `src/components/WaitlistForm.test.tsx` - form state, API calls, errors
+- `src/components/ui/Button.test.tsx` - variant class application
+- `src/components/ThemeToggle.test.tsx` - integration with provider
 
-### API Route Tests (Vitest):
-- Waitlist POST - validation, DB, email
-- Error handling paths
+### API Route Tests (Vitest - node):
+- `tests/api/waitlist.test.ts` - POST validation, DB, email, error handling
 
 ### E2E Tests (Playwright):
-- Homepage load and navigation
-- Theme toggle persistence
-- Waitlist flow
+- `e2e/homepage.spec.ts` - load and navigation
+- `e2e/waitlist.spec.ts` - waitlist flow
 
 ### Manual Testing:
 - Cross-browser visual consistency
@@ -1251,10 +1346,11 @@ jobs:
 
 ## References
 
-- Vitest docs: https://vitest.dev/
+- Next.js Testing Guide: https://nextjs.org/docs/app/guides/testing/vitest
+- Vitest Workspace: https://vitest.dev/guide/workspace
 - React Testing Library: https://testing-library.com/docs/react-testing-library/intro
 - Playwright: https://playwright.dev/
-- Related files:
+- Related source files:
   - `src/app/api/waitlist/route.ts:15-90` - API endpoint
   - `src/components/WaitlistForm.tsx:10-115` - Form component
   - `src/lib/utils.ts:44-46` - cn() utility
