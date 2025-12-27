@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { ThemeToggle } from "./ThemeToggle";
-import { ThemeProvider } from "@/providers/ThemeProvider";
+import { ThemeProvider, __resetThemeStore } from "@/providers/ThemeProvider";
 
 // Mock the Icon component since it uses web components
 vi.mock("./Icon", () => ({
@@ -24,6 +24,7 @@ describe("ThemeToggle", () => {
   });
 
   it("renders toggle button", async () => {
+    __resetThemeStore();
     renderWithTheme();
 
     await waitFor(() => {
@@ -32,6 +33,7 @@ describe("ThemeToggle", () => {
   });
 
   it("shows sun icon in light mode", async () => {
+    __resetThemeStore();
     renderWithTheme();
 
     await waitFor(() => {
@@ -42,6 +44,7 @@ describe("ThemeToggle", () => {
 
   it("shows moon icon in dark mode", async () => {
     localStorage.setItem("theme", "dark");
+    __resetThemeStore();
 
     renderWithTheme();
 
@@ -52,6 +55,7 @@ describe("ThemeToggle", () => {
   });
 
   it("has accessible label for light mode", async () => {
+    __resetThemeStore();
     renderWithTheme();
 
     await waitFor(() => {
@@ -64,6 +68,7 @@ describe("ThemeToggle", () => {
 
   it("has accessible label for dark mode", async () => {
     localStorage.setItem("theme", "dark");
+    __resetThemeStore();
 
     renderWithTheme();
 
@@ -76,6 +81,7 @@ describe("ThemeToggle", () => {
   });
 
   it("toggles theme when clicked", async () => {
+    __resetThemeStore();
     const user = userEvent.setup();
 
     renderWithTheme();

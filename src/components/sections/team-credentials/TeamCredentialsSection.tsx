@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { Container } from "../../ui/Container";
 import { InfiniteSlider } from "../../InfiniteSlider";
@@ -53,9 +54,11 @@ export function TeamCredentialsSection({
                   )}
                 >
                   {/* Light mode logo */}
-                  <img
+                  <Image
                     src={cred.logo}
                     alt={cred.name}
+                    width={120}
+                    height={32}
                     className={cn(
                       "h-6 md:h-8 w-auto object-contain",
                       cred.logoDark && "dark:hidden",
@@ -64,9 +67,11 @@ export function TeamCredentialsSection({
                   />
                   {/* Dark mode logo (if different) */}
                   {cred.logoDark && (
-                    <img
+                    <Image
                       src={cred.logoDark}
                       alt={cred.name}
+                      width={120}
+                      height={32}
                       className={cn(
                         "h-6 md:h-8 w-auto object-contain hidden dark:block",
                         cred.className

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { PlusCornerCard } from "../ui/PlusCornerCard";
 import { Icon } from "../Icon";
 import { LogoMark } from "../Logo";
@@ -166,19 +167,23 @@ export function IntegrationsCard() {
           </foreignObject>
           <foreignObject x="242" y="166" width="36" height="36">
             <div className="w-full h-full flex items-center justify-center">
-              <img
+              <Image
                 src="/icons/fireflies.svg"
                 alt="Fireflies"
-                className="w-[28px] h-[28px] opacity-70 grayscale dark:invert"
+                width={28}
+                height={28}
+                className="opacity-70 grayscale dark:invert"
               />
             </div>
           </foreignObject>
           <foreignObject x="322" y="166" width="36" height="36">
             <div className="w-full h-full flex items-center justify-center">
-              <img
+              <Image
                 src="/icons/granola.svg"
                 alt="Granola"
-                className="w-[32px] h-[32px] opacity-70 grayscale dark:invert"
+                width={32}
+                height={32}
+                className="opacity-70 grayscale dark:invert"
               />
             </div>
           </foreignObject>
