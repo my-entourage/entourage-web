@@ -23,22 +23,22 @@ const inputSources = [
 
 // Desktop paths (viewBox 0 0 400 500)
 // Badge bottoms: y ≈ 30 | AI Box top: y = 110 (22%)
-// Lines go straight down, then converge AT the AI box entry point
+// Lines go down briefly, converge horizontally ABOVE the AI box, then drop into it
 const desktopPaths = [
-  "M 50 30 v 72 q 0 8 8 8 h 134 q 8 0 8 8 v 282",   // down to y=102, curve at y=110, converge at x=200
-  "M 150 30 v 72 q 0 8 8 8 h 34 q 8 0 8 8 v 282",   // down to y=102, curve at y=110, converge at x=200
-  "M 250 30 v 72 q 0 8 -8 8 h -34 q -8 0 -8 8 v 282", // down to y=102, curve at y=110, converge at x=200
-  "M 350 30 v 72 q 0 8 -8 8 h -134 q -8 0 -8 8 v 282", // down to y=102, curve at y=110, converge at x=200
+  "M 50 30 v 30 q 0 8 8 8 h 134 q 8 0 8 8 v 324",   // horizontal at y=68, well above AI box
+  "M 150 30 v 30 q 0 8 8 8 h 34 q 8 0 8 8 v 324",   // horizontal at y=68
+  "M 250 30 v 30 q 0 8 -8 8 h -34 q -8 0 -8 8 v 324", // horizontal at y=68
+  "M 350 30 v 30 q 0 8 -8 8 h -134 q -8 0 -8 8 v 324", // horizontal at y=68
 ];
 
 // Mobile paths (viewBox 0 0 300 500)
 // Badge bottoms: Row 1 y ≈ 28, Row 2 y ≈ 88 | AI Box top: y = 140 (28%)
-// Lines go straight down, then converge AT the AI box entry point
+// Lines go down briefly, converge horizontally ABOVE the AI box
 const mobilePaths = [
-  "M 75 28 v 104 q 0 8 8 8 h 59 q 8 0 8 8 v 262",    // Row 1 left: down to y=132, curve at y=140
-  "M 225 28 v 104 q 0 8 -8 8 h -59 q -8 0 -8 8 v 262", // Row 1 right: down to y=132, curve at y=140
-  "M 75 88 v 44 q 0 8 8 8 h 59 q 8 0 8 8 v 262",    // Row 2 left: down to y=132, curve at y=140
-  "M 225 88 v 44 q 0 8 -8 8 h -59 q -8 0 -8 8 v 262", // Row 2 right: down to y=132, curve at y=140
+  "M 75 28 v 62 q 0 8 8 8 h 59 q 8 0 8 8 v 304",    // Row 1 left: horizontal at y=98
+  "M 225 28 v 62 q 0 8 -8 8 h -59 q -8 0 -8 8 v 304", // Row 1 right: horizontal at y=98
+  "M 75 88 v 2 q 0 8 8 8 h 59 q 8 0 8 8 v 304",     // Row 2 left: horizontal at y=98
+  "M 225 88 v 2 q 0 8 -8 8 h -59 q -8 0 -8 8 v 304",  // Row 2 right: horizontal at y=98
 ];
 
 export function FlowSection({ className }: FlowSectionProps) {
@@ -68,20 +68,24 @@ export function FlowSection({ className }: FlowSectionProps) {
             viewBox="0 0 400 500"
             preserveAspectRatio="xMidYMid meet"
           >
-            {/* Definitions for masks and filters */}
             <defs>
-              {/* Glow filter for signal dots */}
-              <filter id="flow-glow" x="-50%" y="-50%" width="200%" height="200%">
-                <feGaussianBlur stdDeviation="2" result="blur" />
-                <feMerge>
-                  <feMergeNode in="blur" />
-                  <feMergeNode in="SourceGraphic" />
-                </feMerge>
-              </filter>
+              {/* Radial gradient with animated amber→emerald color transition */}
+              <radialGradient id="flow-signal-gradient" fx="0.5" fy="0.5">
+                <stop offset="0%" stopColor="#F59E0B">
+                  <animate
+                    attributeName="stop-color"
+                    values="#F59E0B;#F59E0B;#10B981;#10B981"
+                    keyTimes="0;0.3;0.7;1"
+                    dur="4s"
+                    repeatCount="indefinite"
+                  />
+                </stop>
+                <stop offset="100%" stopColor="transparent" />
+              </radialGradient>
               {/* Masks for each path */}
               {desktopPaths.map((d, i) => (
                 <mask key={`mask-${i}`} id={`flow-mask-desktop-${i + 1}`}>
-                  <path d={d} strokeWidth="2" stroke="white" fill="none" />
+                  <path d={d} strokeWidth="3" stroke="white" fill="none" />
                 </mask>
               ))}
             </defs>
@@ -110,19 +114,30 @@ export function FlowSection({ className }: FlowSectionProps) {
               ))}
             </g>
 
-            {/* Animated signal dots - CSS offset-path with color transformation */}
-            <g mask="url(#flow-mask-desktop-1)">
-              <circle className="flow-signal flow-signal-desktop-1" cx="0" cy="0" r="3" filter="url(#flow-glow)" />
-            </g>
-            <g mask="url(#flow-mask-desktop-2)">
-              <circle className="flow-signal flow-signal-desktop-2" cx="0" cy="0" r="3" filter="url(#flow-glow)" />
-            </g>
-            <g mask="url(#flow-mask-desktop-3)">
-              <circle className="flow-signal flow-signal-desktop-3" cx="0" cy="0" r="3" filter="url(#flow-glow)" />
-            </g>
-            <g mask="url(#flow-mask-desktop-4)">
-              <circle className="flow-signal flow-signal-desktop-4" cx="0" cy="0" r="3" filter="url(#flow-glow)" />
-            </g>
+            {/* Animated signal dots - masked with radial gradient */}
+            {desktopPaths.map((d, i) => (
+              <g key={i} mask={`url(#flow-mask-desktop-${i + 1})`}>
+                <circle r="8" fill="url(#flow-signal-gradient)">
+                  <animateMotion
+                    path={d}
+                    dur={`${3.5 + i * 0.5}s`}
+                    begin={`${1.5 + i * 0.3}s`}
+                    repeatCount="indefinite"
+                    calcMode="spline"
+                    keySplines="0.4 0 0.2 1"
+                    keyTimes="0;1"
+                  />
+                  <animate
+                    attributeName="opacity"
+                    values="0;1;1;0"
+                    keyTimes="0;0.1;0.9;1"
+                    dur={`${3.5 + i * 0.5}s`}
+                    begin={`${1.5 + i * 0.3}s`}
+                    repeatCount="indefinite"
+                  />
+                </circle>
+              </g>
+            ))}
           </svg>
 
           {/* Input badges - positioned at top */}
@@ -161,13 +176,6 @@ export function FlowSection({ className }: FlowSectionProps) {
 
               {/* Content */}
               <div className="absolute inset-0 flex flex-col items-center justify-center">
-                {/* Processing pulse rings */}
-                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                  <div className="flow-processing-ring flow-processing-ring-1" />
-                  <div className="flow-processing-ring flow-processing-ring-2" />
-                  <div className="flow-processing-ring flow-processing-ring-3" />
-                </div>
-
                 {/* Logo and text */}
                 <LogoMark size={48} className="text-black dark:text-white" />
                 <span className="mt-3 text-sm font-semibold text-black dark:text-white">Entourage</span>
@@ -176,12 +184,18 @@ export function FlowSection({ className }: FlowSectionProps) {
                 </span>
               </div>
 
-              {/* Floating badges */}
-              <div className="absolute top-3 left-3 border border-zinc-200 dark:border-zinc-800 bg-background px-2 py-1 text-xs font-mono text-zinc-500 dark:text-zinc-400 flex items-center gap-1">
+              {/* Floating badges with staggered pulse animation */}
+              <div
+                className="flow-action-badge absolute top-3 left-3 border border-zinc-200 dark:border-zinc-700 bg-background px-2 py-1 text-xs font-mono text-zinc-500 dark:text-zinc-400 flex items-center gap-1"
+                style={{ animationDelay: '0s' }}
+              >
                 <Icon icon="lucide:scan-text" size={12} />
                 <span>Extract</span>
               </div>
-              <div className="absolute bottom-3 right-3 border border-zinc-200 dark:border-zinc-800 bg-background px-2 py-1 text-xs font-mono text-zinc-500 dark:text-zinc-400 flex items-center gap-1">
+              <div
+                className="flow-action-badge absolute bottom-3 right-3 border border-zinc-200 dark:border-zinc-700 bg-background px-2 py-1 text-xs font-mono text-zinc-500 dark:text-zinc-400 flex items-center gap-1"
+                style={{ animationDelay: '0.3s' }}
+              >
                 <Icon icon="lucide:list-checks" size={12} />
                 <span>Organize</span>
               </div>
@@ -214,20 +228,24 @@ export function FlowSection({ className }: FlowSectionProps) {
             viewBox="0 0 300 500"
             preserveAspectRatio="xMidYMid meet"
           >
-            {/* Definitions for masks and filters */}
             <defs>
-              {/* Glow filter for signal dots */}
-              <filter id="flow-glow-mobile" x="-50%" y="-50%" width="200%" height="200%">
-                <feGaussianBlur stdDeviation="1.5" result="blur" />
-                <feMerge>
-                  <feMergeNode in="blur" />
-                  <feMergeNode in="SourceGraphic" />
-                </feMerge>
-              </filter>
+              {/* Radial gradient with animated amber→emerald color transition */}
+              <radialGradient id="flow-signal-gradient-mobile" fx="0.5" fy="0.5">
+                <stop offset="0%" stopColor="#F59E0B">
+                  <animate
+                    attributeName="stop-color"
+                    values="#F59E0B;#F59E0B;#10B981;#10B981"
+                    keyTimes="0;0.3;0.7;1"
+                    dur="4s"
+                    repeatCount="indefinite"
+                  />
+                </stop>
+                <stop offset="100%" stopColor="transparent" />
+              </radialGradient>
               {/* Masks for each path */}
               {mobilePaths.map((d, i) => (
                 <mask key={`mask-${i}`} id={`flow-mask-mobile-${i + 1}`}>
-                  <path d={d} strokeWidth="2" stroke="white" fill="none" />
+                  <path d={d} strokeWidth="3" stroke="white" fill="none" />
                 </mask>
               ))}
             </defs>
@@ -256,19 +274,30 @@ export function FlowSection({ className }: FlowSectionProps) {
               ))}
             </g>
 
-            {/* Animated signal dots - CSS offset-path with color transformation */}
-            <g mask="url(#flow-mask-mobile-1)">
-              <circle className="flow-signal flow-signal-mobile-1" cx="0" cy="0" r="2.5" filter="url(#flow-glow-mobile)" />
-            </g>
-            <g mask="url(#flow-mask-mobile-2)">
-              <circle className="flow-signal flow-signal-mobile-2" cx="0" cy="0" r="2.5" filter="url(#flow-glow-mobile)" />
-            </g>
-            <g mask="url(#flow-mask-mobile-3)">
-              <circle className="flow-signal flow-signal-mobile-3" cx="0" cy="0" r="2.5" filter="url(#flow-glow-mobile)" />
-            </g>
-            <g mask="url(#flow-mask-mobile-4)">
-              <circle className="flow-signal flow-signal-mobile-4" cx="0" cy="0" r="2.5" filter="url(#flow-glow-mobile)" />
-            </g>
+            {/* Animated signal dots - masked with radial gradient */}
+            {mobilePaths.map((d, i) => (
+              <g key={i} mask={`url(#flow-mask-mobile-${i + 1})`}>
+                <circle r="6" fill="url(#flow-signal-gradient-mobile)">
+                  <animateMotion
+                    path={d}
+                    dur={`${3.5 + i * 0.5}s`}
+                    begin={`${1.5 + i * 0.3}s`}
+                    repeatCount="indefinite"
+                    calcMode="spline"
+                    keySplines="0.4 0 0.2 1"
+                    keyTimes="0;1"
+                  />
+                  <animate
+                    attributeName="opacity"
+                    values="0;1;1;0"
+                    keyTimes="0;0.1;0.9;1"
+                    dur={`${3.5 + i * 0.5}s`}
+                    begin={`${1.5 + i * 0.3}s`}
+                    repeatCount="indefinite"
+                  />
+                </circle>
+              </g>
+            ))}
           </svg>
 
           {/* Input badges - 2x2 grid */}
@@ -304,17 +333,27 @@ export function FlowSection({ className }: FlowSectionProps) {
               </div>
 
               <div className="absolute inset-0 flex flex-col items-center justify-center">
-                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                  <div className="flow-processing-ring flow-processing-ring-1" />
-                  <div className="flow-processing-ring flow-processing-ring-2" />
-                  <div className="flow-processing-ring flow-processing-ring-3" />
-                </div>
-
                 <LogoMark size={36} className="text-black dark:text-white" />
                 <span className="mt-2 text-xs font-semibold text-black dark:text-white">Entourage</span>
                 <span className="text-[10px] font-mono text-zinc-500 dark:text-zinc-400 text-center max-w-[140px] mt-1">
                   Analyzes &amp; organizes into actionable tasks
                 </span>
+              </div>
+
+              {/* Floating badges with staggered pulse animation - mobile */}
+              <div
+                className="flow-action-badge absolute top-2 left-2 border border-zinc-200 dark:border-zinc-700 bg-background px-1.5 py-0.5 text-[10px] font-mono text-zinc-500 dark:text-zinc-400 flex items-center gap-1"
+                style={{ animationDelay: '0s' }}
+              >
+                <Icon icon="lucide:scan-text" size={10} />
+                <span>Extract</span>
+              </div>
+              <div
+                className="flow-action-badge absolute bottom-2 right-2 border border-zinc-200 dark:border-zinc-700 bg-background px-1.5 py-0.5 text-[10px] font-mono text-zinc-500 dark:text-zinc-400 flex items-center gap-1"
+                style={{ animationDelay: '0.3s' }}
+              >
+                <Icon icon="lucide:list-checks" size={10} />
+                <span>Organize</span>
               </div>
             </div>
           </div>

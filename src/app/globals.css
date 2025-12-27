@@ -197,123 +197,51 @@ body {
   }
 }
 
-/* =============================================================================
-   FlowSection Signal Animations - CSS offset-path (GPU-accelerated)
-   ============================================================================= */
-
-.flow-signal {
-  animation: flow-signal-path;
-  animation-iteration-count: infinite;
-  animation-timing-function: cubic-bezier(0.75, -0.01, 0, 0.99);
-  animation-fill-mode: both;
+/* FlowSection Action Badge - Technical scan pulse */
+.flow-action-badge {
+  will-change: box-shadow, border-color;
+  animation: flow-action-pulse 4s ease-out infinite;
 }
 
-/* Desktop signal paths (viewBox 0 0 400 500) - converge at AI box entry */
-.flow-signal-desktop-1 {
-  offset-path: path("M 50 30 v 72 q 0 8 8 8 h 134 q 8 0 8 8 v 282");
-  animation-duration: 4s;
-  animation-delay: 1.5s;
-}
-
-.flow-signal-desktop-2 {
-  offset-path: path("M 150 30 v 72 q 0 8 8 8 h 34 q 8 0 8 8 v 282");
-  animation-duration: 3.5s;
-  animation-delay: 2s;
-}
-
-.flow-signal-desktop-3 {
-  offset-path: path("M 250 30 v 72 q 0 8 -8 8 h -34 q -8 0 -8 8 v 282");
-  animation-duration: 3.5s;
-  animation-delay: 1.8s;
-}
-
-.flow-signal-desktop-4 {
-  offset-path: path("M 350 30 v 72 q 0 8 -8 8 h -134 q -8 0 -8 8 v 282");
-  animation-duration: 4s;
-  animation-delay: 2.2s;
-}
-
-/* Mobile signal paths (viewBox 0 0 300 500) - converge at AI box entry */
-.flow-signal-mobile-1 {
-  offset-path: path("M 75 28 v 104 q 0 8 8 8 h 59 q 8 0 8 8 v 262");
-  animation-duration: 4s;
-  animation-delay: 1.5s;
-}
-
-.flow-signal-mobile-2 {
-  offset-path: path("M 225 28 v 104 q 0 8 -8 8 h -59 q -8 0 -8 8 v 262");
-  animation-duration: 3.5s;
-  animation-delay: 2s;
-}
-
-.flow-signal-mobile-3 {
-  offset-path: path("M 75 88 v 44 q 0 8 8 8 h 59 q 8 0 8 8 v 262");
-  animation-duration: 4s;
-  animation-delay: 2.5s;
-}
-
-.flow-signal-mobile-4 {
-  offset-path: path("M 225 88 v 44 q 0 8 -8 8 h -59 q -8 0 -8 8 v 262");
-  animation-duration: 3.5s;
-  animation-delay: 2.3s;
-}
-
-/* Flow signal keyframes with amber→green color transformation */
-@keyframes flow-signal-path {
-  0% {
-    offset-distance: 0%;
-    opacity: 0;
-    fill: #F59E0B; /* Amber - raw input */
-  }
-  8% {
-    opacity: 1;
-    fill: #F59E0B;
-  }
-  35% {
-    fill: #F59E0B; /* Still amber entering AI box */
-  }
-  50% {
-    fill: #8B5CF6; /* Violet - being processed */
+@keyframes flow-action-pulse {
+  0%, 60% {
+    box-shadow: 0 0 0 0 transparent;
+    border-color: rgb(228 228 231); /* zinc-200 */
   }
   65% {
-    fill: #10B981; /* Emerald - organized output */
+    box-shadow: inset 0 0 0 1px rgba(245, 158, 11, 0.6), 0 0 8px 0 rgba(245, 158, 11, 0.4);
+    border-color: rgba(245, 158, 11, 0.8);
   }
-  90% {
-    opacity: 1;
-    fill: #10B981;
+  75% {
+    box-shadow: inset 0 0 0 1px rgba(16, 185, 129, 0.6), 0 0 8px 0 rgba(16, 185, 129, 0.4);
+    border-color: rgba(16, 185, 129, 0.8);
   }
-  100% {
-    offset-distance: 100%;
-    opacity: 0;
-    fill: #10B981;
+  85%, 100% {
+    box-shadow: 0 0 0 0 transparent;
+    border-color: rgb(228 228 231); /* zinc-200 */
   }
 }
 
-/* FlowSection Processing Animation - GPU-accelerated pulse around logo */
-.flow-processing-ring {
-  position: absolute;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  border: 1px solid #8B5CF6;
-  opacity: 0;
-  transform: scale(0.83); /* Start at 50/60 ratio */
-  will-change: transform, opacity;
-  animation: flow-processing-pulse 4s ease-out infinite;
+.dark .flow-action-badge {
+  animation: flow-action-pulse-dark 4s ease-out infinite;
 }
 
-.flow-processing-ring-1 { animation-delay: 0s; }
-.flow-processing-ring-2 { animation-delay: 1.3s; }
-.flow-processing-ring-3 { animation-delay: 2.6s; }
-
-@keyframes flow-processing-pulse {
-  0% {
-    opacity: 0.5;
-    transform: scale(0.83); /* 50px equivalent */
+@keyframes flow-action-pulse-dark {
+  0%, 60% {
+    box-shadow: 0 0 0 0 transparent;
+    border-color: rgb(63 63 70); /* zinc-700 */
   }
-  100% {
-    opacity: 0;
-    transform: scale(1.67); /* 100px equivalent */
+  65% {
+    box-shadow: inset 0 0 0 1px rgba(245, 158, 11, 0.5), 0 0 8px 0 rgba(245, 158, 11, 0.3);
+    border-color: rgba(245, 158, 11, 0.7);
+  }
+  75% {
+    box-shadow: inset 0 0 0 1px rgba(16, 185, 129, 0.5), 0 0 8px 0 rgba(16, 185, 129, 0.3);
+    border-color: rgba(16, 185, 129, 0.7);
+  }
+  85%, 100% {
+    box-shadow: 0 0 0 0 transparent;
+    border-color: rgb(63 63 70); /* zinc-700 */
   }
 }
 
