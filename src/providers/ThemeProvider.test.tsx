@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach } from "vitest";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { ThemeProvider, useTheme } from "./ThemeProvider";
+import { ThemeProvider, useTheme, __resetThemeStore } from "./ThemeProvider";
 
 // Test component that exposes theme context
 function ThemeConsumer() {
@@ -21,6 +21,7 @@ describe("ThemeProvider", () => {
   });
 
   it("defaults to light theme", async () => {
+    __resetThemeStore(); // Reset after localStorage cleared
     render(
       <ThemeProvider>
         <ThemeConsumer />
@@ -34,6 +35,7 @@ describe("ThemeProvider", () => {
 
   it("loads saved theme from localStorage", async () => {
     localStorage.setItem("theme", "dark");
+    __resetThemeStore(); // Reset after setting localStorage
 
     render(
       <ThemeProvider>
@@ -47,6 +49,7 @@ describe("ThemeProvider", () => {
   });
 
   it("toggles theme and persists to localStorage", async () => {
+    __resetThemeStore(); // Reset to light theme
     const user = userEvent.setup();
 
     render(
@@ -69,6 +72,7 @@ describe("ThemeProvider", () => {
 
   it("applies dark class to document element", async () => {
     localStorage.setItem("theme", "dark");
+    __resetThemeStore(); // Reset after setting localStorage
 
     render(
       <ThemeProvider>
