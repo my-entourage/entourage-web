@@ -35,7 +35,7 @@ export function Hero() {
             </p>
 
             <div className="mt-8 sm:mt-10 animate-fade-up animation-delay-300">
-              <Link href="/sign-up">
+              <Link href="/waitlist">
                 <Button variant="solid" size="lg">
                   Join the Waitlist
                 </Button>

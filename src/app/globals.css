@@ -197,77 +197,161 @@ body {
   }
 }
 
-/* FlowSection signal animations using offset-path */
+/* =============================================================================
+   FlowSection Signal Animations - CSS offset-path (GPU-accelerated)
+   ============================================================================= */
+
 .flow-signal {
-  offset-anchor: 8px 0px;
   animation: flow-signal-path;
   animation-iteration-count: infinite;
   animation-timing-function: cubic-bezier(0.75, -0.01, 0, 0.99);
+  animation-fill-mode: both;
+}
+
+/* Desktop signal paths (viewBox 0 0 400 500) - converge at AI box entry */
+.flow-signal-desktop-1 {
+  offset-path: path("M 50 30 v 72 q 0 8 8 8 h 134 q 8 0 8 8 v 282");
   animation-duration: 4s;
   animation-delay: 1.5s;
 }
 
-.flow-signal-1 {
-  offset-path: path("M 55 55 v 25 q 0 5 5 5 h 120 q 5 0 5 5 v 40");
-  animation-delay: 1.5s;
-  animation-duration: 3s;
-}
-
-.flow-signal-2 {
-  offset-path: path("M 140 55 v 35 q 0 5 5 5 h 40 q 5 0 5 5 v 30");
+.flow-signal-desktop-2 {
+  offset-path: path("M 150 30 v 72 q 0 8 8 8 h 34 q 8 0 8 8 v 282");
+  animation-duration: 3.5s;
   animation-delay: 2s;
-  animation-duration: 3.5s;
 }
 
-.flow-signal-3 {
-  offset-path: path("M 260 55 v 35 q 0 5 -5 5 h -40 q -5 0 -5 5 v 30");
+.flow-signal-desktop-3 {
+  offset-path: path("M 250 30 v 72 q 0 8 -8 8 h -34 q -8 0 -8 8 v 282");
+  animation-duration: 3.5s;
   animation-delay: 1.8s;
-  animation-duration: 3.5s;
 }
 
-.flow-signal-4 {
-  offset-path: path("M 345 55 v 25 q 0 5 -5 5 h -120 q -5 0 -5 5 v 40");
+.flow-signal-desktop-4 {
+  offset-path: path("M 350 30 v 72 q 0 8 -8 8 h -134 q -8 0 -8 8 v 282");
+  animation-duration: 4s;
   animation-delay: 2.2s;
-  animation-duration: 3s;
 }
 
-.flow-signal-5 {
-  offset-path: path("M 200 195 v 55");
-  animation-delay: 3s;
-  animation-duration: 2s;
+/* Mobile signal paths (viewBox 0 0 300 500) - converge at AI box entry */
+.flow-signal-mobile-1 {
+  offset-path: path("M 75 28 v 104 q 0 8 8 8 h 59 q 8 0 8 8 v 262");
+  animation-duration: 4s;
+  animation-delay: 1.5s;
 }
 
+.flow-signal-mobile-2 {
+  offset-path: path("M 225 28 v 104 q 0 8 -8 8 h -59 q -8 0 -8 8 v 262");
+  animation-duration: 3.5s;
+  animation-delay: 2s;
+}
+
+.flow-signal-mobile-3 {
+  offset-path: path("M 75 88 v 44 q 0 8 8 8 h 59 q 8 0 8 8 v 262");
+  animation-duration: 4s;
+  animation-delay: 2.5s;
+}
+
+.flow-signal-mobile-4 {
+  offset-path: path("M 225 88 v 44 q 0 8 -8 8 h -59 q -8 0 -8 8 v 262");
+  animation-duration: 3.5s;
+  animation-delay: 2.3s;
+}
+
+/* Flow signal keyframes with amber→green color transformation */
 @keyframes flow-signal-path {
   0% {
     offset-distance: 0%;
     opacity: 0;
+    fill: #F59E0B; /* Amber - raw input */
   }
-  10% {
+  8% {
     opacity: 1;
+    fill: #F59E0B;
   }
-  85% {
+  35% {
+    fill: #F59E0B; /* Still amber entering AI box */
+  }
+  50% {
+    fill: #8B5CF6; /* Violet - being processed */
+  }
+  65% {
+    fill: #10B981; /* Emerald - organized output */
+  }
+  90% {
     opacity: 1;
+    fill: #10B981;
   }
   100% {
     offset-distance: 100%;
     opacity: 0;
+    fill: #10B981;
   }
 }
 
-/* Checkmark pulse animation */
-.flow-checkmark {
-  animation: flow-checkmark-pulse 2s ease-in-out infinite;
-  animation-delay: 4s;
+/* FlowSection Processing Animation - GPU-accelerated pulse around logo */
+.flow-processing-ring {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 1px solid #8B5CF6;
+  opacity: 0;
+  transform: scale(0.83); /* Start at 50/60 ratio */
+  will-change: transform, opacity;
+  animation: flow-processing-pulse 4s ease-out infinite;
 }
 
-@keyframes flow-checkmark-pulse {
-  0%, 100% {
+.flow-processing-ring-1 { animation-delay: 0s; }
+.flow-processing-ring-2 { animation-delay: 1.3s; }
+.flow-processing-ring-3 { animation-delay: 2.6s; }
+
+@keyframes flow-processing-pulse {
+  0% {
+    opacity: 0.5;
+    transform: scale(0.83); /* 50px equivalent */
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.67); /* 100px equivalent */
+  }
+}
+
+/* FlowSection Task Arrival Animation - GPU-optimized */
+.flow-task-arrive {
+  will-change: box-shadow;
+  animation: flow-task-pulse 4s ease-out infinite;
+}
+
+@keyframes flow-task-pulse {
+  0%, 70% {
+    box-shadow: 0 0 0 0 transparent;
+  }
+  75% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.5);
+  }
+  100% {
+    box-shadow: 0 0 0 12px rgba(16, 185, 129, 0);
+  }
+}
+
+.flow-checkmark-bounce {
+  will-change: transform;
+  animation: flow-checkmark-bounce 4s ease-out infinite;
+}
+
+@keyframes flow-checkmark-bounce {
+  0%, 70% {
     transform: scale(1);
-    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
   }
-  50% {
-    transform: scale(1.2);
-    box-shadow: 0 0 0 6px rgba(16, 185, 129, 0.3);
+  80% {
+    transform: scale(1.25);
+  }
+  90% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1);
   }
 }
 

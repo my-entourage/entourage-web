@@ -18,7 +18,7 @@ export function SecondaryCTA() {
             </h2>
 
             <div className="mt-8">
-              <Link href="/sign-up">
+              <Link href="/waitlist">
                 <Button variant="primary" size="lg">
                   Join the Waitlist
                 </Button>
@@ -55,7 +55,7 @@ export function SecondaryCTA() {
             transition={{ duration: 0.12, delay: 0.05, ease: "easeOut" }}
             className="mt-8"
           >
-            <Link href="/sign-up">
+            <Link href="/waitlist">
               <Button variant="primary" size="lg">
                 Join the Waitlist
               </Button>
