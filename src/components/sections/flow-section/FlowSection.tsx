@@ -193,6 +193,13 @@ export function FlowSection({ className }: FlowSectionProps) {
                 <span>Extract</span>
               </div>
               <div
+                className="flow-action-badge absolute bottom-3 left-3 border border-zinc-200 dark:border-zinc-700 bg-background px-2 py-1 text-xs font-mono text-zinc-500 dark:text-zinc-400 flex items-center gap-1"
+                style={{ animationDelay: '0.15s' }}
+              >
+                <Icon icon="lucide:scan-search" size={12} />
+                <span>Analyze</span>
+              </div>
+              <div
                 className="flow-action-badge absolute bottom-3 right-3 border border-zinc-200 dark:border-zinc-700 bg-background px-2 py-1 text-xs font-mono text-zinc-500 dark:text-zinc-400 flex items-center gap-1"
                 style={{ animationDelay: '0.3s' }}
               >
@@ -347,6 +354,13 @@ export function FlowSection({ className }: FlowSectionProps) {
               >
                 <Icon icon="lucide:scan-text" size={10} />
                 <span>Extract</span>
+              </div>
+              <div
+                className="flow-action-badge absolute bottom-2 left-2 border border-zinc-200 dark:border-zinc-700 bg-background px-1.5 py-0.5 text-[10px] font-mono text-zinc-500 dark:text-zinc-400 flex items-center gap-1"
+                style={{ animationDelay: '0.15s' }}
+              >
+                <Icon icon="lucide:scan-search" size={10} />
+                <span>Analyze</span>
               </div>
               <div
                 className="flow-action-badge absolute bottom-2 right-2 border border-zinc-200 dark:border-zinc-700 bg-background px-1.5 py-0.5 text-[10px] font-mono text-zinc-500 dark:text-zinc-400 flex items-center gap-1"
