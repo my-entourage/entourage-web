@@ -47,7 +47,7 @@ export function TeamCredentialsSection({
               {credentials.map((cred) => (
                 <div
                   key={cred.name}
-                  className="flex items-center justify-center h-8 grayscale opacity-50 hover:opacity-100 hover:grayscale-0 transition-all duration-300"
+                  className="flex-shrink-0 flex items-center justify-center h-8 grayscale opacity-50 hover:opacity-100 hover:grayscale-0 transition-all duration-300"
                 >
                   {/* Light mode logo */}
                   <img

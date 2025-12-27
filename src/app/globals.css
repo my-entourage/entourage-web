@@ -436,31 +436,37 @@ body {
   --shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.5);
 }
 
-/* Infinite scroll animations */
+/* Infinite scroll animations - GPU accelerated for smooth performance */
 @keyframes scroll {
   from {
-    transform: translateX(0);
+    transform: translate3d(0, 0, 0);
   }
   to {
-    transform: translateX(-50%);
+    transform: translate3d(-50%, 0, 0);
   }
 }
 
 @keyframes scroll-reverse {
   from {
-    transform: translateX(-50%);
+    transform: translate3d(-50%, 0, 0);
   }
   to {
-    transform: translateX(0);
+    transform: translate3d(0, 0, 0);
   }
 }
 
 .animate-scroll {
   animation: scroll linear infinite;
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 .animate-scroll-reverse {
   animation: scroll-reverse linear infinite;
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 /* Hero fade-up animations - CSS-based for iOS Safari compatibility */

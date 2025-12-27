@@ -5,6 +5,20 @@ import { motion, useReducedMotion } from "framer-motion";
 import { Container } from "../../ui/Container";
 import { Button } from "../../ui/Button";
 
+function PlusCorner({ className }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1"
+    >
+      <path d="M12 6v12m6-6H6" />
+    </svg>
+  );
+}
+
 export function SecondaryCTA() {
   const prefersReducedMotion = useReducedMotion();
 
@@ -13,9 +27,15 @@ export function SecondaryCTA() {
       <section className="py-20 md:py-28">
         <Container>
           <div className="mx-auto max-w-xl text-center">
-            <h2 className="text-2xl font-semibold tracking-tight text-black dark:text-white md:text-3xl">
-              Ready to stop missing action items?
-            </h2>
+            <div className="relative mx-auto inline-block border border-dashed border-zinc-300 px-8 py-6 dark:border-zinc-700">
+              <PlusCorner className="absolute -left-2.5 -top-2.5 h-5 w-5 text-zinc-400 dark:text-zinc-600" />
+              <PlusCorner className="absolute -right-2.5 -top-2.5 h-5 w-5 text-zinc-400 dark:text-zinc-600" />
+              <PlusCorner className="absolute -bottom-2.5 -left-2.5 h-5 w-5 text-zinc-400 dark:text-zinc-600" />
+              <PlusCorner className="absolute -bottom-2.5 -right-2.5 h-5 w-5 text-zinc-400 dark:text-zinc-600" />
+              <h2 className="text-2xl font-semibold tracking-tight text-black dark:text-white md:text-3xl">
+                Ready to stop missing action items?
+              </h2>
+            </div>
 
             <div className="mt-8">
               <Link href="/waitlist">
@@ -44,9 +64,15 @@ export function SecondaryCTA() {
           transition={{ duration: 0.12, ease: "easeOut" }}
           className="mx-auto max-w-xl text-center"
         >
-          <h2 className="text-2xl font-semibold tracking-tight text-black dark:text-white md:text-3xl">
-            Ready to stop missing action items?
-          </h2>
+          <div className="relative mx-auto inline-block border border-dashed border-zinc-300 px-8 py-6 dark:border-zinc-700">
+            <PlusCorner className="absolute -left-2.5 -top-2.5 h-5 w-5 text-zinc-400 dark:text-zinc-600" />
+            <PlusCorner className="absolute -right-2.5 -top-2.5 h-5 w-5 text-zinc-400 dark:text-zinc-600" />
+            <PlusCorner className="absolute -bottom-2.5 -left-2.5 h-5 w-5 text-zinc-400 dark:text-zinc-600" />
+            <PlusCorner className="absolute -bottom-2.5 -right-2.5 h-5 w-5 text-zinc-400 dark:text-zinc-600" />
+            <h2 className="text-2xl font-semibold tracking-tight text-black dark:text-white md:text-3xl">
+              Ready to stop missing action items?
+            </h2>
+          </div>
 
           <motion.div
             initial={{ opacity: 0, y: 10 }}
