@@ -68,7 +68,7 @@ export function FAQ() {
     <section className="py-16 md:py-24 bg-background">
       <Container>
         <div className="text-center mb-12">
-          <span className="text-xs font-mono uppercase tracking-wider text-zinc-400 dark:text-zinc-500">
+          <span className="text-xs font-mono uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
             FAQ
           </span>
           <h2 className="mt-2 text-2xl md:text-3xl font-semibold text-black dark:text-white">

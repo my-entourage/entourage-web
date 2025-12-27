@@ -26,7 +26,7 @@ export function Hero() {
             <h1 className="text-3xl font-semibold tracking-tight text-black dark:text-white sm:text-4xl md:text-6xl animate-fade-up">
               Know what needs to be done.
             </h1>
-            <p className="mx-auto mt-2 max-w-2xl text-3xl font-semibold tracking-tight text-zinc-400 dark:text-zinc-500 sm:text-4xl md:text-6xl animate-fade-up animation-delay-100">
+            <p className="mx-auto mt-2 max-w-2xl text-3xl font-semibold tracking-tight text-zinc-500 dark:text-zinc-400 sm:text-4xl md:text-6xl animate-fade-up animation-delay-100">
               Without touching your task list.
             </p>
 

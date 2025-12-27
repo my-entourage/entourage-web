@@ -7,17 +7,17 @@ export function Footer() {
       <Container>
         <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
           <div className="flex items-center gap-4">
-            <span className="font-mono text-sm text-zinc-400 dark:text-zinc-500">Entourage</span>
+            <span className="font-mono text-sm text-zinc-500 dark:text-zinc-400">Entourage</span>
             <span className="text-zinc-200 dark:text-zinc-700">|</span>
             <Link
               href="/careers"
-              className="text-sm text-zinc-400 dark:text-zinc-500 hover:text-black dark:hover:text-white transition-colors"
+              className="text-sm text-zinc-500 dark:text-zinc-400 hover:text-black dark:hover:text-white transition-colors"
             >
               We&apos;re hiring
             </Link>
           </div>
 
-          <span className="text-sm text-zinc-400 dark:text-zinc-500">
+          <span className="text-sm text-zinc-500 dark:text-zinc-400">
             &copy; {new Date().getFullYear()} Entourage
           </span>
         </div>

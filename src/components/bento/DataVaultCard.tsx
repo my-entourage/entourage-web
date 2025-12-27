@@ -20,7 +20,7 @@ export function DataVaultCard() {
     >
       {/* Card header */}
       <div className="p-4 md:p-6 pb-0">
-        <span className="text-xs font-mono uppercase tracking-wider text-zinc-400 dark:text-zinc-500">
+        <span className="text-xs font-mono uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
           Unified storage
         </span>
         <h3 className="mt-1 text-lg font-semibold text-black dark:text-white">
@@ -134,7 +134,7 @@ export function DataVaultCard() {
         </div>
 
         {/* Label */}
-        <p className="mt-6 text-sm font-mono text-zinc-400 dark:text-zinc-500">
+        <p className="mt-6 text-sm font-mono text-zinc-500 dark:text-zinc-400">
           Unified & indexed
         </p>
       </div>

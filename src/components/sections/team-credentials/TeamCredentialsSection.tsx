@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { Container } from "../../ui/Container";
@@ -9,6 +10,12 @@ import { PlusCorner } from "../../ui/PlusCorner";
 interface TeamCredentialsSectionProps {
   className?: string;
 }
+
+const roleTitles = [
+  "engineers",
+  "founders",
+  "project managers",
+];
 
 // Company and university logos
 // logoDark is optional - used when the logo needs a different version for dark mode
@@ -26,6 +33,13 @@ const credentials = [
 export function TeamCredentialsSection({
   className,
 }: TeamCredentialsSectionProps) {
+  const [roleTitle, setRoleTitle] = useState(roleTitles[0]);
+
+  useEffect(() => {
+    const randomIndex = Math.floor(Math.random() * roleTitles.length);
+    setRoleTitle(roleTitles[randomIndex]);
+  }, []);
+
   return (
     <section className={cn("py-12 md:py-16 bg-background", className)}>
       <Container>
@@ -37,15 +51,15 @@ export function TeamCredentialsSection({
 
           {/* Label - positioned over the top border with background to mask the line */}
           <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2">
-            <span className="bg-background px-3 sm:px-4 text-[10px] sm:text-xs font-mono uppercase tracking-wider text-zinc-400 dark:text-zinc-500 whitespace-nowrap">
-              Built by engineers from
+            <span className="bg-background px-3 sm:px-4 text-[10px] sm:text-xs font-mono uppercase tracking-wider text-zinc-500 dark:text-zinc-400 whitespace-nowrap">
+              Built by {roleTitle} from
             </span>
           </div>
 
           {/* Logo cloud */}
           <div className="overflow-hidden pt-8 pb-6 [mask-image:linear-gradient(to_right,transparent,black_5%,black_95%,transparent)] sm:[mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
             <InfiniteSlider gap={64} reverse speed={5.6}>
-              {credentials.map((cred) => (
+              {credentials.map((cred, index) => (
                 <div
                   key={cred.name}
                   className={cn(
@@ -59,6 +73,7 @@ export function TeamCredentialsSection({
                     alt={cred.name}
                     width={120}
                     height={32}
+                    priority={index === 0}
                     className={cn(
                       "h-6 md:h-8 w-auto object-contain",
                       cred.logoDark && "dark:hidden",

@@ -10,7 +10,7 @@ export function IntegrationsCard() {
     <PlusCornerCard className="h-full min-h-[440px] md:min-h-[500px] flex flex-col">
       {/* Card header */}
       <div className="p-4 md:p-6 pb-0">
-        <span className="text-xs font-mono uppercase tracking-wider text-zinc-400 dark:text-zinc-500">
+        <span className="text-xs font-mono uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
           Integrations
         </span>
         <h3 className="mt-1 text-lg font-semibold text-black dark:text-white">

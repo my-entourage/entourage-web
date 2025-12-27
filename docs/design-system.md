@@ -76,8 +76,8 @@
 // Hero headline
 <h1 className="text-3xl sm:text-4xl md:text-6xl font-semibold tracking-tight text-black dark:text-white">
 
-// Section label
-<span className="text-xs font-mono uppercase tracking-wider text-zinc-400 dark:text-zinc-500">
+// Section label (WCAG AA compliant)
+<span className="text-xs font-mono uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
 
 // Section title
 <h2 className="text-2xl md:text-3xl font-semibold text-black dark:text-white">
@@ -361,7 +361,7 @@ className="hover:bg-zinc-100 dark:hover:bg-zinc-800"
 | Element | Classes |
 |---------|---------|
 | Hero headline | `text-3xl sm:text-4xl md:text-6xl font-semibold tracking-tight text-black dark:text-white` |
-| Section label | `text-xs font-mono uppercase tracking-wider text-zinc-400 dark:text-zinc-500` |
+| Section label | `text-xs font-mono uppercase tracking-wider text-zinc-500 dark:text-zinc-400` |
 | Section title | `text-2xl md:text-3xl font-semibold text-black dark:text-white` |
 | Body text | `text-base text-zinc-500 dark:text-zinc-400` |
 | Container | `mx-auto w-full max-w-5xl px-6 md:px-12` |
