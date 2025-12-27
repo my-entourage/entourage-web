@@ -2,7 +2,7 @@
   "schema_version": 1,
   "session_id": "a4270342-4331-47f4-9a8b-3cb50c2320a8",
   "transcript_path": "/Users/ia/.claude/projects/-Users-ia-Documents-code--orgs-my-entourage-entourage-web/a4270342-4331-47f4-9a8b-3cb50c2320a8.jsonl",
-  "status": "in_progress",
+  "status": "complete",
   "start": {
     "timestamp": "2025-12-27T17:34:10Z",
     "cwd": "/Users/ia/Documents/code/@orgs/my-entourage/entourage-web",
@@ -42,6 +42,19 @@
         "context-find": "# Find Context\n\nSearch the entourage repository for discussions and tasks related to a topic.\n\n## Usage\n\n```\n/context-find <topic>\n```\n\n## Examples\n\n```\n/context-find landing page\n/context-find linear\n/context-find supabase\n```\n\n## Instructions for Claude\n\n### Step 1: Verify Access\n\n```bash\nls ../entourage/data ../entourage/tasks 2>/dev/null || echo \"ERROR: Cannot access ../entourage\"\n```\n\n### Step 2: Search Tasks\n\nSearch task files for the topic:\n\n```bash\ngrep -r -i -l \"<topic>\" ../entourage/tasks/staging/\n```\n\nFor each matching task file:\n1. Read the full file\n2. Extract: id, title, priority, status, source, project\n3. Note the source field for transcript lookup\n\n### Step 3: Search Transcripts\n\nSearch all transcripts:\n\n```bash\ngrep -r -i -l \"<topic>\" ../entourage/data/\n```\n\nFor each matching transcript:\n1. Get relevant excerpts (5 lines context around match):\n   ```bash\n   grep -i -B5 -A5 \"<topic>\" <file>\n   ```\n2. Identify the source label from path\n\n### Step 4: Search Plans\n\nCheck for related implementation plans:\n\n```bash\ngrep -r -i -l \"<topic>\" ../entourage/thoughts/\n```\n\n### Step 5: Format Output\n\nPresent results in this structure:\n\n```\n## Context for \"<topic>\"\n\n### Related Tasks\n| ID | Title | Priority | Status | Project |\n|----|-------|----------|--------|---------|\n| task-20251223-2 | Build web UI | high | todo | mvp |\n\n### Discussions\n\n**granola-2025-12-23** (remote meeting):\n> [Relevant excerpt about the topic]\n> [With speaker context]\n\n**in-person-2025-12-21** (in-person):\n> [Another relevant excerpt]\n\n### Implementation Plans\n- `thoughts/plans/2025-12-22-landing-page-prd.md`\n\n### Source Files\n- Tasks: `../entourage/tasks/staging/task-20251223-2.md`\n- Transcript: `../entourage/data/remote-meeting-transcripts/granola/2025-12-23T01_50_00Z.md`\n\n---\n\n### Suggested Actions (requires approval)\n\nBased on this context, I could:\n1. [ ] Mark task-20251223-2 as \"in_progress\" (you're working on web UI)\n2. [ ] Add note to task about Supabase integration requirement\n\n**Proceed with any of these? Reply with numbers to approve, or 'skip' to continue without changes.**\n```\n\n## Notes\n\n- Always provide file paths so user can read full context\n- If no matches found, say so clearly\n- For large result sets, summarize and offer to show more\n\n## Human-in-the-Loop\n\n**CRITICAL**: After presenting context, if any action is proposed:\n\n1. **Never auto-modify** plans, tasks, or code based on findings\n2. **Always present** what was found and what could be done\n3. **Ask for approval** before:\n   - Updating task status in entourage repo\n   - Modifying implementation plans\n   - Making code changes based on context\n   - Adding new tasks\n\n**Approval format**:\n```\nBased on this context, I could:\n1. Update task-20251223-2 status to \"in_progress\"\n2. Add implementation notes from the discussion\n\nProceed with these changes? [Y/n/select specific]\n```\n\nIf user approves:\n- Make the changes\n- Report what was modified\n\nIf user declines or wants changes:\n- Wait for specific instructions\n- Do not proceed with modifications\n"
       },
       "mcp_servers": []
+    }
+  },
+  "end": {
+    "timestamp": "2025-12-27T17:37:59Z",
+    "reason": "clear",
+    "duration_seconds": 229,
+    "git": {
+      "sha": "d11f2e56dda8923aa37f401e4a1994967add3c6e",
+      "dirty": true,
+      "commits_made": [
+        "d11f2e56dda8923aa37f401e4a1994967add3c6e",
+        "f7604035cc5ee585c49181cc6c6632b3276a7f14"
+      ]
     }
   }
 }
