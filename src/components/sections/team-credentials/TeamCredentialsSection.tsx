@@ -44,7 +44,7 @@ export function TeamCredentialsSection({
 
           {/* Logo cloud */}
           <div className="overflow-hidden pt-8 pb-6 [mask-image:linear-gradient(to_right,transparent,black_5%,black_95%,transparent)] sm:[mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
-            <InfiniteSlider gap={64} reverse speed={7.5}>
+            <InfiniteSlider gap={64} reverse speed={5.6}>
               {credentials.map((cred) => (
                 <div
                   key={cred.name}

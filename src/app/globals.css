@@ -436,48 +436,20 @@ body {
   --shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.5);
 }
 
-/* Infinite scroll animations - GPU accelerated for smooth performance */
-@keyframes scroll {
-  0% {
-    transform: translate3d(0, 0, 0);
+/* Infinite scroll animation - uses measured width for seamless loop */
+@keyframes infinite-scroll {
+  from {
+    transform: translateX(0);
   }
-  100% {
-    transform: translate3d(calc(-50% - var(--slider-gap, 0px) / 2), 0, 0);
+  to {
+    transform: translateX(calc(-1 * var(--scroll-width)));
   }
-}
-
-@keyframes scroll-reverse {
-  0% {
-    transform: translate3d(calc(-50% - var(--slider-gap, 0px) / 2), 0, 0);
-  }
-  100% {
-    transform: translate3d(0, 0, 0);
-  }
-}
-
-.animate-scroll {
-  animation: scroll linear infinite;
-  will-change: transform;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  /* Prevent sub-pixel rendering issues */
-  transform: translateZ(0);
-}
-
-.animate-scroll-reverse {
-  animation: scroll-reverse linear infinite;
-  will-change: transform;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  /* Prevent sub-pixel rendering issues */
-  transform: translateZ(0);
 }
 
 /* Respect reduced motion preferences */
 @media (prefers-reduced-motion: reduce) {
-  .animate-scroll,
-  .animate-scroll-reverse {
-    animation: none;
+  [style*="infinite-scroll"] {
+    animation: none !important;
   }
 }
 
