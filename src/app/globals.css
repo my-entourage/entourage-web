@@ -1,3 +1,4 @@
+@layer theme, base, clerk, components, utilities;
 @import "tailwindcss";
 @import "tw-animate-css";
 
@@ -196,38 +197,77 @@ body {
   }
 }
 
-/* Flow section signal animations */
+/* FlowSection signal animations using offset-path */
 .flow-signal {
-  offset-anchor: 10px 0px;
+  offset-anchor: 8px 0px;
   animation: flow-signal-path;
   animation-iteration-count: infinite;
-  animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  animation-timing-function: cubic-bezier(0.75, -0.01, 0, 0.99);
   animation-duration: 4s;
-  animation-delay: 1s;
+  animation-delay: 1.5s;
 }
 
 .flow-signal-1 {
-  offset-path: path("M 31 10 v 15 q 0 5 5 5 h 59 q 5 0 5 5 v 25");
+  offset-path: path("M 55 55 v 25 q 0 5 5 5 h 120 q 5 0 5 5 v 40");
+  animation-delay: 1.5s;
+  animation-duration: 3s;
 }
 
 .flow-signal-2 {
-  offset-path: path("M 77 10 v 10 q 0 5 5 5 h 13 q 5 0 5 5 v 25");
+  offset-path: path("M 140 55 v 35 q 0 5 5 5 h 40 q 5 0 5 5 v 30");
+  animation-delay: 2s;
+  animation-duration: 3.5s;
 }
 
 .flow-signal-3 {
-  offset-path: path("M 124 10 v 10 q 0 5 -5 5 h -14 q -5 0 -5 5 v 25");
+  offset-path: path("M 260 55 v 35 q 0 5 -5 5 h -40 q -5 0 -5 5 v 30");
+  animation-delay: 1.8s;
+  animation-duration: 3.5s;
 }
 
 .flow-signal-4 {
-  offset-path: path("M 170 10 v 15 q 0 5 -5 5 h -60 q -5 0 -5 5 v 25");
+  offset-path: path("M 345 55 v 25 q 0 5 -5 5 h -120 q -5 0 -5 5 v 40");
+  animation-delay: 2.2s;
+  animation-duration: 3s;
+}
+
+.flow-signal-5 {
+  offset-path: path("M 200 195 v 55");
+  animation-delay: 3s;
+  animation-duration: 2s;
 }
 
 @keyframes flow-signal-path {
   0% {
     offset-distance: 0%;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
   }
   100% {
     offset-distance: 100%;
+    opacity: 0;
+  }
+}
+
+/* Checkmark pulse animation */
+.flow-checkmark {
+  animation: flow-checkmark-pulse 2s ease-in-out infinite;
+  animation-delay: 4s;
+}
+
+@keyframes flow-checkmark-pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+  }
+  50% {
+    transform: scale(1.2);
+    box-shadow: 0 0 0 6px rgba(16, 185, 129, 0.3);
   }
 }
 
@@ -294,6 +334,37 @@ body {
 
 .animate-scroll-reverse {
   animation: scroll-reverse linear infinite;
+}
+
+/* Hero fade-up animations - CSS-based for iOS Safari compatibility */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.4s ease-out forwards;
+}
+
+.animation-delay-100 {
+  animation-delay: 0.1s;
+  opacity: 0;
+}
+
+.animation-delay-200 {
+  animation-delay: 0.2s;
+  opacity: 0;
+}
+
+.animation-delay-300 {
+  animation-delay: 0.3s;
+  opacity: 0;
 }
 
 @layer base {

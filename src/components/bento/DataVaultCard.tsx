@@ -5,9 +5,9 @@ import { PlusCornerCard } from "../ui/PlusCornerCard";
 import { Icon } from "../Icon";
 
 const dataItems = [
-  { id: 1, label: "Meeting Notes", icon: "lucide:file-text" },
-  { id: 2, label: "Slack Threads", icon: "lucide:message-square" },
-  { id: 3, label: "Email Chains", icon: "lucide:mail" },
+  { id: 1, label: "Meeting\nNotes", icon: "lucide:file-text" },
+  { id: 2, label: "Slack\nThreads", icon: "lucide:message-square" },
+  { id: 3, label: "Email\nChains", icon: "lucide:mail" },
 ];
 
 export function DataVaultCard() {
@@ -124,7 +124,7 @@ export function DataVaultCard() {
                     size={20}
                     className="text-zinc-600 dark:text-zinc-400"
                   />
-                  <span className="mt-1 text-[8px] font-mono text-zinc-500 dark:text-zinc-400 text-center px-1">
+                  <span className="mt-1 text-[8px] font-mono text-zinc-500 dark:text-zinc-400 text-center px-1 whitespace-pre-line leading-tight">
                     {item.label}
                   </span>
                 </div>
