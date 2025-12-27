@@ -50,16 +50,16 @@ export function BentoFeatures({ className }: BentoFeaturesProps) {
             </p>
           </PlusCornerCard>
 
-          {/* Never Miss a Task Card - 1x1 */}
+          {/* Multi-Project Card - 1x1 */}
           <PlusCornerCard interactive className="p-6 flex flex-col items-center justify-center text-center min-h-[200px]">
             <div className="w-12 h-12 border border-black dark:border-white flex items-center justify-center mb-4">
-              <Icon icon="lucide:list-checks" size={24} className="text-black dark:text-white" />
+              <Icon icon="lucide:git-branch" size={24} className="text-black dark:text-white" />
             </div>
             <h3 className="text-lg font-semibold text-black dark:text-white">
-              Never Miss a Task
+              Multi-Project
             </h3>
             <p className="mt-2 text-sm text-zinc-500 dark:text-zinc-400">
-              Auto-capture from meetings and chats
+              Route tasks to the right project automatically
             </p>
           </PlusCornerCard>
         </div>
