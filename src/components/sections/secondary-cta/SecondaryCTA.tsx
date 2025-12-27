@@ -4,6 +4,7 @@ import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { Container } from "../../ui/Container";
 import { Button } from "../../ui/Button";
+import { trackCTAClick } from "@/lib/analytics";
 
 function PlusCorner({ className }: { className?: string }) {
   return (
@@ -38,7 +39,10 @@ export function SecondaryCTA() {
             </div>
 
             <div className="mt-8">
-              <Link href="/waitlist">
+              <Link
+                href="/waitlist"
+                onClick={() => trackCTAClick("secondary-cta", "primary")}
+              >
                 <Button variant="primary" size="lg">
                   Join the Waitlist
                 </Button>
@@ -81,7 +85,10 @@ export function SecondaryCTA() {
             transition={{ duration: 0.12, delay: 0.05, ease: "easeOut" }}
             className="mt-8"
           >
-            <Link href="/waitlist">
+            <Link
+              href="/waitlist"
+              onClick={() => trackCTAClick("secondary-cta", "primary")}
+            >
               <Button variant="primary" size="lg">
                 Join the Waitlist
               </Button>

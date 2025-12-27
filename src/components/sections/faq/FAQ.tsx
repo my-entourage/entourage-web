@@ -1,5 +1,6 @@
 "use client";
 
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Container } from "../../ui/Container";
 import {
   Accordion,
@@ -7,6 +8,8 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/Accordion";
+import { Skeleton } from "@/components/ui/skeleton";
+import { trackFAQOpened, trackFAQClosed } from "@/lib/analytics";
 
 const faqs = [
   {
@@ -32,6 +35,38 @@ const faqs = [
 ];
 
 export function FAQ() {
+  const [mounted, setMounted] = useState(false);
+  const [openItem, setOpenItem] = useState<string | undefined>(undefined);
+  const prevOpenItem = useRef<string | undefined>(undefined);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const handleValueChange = useCallback(
+    (value: string) => {
+      // Track close event for previously open item
+      if (prevOpenItem.current && prevOpenItem.current !== value) {
+        const prevIndex = parseInt(prevOpenItem.current.replace("item-", ""));
+        if (!isNaN(prevIndex) && faqs[prevIndex]) {
+          trackFAQClosed(faqs[prevIndex].question, prevIndex);
+        }
+      }
+
+      // Track open event for newly opened item
+      if (value) {
+        const index = parseInt(value.replace("item-", ""));
+        if (!isNaN(index) && faqs[index]) {
+          trackFAQOpened(faqs[index].question, index);
+        }
+      }
+
+      prevOpenItem.current = value;
+      setOpenItem(value);
+    },
+    []
+  );
+
   return (
     <section className="py-16 md:py-24 bg-background">
       <Container>
@@ -45,14 +80,32 @@ export function FAQ() {
         </div>
 
         <div className="max-w-2xl mx-auto">
-          <Accordion type="single" collapsible>
-            {faqs.map((faq, i) => (
-              <AccordionItem key={i} value={`item-${i}`}>
-                <AccordionTrigger>{faq.question}</AccordionTrigger>
-                <AccordionContent>{faq.answer}</AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
+          {mounted ? (
+            <Accordion
+              type="single"
+              collapsible
+              value={openItem}
+              onValueChange={handleValueChange}
+            >
+              {faqs.map((faq, i) => (
+                <AccordionItem key={i} value={`item-${i}`}>
+                  <AccordionTrigger>{faq.question}</AccordionTrigger>
+                  <AccordionContent>{faq.answer}</AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          ) : (
+            <div className="space-y-2">
+              {faqs.map((_, i) => (
+                <div
+                  key={i}
+                  className="border border-zinc-200 dark:border-zinc-800 px-4 py-4"
+                >
+                  <Skeleton className="h-5 w-3/4 rounded-none" />
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </Container>
     </section>

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Container } from "../../ui/Container";
 import { Button } from "../../ui/Button";
 import { PlusCorner } from "../../ui/PlusCorner";
+import { trackCTAClick } from "@/lib/analytics";
 
 export function Hero() {
   return (
@@ -35,7 +36,10 @@ export function Hero() {
             </p>
 
             <div className="mt-8 sm:mt-10 animate-fade-up animation-delay-300">
-              <Link href="/waitlist">
+              <Link
+                href="/waitlist"
+                onClick={() => trackCTAClick("hero", "solid")}
+              >
                 <Button variant="solid" size="lg">
                   Join the Waitlist
                 </Button>
