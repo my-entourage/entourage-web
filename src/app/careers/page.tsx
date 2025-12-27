@@ -63,7 +63,7 @@ export default function CareersPage() {
               Lean team. Unreasonably talented. We use what we build.
             </p>
             <blockquote className="mt-6 border-l-2 border-zinc-300 dark:border-zinc-700 pl-4 text-lg italic text-zinc-500 dark:text-zinc-400">
-              "Ship production software while riding the metro."
+              &quot;Ship production software while riding the metro.&quot;
             </blockquote>
           </div>
 
@@ -103,7 +103,7 @@ export default function CareersPage() {
 
                   <div className="mb-6">
                     <h4 className="text-xs font-mono uppercase tracking-wider text-zinc-400 dark:text-zinc-500 mb-3">
-                      What you'll do
+                      What you&apos;ll do
                     </h4>
                     <ul className="space-y-2">
                       {role.responsibilities.map((item, i) => (
@@ -130,8 +130,8 @@ export default function CareersPage() {
               How to apply
             </h2>
             <p className="text-zinc-500 dark:text-zinc-400 mb-8 max-w-2xl">
-              Email us. Tell us what you've built. Link your GitHub or
-              whatever you have. We'll read it. If it's interesting, we'll
+              Email us. Tell us what you&apos;ve built. Link your GitHub or
+              whatever you have. We&apos;ll read it. If it&apos;s interesting, we&apos;ll
               reply.
             </p>
             <a

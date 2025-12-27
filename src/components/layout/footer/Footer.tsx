@@ -15,7 +15,7 @@ export function Footer() {
               href="/careers"
               className="text-sm text-zinc-400 dark:text-zinc-500 hover:text-black dark:hover:text-white transition-colors"
             >
-              We're hiring
+              We&apos;re hiring
             </Link>
           </div>
 
