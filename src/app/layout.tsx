@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { Geist_Mono } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
-import { ThemeProvider } from "@/providers";
+import { ThemeProvider, PostHogProvider } from "@/providers";
 import "./globals.css";
 
 const switzer = localFont({
@@ -140,7 +140,9 @@ export default function RootLayout({
         <body
           className={`${switzer.variable} ${geistMono.variable} antialiased`}
         >
-          <ThemeProvider>{children}</ThemeProvider>
+          <PostHogProvider>
+            <ThemeProvider>{children}</ThemeProvider>
+          </PostHogProvider>
         </body>
       </html>
     </ClerkProvider>
